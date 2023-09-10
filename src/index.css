@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Fira Code';
+  src: url('./assets/font/FiraCode-Regular.woff') format('woff'),
+       url('./assets/font/FiraCode-Bold.woff') format('woff'),
+       url('./assets/font/FiraCode-Medium.woff') format('woff'),
+       url('./assets/font/FiraCode-SemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Fira Code', sans-serif!important;
+}
+
+* {
+  background-color: black;
+}
