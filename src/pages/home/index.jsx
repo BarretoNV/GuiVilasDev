@@ -1,8 +1,68 @@
+import { useState } from "react";
 import NavBar from "../../components/navbar";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import ProfilePic from "../../assets/profilePic.png";
+import aureaLogo from "../../assets/aurea.jpg";
+import vettaLogo from "../../assets/vetta.jpg";
+import retornarLogo from "../../assets/retornar.jpg";
+import ficharioLogo from "../../assets/fichario.svg";
+
+import "./style.css";
 
 export default function Home() {
+  const [selectedCompany, setSelectedCompany] = useState("Fichar.io");
+  const [ficharioSelected, setFicharioSelected] = useState('light');
+  const [vettaSelected, setVettaSelected] = useState('outline-light');
+  const [retornarSelected, setRetornarSelected] = useState('outline-light');
+  const [aureaSelected, setAureaSelected] = useState('outline-light');
+
+  const companyColors = {
+    'Fichar.io': { fichario: 'light', vetta: 'outline-light', retornar: 'outline-light', aurea: 'outline-light' },
+    'Vetta.Digital': { fichario: 'outline-light', vetta: 'light', retornar: 'outline-light', aurea: 'outline-light' },
+    'Retornar Tecnologia': { fichario: 'outline-light', vetta: 'outline-light', retornar: 'light', aurea: 'outline-light' },
+    'Aurea Empresa Júnior': { fichario: 'outline-light', vetta: 'outline-light', retornar: 'outline-light', aurea: 'light' },
+  };
+  
+  const handleCompanyClick = (company) => {
+    setSelectedCompany(company);
+  
+    const { fichario, vetta, retornar, aurea } = companyColors[company];
+  
+    setFicharioSelected(fichario);
+    setVettaSelected(vetta);
+    setRetornarSelected(retornar);
+    setAureaSelected(aurea);
+  };
+
+  const companies = [
+    {
+      value: "Fichar.io",
+      text: "Desenvolvimento em Front-End com React + Vite, usando Bootstrap. Trabalhando como bolsista a partir do Instituto Federal Fluminense em parceria com a Fichar.io",
+      stack: "React · Javascript · CSS Bootstrap · Consumo de APIs · Vite",
+      logo: ficharioLogo,
+    },
+    {
+      value: "Vetta.Digital",
+      text: "Estágio de Desenvolvimento de programas e sistemas em Javascript e Back-End em Java, mobile e desktop. PairPogramming e uso  de Frameworks próprios da empresa.",
+      stack: "React · Javascript · Java · PostGre · React Native",
+      logo: vettaLogo,
+    },
+    {
+      value: "Retornar Tecnologia",
+      text: "O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.",
+      stack:
+        "GitFlow · Git · HTML · JavaScript · React.js · E-mails em HTML · Bootstrap · Informática · HTML5 · CSS",
+      logo: retornarLogo,
+    },
+    {
+      value: "Aurea Empresa Júnior",
+      text: "Primeiro contato profissional com desenvolvimento web / Front-End. Desenvolvendo websites em Wordpress e React.js",
+      stack:
+        "GitFlow · Git · HTML · SASS · JavaScript · React.js · Informática · CSS",
+      logo: aureaLogo,
+    },
+  ];
+
   return (
     <>
       <NavBar />
@@ -43,9 +103,9 @@ export default function Home() {
             </div>
           </Col>
         </Row>
-        <Row id="aboutMe" className="mt-5 mb-5">
+        <Row id="aboutMe" className="mt-5 mb-5 text-light">
           <Col md={6} sm={12}>
-            <div className="text-light">
+            <div>
               <h2>01. Sobre mim</h2>
               <p>
                 Desde pequeno eu já brincava com programas de edição de imagem,
@@ -95,16 +155,89 @@ export default function Home() {
               </Row>
             </div>
           </Col>
-          <Col md={6} sm={12} className="text-center text-light">
+          <Col md={6} sm={12} className="text-center">
             <img src={ProfilePic} style={{ maxWidth: "80%" }} alt="MyPic" />
             <h3>Eu em preto e branco</h3>
           </Col>
         </Row>
-        <Row id="workHistory" className="mt-5 mb-5">
-          <Col>
-            <div className="text-light">
-              <h2>02. Onde Trabalhei</h2>
-            </div>
+        <Row id="workHistory" className="mt-5 mb-5 text-light">
+          <Col md={12}>
+            <h2>02. Onde Trabalhei</h2>
+          </Col>
+          <Row>
+            <Col
+              md={4}
+              className="d-grid gap-5 mb-4"
+              style={{ height: "50vh" }}
+            >
+              <Button
+                variant={ficharioSelected}
+                onClick={() => handleCompanyClick("Fichar.io")}
+              >
+                Fichar.io
+              </Button>
+              <Button
+                variant={vettaSelected}
+                onClick={() => handleCompanyClick("Vetta.Digital")}
+              >
+                Vetta.Digital
+              </Button>
+              <Button
+                variant={retornarSelected}
+                onClick={() => handleCompanyClick("Retornar Tecnologia")}
+              >
+                Retornar Tecnologia
+              </Button>
+              <Button
+                variant={aureaSelected}
+                onClick={() => handleCompanyClick("Aurea Empresa Júnior")}
+              >
+                Aurea Empresa Júnior
+              </Button>
+            </Col>
+            <Col md={8}>
+              {selectedCompany && (
+                <>
+                  <Row>
+                    <Col md={3}>
+                      <img
+                        style={{ width: "100%", height: "auto" }}
+                        src={
+                          companies.find((opt) => opt.value === selectedCompany)
+                            .logo
+                        }
+                      />
+                    </Col>
+                    <Col md={8}>
+                      <div>
+                        <h3>{selectedCompany}</h3>
+                        <p>
+                          {
+                            companies.find(
+                              (opt) => opt.value === selectedCompany
+                            ).text
+                          }
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          {
+                            companies.find(
+                              (opt) => opt.value === selectedCompany
+                            ).stack
+                          }
+                        </p>
+                      </div>
+                    </Col>
+                  </Row>
+                </>
+              )}
+            </Col>
+          </Row>
+        </Row>
+        <Row id="projects" className="mt-5 mb-5 text-light">
+          <Col md={12}>
+            <h2>03. Alguns projetos que fiz</h2>
           </Col>
         </Row>
       </Container>
