@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Logo from "../../assets/GV.png";
+import "./style.css";
 
 function NavBar() {
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleButton = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" className="text-light">
       <Container>
@@ -17,11 +25,26 @@ function NavBar() {
             alt="logo"
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          className="custom-toggler"
+        >
+          <button
+            className={`toggle-button ${isActive ? "is-active" : ""}`}
+            onClick={toggleButton}
+          >
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>{" "}
+        </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/" className="text-light">
               Gui Vilas v2.0
+            </Nav.Link>
+            <Nav.Link href="/" className="text-light">
+              Diversão com APIs
             </Nav.Link>
           </Nav>
           <Nav>
@@ -30,6 +53,9 @@ function NavBar() {
             </Nav.Link>
             <Nav.Link href="#workHistory" className="text-light">
               02. Experiência
+            </Nav.Link>
+            <Nav.Link href="#projects" className="text-light">
+              03. Projetos
             </Nav.Link>
             <Button type="button" variant="dark">
               Currículo

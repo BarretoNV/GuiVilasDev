@@ -1,0 +1,34 @@
+/* ToggleButton.css */
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Estilo quando o botão está ativo (transforma em "x") */
+  .toggle-button.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .toggle-button.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .toggle-button.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
