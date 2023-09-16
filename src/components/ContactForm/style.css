@@ -1,0 +1,66 @@
+/* Adicione essas regras de estilo ao seu arquivo CSS ou componente de estilo */
+
+/* Estilo para o formulário */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para os campos de entrada */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para o rótulo dos campos */
+  .form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilo para os campos de entrada de texto e área de texto */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Estilo para o botão de envio */
+  .submit-button {
+    background-color: #007bff; /* Cor de fundo azul */
+    color: #fff; /* Cor do texto branco */
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3; /* Cor de fundo azul mais escura no hover */
+  }
+  
+  .success-message,
+  .error-message {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .success-message {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .error-message {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  
