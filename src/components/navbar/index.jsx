@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -29,14 +29,14 @@ function NavBar() {
           aria-controls="responsive-navbar-nav"
           className="custom-toggler"
         >
-          <button
+          <div
             className={`toggle-button ${isActive ? "is-active" : ""}`}
             onClick={toggleButton}
           >
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>
-          </button>{" "}
+          </div>{" "}
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
