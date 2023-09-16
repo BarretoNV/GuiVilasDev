@@ -1,19 +1,85 @@
 /* Seu arquivo de estilo CSS */
 .fade-enter {
-    opacity: 0;
-  }
-  
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 500ms;
-  }
-  
-  .fade-exit {
-    opacity: 1;
-  }
-  
-  .fade-exit-active {
-    opacity: 0;
-    transition: opacity 500ms;
-  }
-  
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+/* CompanyInfo.css */
+
+/* Estilos para a seção de informações da empresa */
+.company-info {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Estilos para o logotipo da empresa */
+.company-logo {
+  width: 100%;
+  height: auto;
+  max-width: 150px; /* Ajuste o tamanho máximo conforme necessário */
+  display: block;
+  margin: 0 auto; /* Centralizar a imagem horizontalmente */
+}
+
+/* Estilos para os detalhes da empresa */
+.company-details {
+  padding: 10px 0;
+}
+
+.company-details h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.company-details p {
+  font-size: 16px;
+}
+
+/* Estilos para a pilha de tecnologia da empresa */
+.company-stack {
+  padding: 10px 0;
+}
+
+.company-stack p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* NavigationMenu.css */
+
+/* Estilos para o container do menu */
+.menu-container {
+  height: auto;
+}
+
+/* Estilos para a lista de botões */
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+}
+
+/* Estilos para os botões */
+.menu-list Button {
+  width: 100%;
+  text-align: left;
+}
