@@ -1,0 +1,21 @@
+/* Estilos CSS para a captura de tela */
+.portfolio-screenshot {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px; /* Espaçamento superior para separar a screenshot das informações */
+}
+
+.portfolio-card {
+    background-color: #000;
+}
+
+/* Classe para aplicar o filtro preto e branco nas imagens */
+.portfolio-card .portfolio-screenshot {
+  filter: grayscale(50%);
+  transition: filter 0.3s ease;
+}
+
+/* Classe para remover o filtro ao passar o mouse sobre o card */
+.portfolio-card:hover .portfolio-screenshot {
+  filter: grayscale(0%);
+}
