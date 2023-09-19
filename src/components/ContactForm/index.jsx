@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
+import ImagesObject from "../../assets/images";
 import "./style.css";
 
 const ContactForm = () => {
@@ -49,7 +50,7 @@ const ContactForm = () => {
   }, [successMessage, errorMessage]);
 
   return (
-    <Form className="form-container" ref={form} onSubmit={handleSubmit}>
+    <Form className="form-container w-100" ref={form} onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicName" className="form-group">
         <Form.Label className="form-label">Nome</Form.Label>
         <input
@@ -86,15 +87,28 @@ const ContactForm = () => {
           className="form-control"
         />
       </Form.Group>
+      <Row className="align-items-center">
+        <Col>
+          <Button
+            variant="primary"
+            type="submit"
+            className="submit-button"
+            disabled={loading}
+          >
+            {loading ? "Enviando..." : "Enviar"}
+          </Button>
+        </Col>
+        <Col className="text-center d-flex align-items-center justify-content-end">
+          <img
+            src={ImagesObject.emailJsLogo}
+            style={{ height: "50px" }}
+            className="mb-0 ml-2 p-1"
+            alt="EmailJS"
+          />
+          <p className="mb-0 ml-2">EmailJS</p>
+        </Col>
+      </Row>
 
-      <Button
-        variant="primary"
-        type="submit"
-        className="submit-button"
-        disabled={loading} // Desabilitar o botão durante o envio
-      >
-        {loading ? "Enviando..." : "Enviar"}
-      </Button>
       {successMessage && (
         <div className="success-message">{successMessage}</div>
       )}

@@ -4,20 +4,14 @@ import PortfolioItem from "../../components/PortfolioItem";
 import ContactForm from "../../components/ContactForm";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
-import aureaLogo from "../../assets/aurea.jpg";
-import vettaLogo from "../../assets/vetta.jpg";
-import retornarLogo from "../../assets/retornar.jpg";
-import ficharioLogo from "../../assets/fichario.svg";
-import cactusLogo from "../../assets/cactopng2.png";
-import cLogo from "../../assets/logo-c-1024.png";
-import cssLogo from "../../assets/logo-css-3-1024.png";
-import htmlLogo from "../../assets/logo-html-5-1024.png";
-import javascriptLogo from "../../assets/logo-javascript-1024.png";
-import nodeLogo from "../../assets/logo-node-js-1024.png";
-import reactLogo from "../../assets/logo-react-1024.png";
-import wordpressLogo from "../../assets/logo-wordpress-1024.png";
-import aureaSite from "../../assets/AureaSite.png";
-import cactusSite from "../../assets/CactusSite.png";
+import ImagesObject from "../../assets/images";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faLinkedin,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 import "./style.css";
 
@@ -27,14 +21,48 @@ export default function Home() {
   const [vettaSelected, setVettaSelected] = useState("outline-light");
   const [retornarSelected, setRetornarSelected] = useState("outline-light");
   const [aureaSelected, setAureaSelected] = useState("outline-light");
+  const [userData, setUserData] = useState({});
+  const [repoData, setRepoData] = useState({});
+  const username = "BarretoNV";
+  const repoName = "GuiVilasDev";
+  const token = "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";
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simule um carregamento demorado, por exemplo, com um setTimeout
     setTimeout(() => {
-      setLoading(false); // Após o carregamento, defina loading como falso
-    }, 2000); // Tempo de simulação em milissegundos
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`https://api.github.com/users/${username}`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "", // Use o token de acesso aqui se você gerou um
+        },
+      })
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados do GitHub:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`https://api.github.com/repos/${username}/${repoName}`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      })
+      .then((response) => {
+        setRepoData(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados do repositório:", error);
+      });
   }, []);
 
   const companyColors = {
@@ -80,27 +108,27 @@ export default function Home() {
       value: "Fichar.io",
       text: "Desenvolvimento em Front-End com React + Vite, usando Bootstrap. Trabalhando como bolsista a partir do Instituto Federal Fluminense em parceria com a Fichar.io",
       stack: "React · Javascript · CSS Bootstrap · Consumo de APIs · Vite",
-      logo: ficharioLogo,
+      logo: ImagesObject.ficharioLogo,
     },
     {
       value: "Vetta.Digital",
       text: "Estágio de Desenvolvimento de programas e sistemas em Javascript e Back-End em Java, mobile e desktop. PairPogramming e uso  de Frameworks próprios da empresa.",
       stack: "React · Javascript · Java · PostGre · React Native",
-      logo: vettaLogo,
+      logo: ImagesObject.vettaLogo,
     },
     {
       value: "Retornar Tecnologia",
       text: "O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.",
       stack:
         "GitFlow · Git · HTML · JavaScript · React.js · E-mails em HTML · Bootstrap · Informática · HTML5 · CSS",
-      logo: retornarLogo,
+      logo: ImagesObject.retornarLogo,
     },
     {
       value: "Aurea Empresa Júnior",
       text: "Primeiro contato profissional com desenvolvimento web / Front-End. Desenvolvendo websites em Wordpress e React.js",
       stack:
         "GitFlow · Git · HTML · SASS · JavaScript · React.js · Informática · CSS",
-      logo: aureaLogo,
+      logo: ImagesObject.aureaLogo,
     },
   ];
 
@@ -115,15 +143,15 @@ export default function Home() {
   const projects = [
     {
       title: "Site Aurea Empresa Júnior",
-      logo: aureaLogo,
-      screenshot: aureaSite,
+      logo: ImagesObject.aureaLogo,
+      screenshot: ImagesObject.aureaSite,
       websiteLink: "https://www.aureaej.com",
       technologies: ["React.js", "Javascript", "HTML", "CSS", "FireBase"],
     },
     {
       title: "Site Cactus SketchBooks",
-      logo: cactusLogo,
-      screenshot: cactusSite,
+      logo: ImagesObject.cactusLogo,
+      screenshot: ImagesObject.cactusSite,
       websiteLink: "https://www.cactussketchbooks.com",
       technologies: ["React.js", "Javascript", "HTML", "CSS", "Consumo de API"],
     },
@@ -225,7 +253,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={javascriptLogo}
+                              src={ImagesObject.javascriptLogo}
                               alt="Javascript"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -235,7 +263,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={nodeLogo}
+                              src={ImagesObject.nodeLogo}
                               alt="Node.js"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -245,7 +273,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={reactLogo}
+                              src={ImagesObject.reactLogo}
                               alt="React.js"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -255,7 +283,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={cLogo}
+                              src={ImagesObject.cLogo}
                               alt="C"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -265,7 +293,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={wordpressLogo}
+                              src={ImagesObject.wordpressLogo}
                               alt="WordPress"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -275,7 +303,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={htmlLogo}
+                              src={ImagesObject.htmlLogo}
                               alt="HTML"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -285,7 +313,7 @@ export default function Home() {
                         <li style={{ margin: "10px", textAlign: "center" }}>
                           <div>
                             <img
-                              src={cssLogo}
+                              src={ImagesObject.cssLogo}
                               alt="CSS"
                               style={{ width: "100px", height: "100px" }}
                             />
@@ -388,7 +416,77 @@ export default function Home() {
               <Col md={12}>
                 <h2>04. Entre em contato comigo</h2>
               </Col>
-              <ContactForm />
+              <Col md={8} className="text-center">
+                <h3>Minhas redes sociais:</h3>
+                <ul className="list-unstyled">
+                  <li>
+                    <Button
+                      href="https://www.linkedin.com/in/guibarreto/"
+                      target="_blank"
+                      variant="outline-primary"
+                      className="mb-2"
+                    >
+                      <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      href="https://www.instagram.com/barretonvilas/"
+                      target="_blank"
+                      variant="outline-primary"
+                      className="mb-2"
+                    >
+                      <FontAwesomeIcon icon={faInstagram} /> Instagram
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      href="https://www.instagram.com/gbarretodesign/"
+                      target="_blank"
+                      variant="outline-primary"
+                      className="mb-2"
+                    >
+                      <FontAwesomeIcon icon={faInstagram} /> Design
+                    </Button>
+                  </li>
+                </ul>
+              </Col>
+              <Col md={4}>
+                <ContactForm />
+              </Col>
+            </Row>
+            <Row className="text-light">
+              <div className="footer">
+                <Row>
+                  <Col md={6}>
+                    <h3>Meu Perfil do GitHub</h3>
+                    <p>{userData.name}</p>
+                    <p>Repositórios públicos: {userData.public_repos}</p>
+                    <p>Seguidores: {userData.followers}</p>
+                    <Button
+                      href="https://github.com/BarretoNV"
+                      target="_blank"
+                      variant="outline-primary"
+                      className="mb-2"
+                    >
+                      <FontAwesomeIcon icon={faGithub} /> GitHub
+                    </Button>
+                  </Col>
+                  <Col md={6}>
+                    <h3>Desenvolvido com React + Vite</h3>
+                    <p>Repositório: {repoData.name}</p>
+                    <p>Stars: {repoData.stargazers_count}</p>
+                    <Button
+                      href={repoData.html_url}
+                      target="_blank"
+                      variant="outline-primary"
+                      className="mb-2"
+                    >
+                      <FontAwesomeIcon icon={faGithub} /> Ver código fonte
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
             </Row>
           </Container>
         </>

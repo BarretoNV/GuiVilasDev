@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -13,8 +13,42 @@ function NavBar() {
     setIsActive(!isActive);
   };
 
+  useEffect(() => {
+    // Encontrar a altura da navbar
+    const navbar = document.querySelector(".custom-navbar");
+    const navbarHeight = navbar.clientHeight;
+
+    // Encontrar todos os links da navbar que levam a elementos com IDs
+    const links = document.querySelectorAll(".nav-link[href^='#']");
+
+    // Adicionar um evento de clique a cada link
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const targetId = link.getAttribute("href").substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          // Calcular a posição do elemento de destino com base na altura da navbar
+          const targetPosition = targetElement.offsetTop - navbarHeight;
+
+          // Rolagem suave para o elemento de destino
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  }, []);
+
   return (
-    <Navbar collapseOnSelect expand="lg" className="text-light">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      className="text-light custom-navbar"
+      sticky="top"
+    >
       <Container>
         <Navbar.Brand className="text-light" href="#home">
           <img
@@ -56,6 +90,9 @@ function NavBar() {
             </Nav.Link>
             <Nav.Link href="#projects" className="text-light">
               03. Projetos
+            </Nav.Link>
+            <Nav.Link href="#contact" className="text-light">
+              04. Contato
             </Nav.Link>
             <Button type="button" variant="dark">
               Currículo

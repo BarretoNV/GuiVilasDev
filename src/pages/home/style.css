@@ -83,3 +83,23 @@
   width: 100%;
   text-align: left;
 }
+
+/* Seu arquivo CSS ou estilo em linha */
+
+.footer {
+  padding: 20px; /* Espaçamento interno */
+  text-align: center; /* Centralize o conteúdo */
+  font-size: 16px; /* Tamanho da fonte */
+  box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.1); /* Sombra suave na parte superior */
+}
+
+/* Estilize os links de maneira diferente, se necessário */
+.footer a {
+  text-decoration: none;
+  color: #007bff; /* Cor do link */
+  transition: color 0.3s; /* Transição de cor suave */
+}
+
+.footer a:hover {
+  color: #0056b3; /* Cor do link quando o mouse passa por cima */
+}
