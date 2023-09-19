@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NavBar from "../../components/Navbar";
+import NavBar from "../../components/navbar";
 import PortfolioItem from "../../components/PortfolioItem";
 import ContactForm from "../../components/ContactForm";
 import { Container, Col, Row, Button } from "react-bootstrap";
