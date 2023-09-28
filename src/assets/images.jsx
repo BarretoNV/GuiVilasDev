@@ -16,6 +16,7 @@ import cactusSite from "./CactusSite.png";
 import instagramLogo from './logo-instagram.png';
 import linkedInLogo from './LI-In-Bug.png';
 import gitHubLogo from './github-mark-white.png';
+import nytWhiteLogo from './nytWhiteLogo.png';
 
 const imageObj = {
   aureaLogo,
@@ -36,6 +37,7 @@ const imageObj = {
   instagramLogo,
   linkedInLogo,
   gitHubLogo,
+  nytWhiteLogo,
 };
 
 export default imageObj;

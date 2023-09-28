@@ -25,7 +25,7 @@ export default function Home() {
   const [repoData, setRepoData] = useState({});
   const username = "BarretoNV";
   const repoName = "GuiVilasDev";
-  const token = "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";
+  const token = "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";
 
   const [loading, setLoading] = useState(true);
 

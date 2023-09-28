@@ -77,7 +77,7 @@ function NavBar() {
             <Nav.Link href="/" className="text-light">
               Gui Vilas v2.0
             </Nav.Link>
-            <Nav.Link href="/" className="text-light">
+            <Nav.Link href="/funwithapis" className="text-light">
               Diversão com APIs
             </Nav.Link>
           </Nav>
@@ -94,7 +94,12 @@ function NavBar() {
             <Nav.Link href="#contact" className="text-light">
               04. Contato
             </Nav.Link>
-            <Button type="button" variant="dark">
+            <Button
+              type="button"
+              variant="dark"
+              href="https://drive.google.com/file/d/1aAYxwLNBzo6xNNkPv5YcuX6Z8TbmkOMK/view?usp=sharing"
+              target="_blank"
+            >
               Currículo
             </Button>
           </Nav>
