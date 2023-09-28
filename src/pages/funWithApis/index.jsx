@@ -85,7 +85,7 @@ export default function FunWithAPIs() {
                   Obter Novo Conselho
                 </Button>
                 <h4 style={{ marginTop: "20px" }}>
-                  <b>" {randomAdvice.slip.advice} "</b>
+                  <b>{randomAdvice.slip.advice}</b>
                 </h4>
               </Col>
             </Row>
