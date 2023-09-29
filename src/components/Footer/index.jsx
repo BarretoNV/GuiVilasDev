@@ -12,13 +12,13 @@ export default function Footer() {
   const [repoData, setRepoData] = useState({});
   const username = "BarretoNV";
   const repoName = "GuiVilasDev";
-  const token = "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";
+  const apiKey = process.env.REACT_APP_GITHUB_KEY;
 
   useEffect(() => {
     axios
       .get(`https://api.github.com/users/${username}`, {
         headers: {
-          Authorization: token ? `Bearer ${token}` : "", // Use o token de acesso aqui se você gerou um
+          Authorization: apiKey ? `Bearer ${apiKey}` : "", // Use o apiKey de acesso aqui se você gerou um
         },
       })
       .then((response) => {
@@ -33,7 +33,7 @@ export default function Footer() {
     axios
       .get(`https://api.github.com/repos/${username}/${repoName}`, {
         headers: {
-          Authorization: token ? `Bearer ${token}` : "",
+          Authorization: apiKey ? `Bearer ${apiKey}` : "",
         },
       })
       .then((response) => {

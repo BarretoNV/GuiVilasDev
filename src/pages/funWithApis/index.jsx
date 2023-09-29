@@ -154,22 +154,17 @@ export default function FunWithAPIs() {
               </Col>
               <Col md={4}>
                 <Card className="text-light mb-3">
-                  <Card.Img
-                    variant="top"
-                    src={imageObj.weatherAPILogo}
-                  />
+                  <Card.Img variant="top" src={imageObj.weatherAPILogo} />
                   <Card.Body>
                     <Card.Title>Ver Clima em alguma cidade</Card.Title>
                     <Card.Text>
-                      API de meteorologia, ver informações de tempo em qualquer cidade.
+                      API de meteorologia, ver informações de tempo em qualquer
+                      cidade.
                     </Card.Text>
                     <Row>
                       <Col md={6}>
-                        <Button
-                          variant="danger"
-                          href="/"
-                        >
-                          EM DESENVOLVIMENTO
+                        <Button variant="outline-light" href="/weatherinfos">
+                          Ver mais
                         </Button>
                       </Col>
                     </Row>
@@ -180,7 +175,7 @@ export default function FunWithAPIs() {
           </Container>
         </>
       )}
-      <Footer/>
+      <Footer />
     </>
   );
 }
