@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Container, Button, Col, Row, Card, Modal } from "react-bootstrap";
 import "./style.css";
 
