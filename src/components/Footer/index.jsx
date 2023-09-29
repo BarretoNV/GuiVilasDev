@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import './style.css'
+import './style.css' 
 
 export default function Footer() {
   const [userData, setUserData] = useState({});
