@@ -17,7 +17,7 @@ import instagramLogo from './logo-instagram.png';
 import linkedInLogo from './LI-In-Bug.png';
 import gitHubLogo from './github-mark-white.png';
 import nytWhiteLogo from './nytWhiteLogo.png';
-import scrollDOwn from './scrollDOwn.gif';
+import scrollDown from './scrollDown.gif';
 import weatherAPILogo from './WeatherAPI.png'
 
 const imageObj = {
@@ -40,7 +40,7 @@ const imageObj = {
   linkedInLogo,
   gitHubLogo,
   nytWhiteLogo,
-  scrollDOwn,
+  scrollDown,
   weatherAPILogo,
 };
 

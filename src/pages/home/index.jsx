@@ -168,7 +168,7 @@ export default function Home() {
                 </div>
               </Col>
               <div className="d-flex justify-content-end">
-                <img src={imageObj.scrollDOwn} style={{ height: "10em" }} />
+                <img src={imageObj.scrollDown} style={{ height: "10em" }} />
               </div>
             </Row>
             <Row id="aboutMe" className="mt-5 mb-5 text-light">
