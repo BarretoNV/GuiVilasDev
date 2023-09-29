@@ -78,7 +78,7 @@ function NavBar() {
               Gui Vilas v2.0
             </Nav.Link>
             <Nav.Link href="/funwithapis" className="text-light">
-              Diversão com APIs
+              Consumo de API's
             </Nav.Link>
           </Nav>
           <Nav>

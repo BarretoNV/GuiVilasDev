@@ -1,9 +1,10 @@
 import Loader from "../../components/Loader";
 import NavBar from "../../components/navbar";
+import Footer from "../../components/footer";
 import { useState, useEffect } from "react";
 import { Container, Button, Col, Row, Card } from "react-bootstrap";
 import axios from "axios";
-import ImagesObject from "../../assets/images";
+import imageObj from "../../assets/images";
 
 export default function FunWithAPIs() {
   const [loading, setLoading] = useState(true);
@@ -90,9 +91,9 @@ export default function FunWithAPIs() {
               </Col>
             </Row>
 
-            <Row>
+            <Row className="mb-5">
               <Col md={4}>
-                <Card className="text-light">
+                <Card className="text-light mb-3">
                   <Card.Img
                     variant="top"
                     src={NYTScienceData.results[0].multimedia[0].url}
@@ -111,9 +112,9 @@ export default function FunWithAPIs() {
                       </Col>
                       <Col md={6}>
                         <img
-                          src={ImagesObject.nytWhiteLogo}
+                          src={imageObj.nytWhiteLogo}
                           alt="NYT Logo"
-                          style={{ maxWidth: "100%", maxHeight: "100px" }} // Defina a largura máxima e a altura máxima aqui
+                          style={{ maxWidth: "100%", maxHeight: "100px" }}
                         />
                       </Col>
                     </Row>
@@ -121,7 +122,7 @@ export default function FunWithAPIs() {
                 </Card>
               </Col>
               <Col md={4}>
-                <Card className="text-light">
+                <Card className="text-light mb-3">
                   <Card.Img
                     variant="top"
                     src={NYTTechnologyData.results[0].multimedia[0].url}
@@ -142,10 +143,34 @@ export default function FunWithAPIs() {
                       </Col>
                       <Col md={6}>
                         <img
-                          src={ImagesObject.nytWhiteLogo}
+                          src={imageObj.nytWhiteLogo}
                           alt="NYT Logo"
-                          style={{ maxWidth: "100%", maxHeight: "100px" }} // Defina a largura máxima e a altura máxima aqui
+                          style={{ maxWidth: "100%", maxHeight: "100px" }}
                         />
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col md={4}>
+                <Card className="text-light mb-3">
+                  <Card.Img
+                    variant="top"
+                    src={imageObj.weatherAPILogo}
+                  />
+                  <Card.Body>
+                    <Card.Title>Ver Clima em alguma cidade</Card.Title>
+                    <Card.Text>
+                      API de meteorologia, ver informações de tempo em qualquer cidade.
+                    </Card.Text>
+                    <Row>
+                      <Col md={6}>
+                        <Button
+                          variant="danger"
+                          href="/"
+                        >
+                          EM DESENVOLVIMENTO
+                        </Button>
                       </Col>
                     </Row>
                   </Card.Body>
@@ -155,6 +180,7 @@ export default function FunWithAPIs() {
           </Container>
         </>
       )}
+      <Footer/>
     </>
   );
 }

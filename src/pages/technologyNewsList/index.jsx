@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
+import Footer from "../../components/footer";
 import { Container, Button, Col, Row, Card, Modal } from "react-bootstrap";
 import "./style.css";
 
@@ -139,6 +140,7 @@ export default function TechNewsList() {
           ))}
         </Row>
       </Container>
+      <Footer/>
     </>
   );
 }

@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
+import Footer from "../../components/footer";
 import PortfolioItem from "../../components/PortfolioItem";
 import ContactForm from "../../components/ContactForm";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import ImagesObject from "../../assets/images";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faGithub,
   faLinkedin,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
 import "./style.css";
+import imageObj from "../../assets/images";
 
 export default function Home() {
   const [selectedCompany, setSelectedCompany] = useState("Fichar.io");
@@ -21,11 +21,6 @@ export default function Home() {
   const [vettaSelected, setVettaSelected] = useState("outline-light");
   const [retornarSelected, setRetornarSelected] = useState("outline-light");
   const [aureaSelected, setAureaSelected] = useState("outline-light");
-  const [userData, setUserData] = useState({});
-  const [repoData, setRepoData] = useState({});
-  const username = "BarretoNV";
-  const repoName = "GuiVilasDev";
-  const token = "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";
 
   const [loading, setLoading] = useState(true);
 
@@ -33,36 +28,6 @@ export default function Home() {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`https://api.github.com/users/${username}`, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "", // Use o token de acesso aqui se você gerou um
-        },
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar dados do GitHub:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`https://api.github.com/repos/${username}/${repoName}`, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-      })
-      .then((response) => {
-        setRepoData(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar dados do repositório:", error);
-      });
   }, []);
 
   const companyColors = {
@@ -202,6 +167,9 @@ export default function Home() {
                   </Button>
                 </div>
               </Col>
+              <div className="d-flex justify-content-end">
+                <img src={imageObj.scrollDOwn} style={{ height: "10em" }} />
+              </div>
             </Row>
             <Row id="aboutMe" className="mt-5 mb-5 text-light">
               <Col sm={12}>
@@ -455,42 +423,10 @@ export default function Home() {
                 <ContactForm />
               </Col>
             </Row>
-            <Row className="text-light">
-              <div className="footer">
-                <Row>
-                  <Col md={6}>
-                    <h3>Meu Perfil do GitHub</h3>
-                    <p>{userData.name}</p>
-                    <p>Repositórios públicos: {userData.public_repos}</p>
-                    <p>Seguidores: {userData.followers}</p>
-                    <Button
-                      href="https://github.com/BarretoNV"
-                      target="_blank"
-                      variant="outline-primary"
-                      className="mb-2"
-                    >
-                      <FontAwesomeIcon icon={faGithub} /> GitHub
-                    </Button>
-                  </Col>
-                  <Col md={6}>
-                    <h3>Desenvolvido com React + Vite</h3>
-                    <p>Repositório: {repoData.name}</p>
-                    <p>Stars: {repoData.stargazers_count}</p>
-                    <Button
-                      href={repoData.html_url}
-                      target="_blank"
-                      variant="outline-primary"
-                      className="mb-2"
-                    >
-                      <FontAwesomeIcon icon={faGithub} /> Ver código fonte
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            </Row>
           </Container>
         </>
       )}
+      <Footer/>
     </>
   );
 }

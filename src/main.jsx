@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import FunWithAPIs from "./pages/funWithApis";
 import NewsList from "./pages/scienceNewsList";
 import TechNewsList from "./pages/technologyNewsList";
+import WeatherInfo from "./pages/weatherApi";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/technologynewslist",
     element: <TechNewsList/>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/weatherinfos",
+    element: <WeatherInfo/>,
     errorElement: <ErrorPage />,
   },
 ]);
