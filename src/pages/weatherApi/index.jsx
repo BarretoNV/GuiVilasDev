@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Container, Button, Form, Alert } from "react-bootstrap";
 
 export default function WeatherAPI() {

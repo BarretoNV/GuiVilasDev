@@ -1,6 +1,6 @@
 import Loader from "../../components/Loader";
 import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { useState, useEffect } from "react";
 import { Container, Button, Col, Row, Card } from "react-bootstrap";
 import axios from "axios";
