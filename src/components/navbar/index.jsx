@@ -99,7 +99,7 @@ function NavBar() {
             <Button
               type="button"
               variant="dark"
-              href="https://drive.google.com/file/d/1aAYxwLNBzo6xNNkPv5YcuX6Z8TbmkOMK/view?usp=sharing"
+              href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
               target="_blank"
             >
               Currículo
