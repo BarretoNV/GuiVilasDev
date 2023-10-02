@@ -51,13 +51,15 @@ function NavBar() {
     >
       <Container>
         <Navbar.Brand className="text-light" href="#home">
-          <img
-            src={Logo}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-            alt="logo"
-          />
+          <a href="/">
+            <img
+              src={Logo}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+              alt="logo"
+            />
+          </a>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -82,16 +84,16 @@ function NavBar() {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#aboutMe" className="text-light">
+            <Nav.Link href="/#aboutMe" className="text-light">
               01. Sobre mim
             </Nav.Link>
-            <Nav.Link href="#workHistory" className="text-light">
+            <Nav.Link href="/#workHistory" className="text-light">
               02. Experiência
             </Nav.Link>
-            <Nav.Link href="#projects" className="text-light">
+            <Nav.Link href="/#projects" className="text-light">
               03. Projetos
             </Nav.Link>
-            <Nav.Link href="#contact" className="text-light">
+            <Nav.Link href="/#contact" className="text-light">
               04. Contato
             </Nav.Link>
             <Button
