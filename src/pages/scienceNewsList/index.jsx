@@ -8,24 +8,31 @@ import "./style.css";
 export default function NewsList() {
   const [NYTData, setNYTData] = useState([]);
   const [NYTArticle, setNYTArticle] = useState(null);
-  const NYTToken = "B0qUCjKC46AvyPpAlIIgsGV62GOhnrzw";
+  const NYTToken = import.meta.env.VITE_NYT_API_KEY;
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchNYTNews = async () => {
+    setLoading(true);
+    setErrorMessage("");
+
     try {
       const response = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=science&fq=section_name:("Science")&api-key=${NYTToken}`
+        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`
       );
 
-      const articles = response.data.response.docs;
+      const articles = response.data?.results;
 
-      setNYTData(articles);
+      setNYTData(Array.isArray(articles) ? articles : []);
     } catch (error) {
       console.error("Erro: ", error);
+      setNYTData([]);
+      setErrorMessage("Não foi possível carregar as notícias de ciência.");
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.log(NYTData);
 
   const handleOpenModal = (article) => {
     setNYTArticle(article);
@@ -80,19 +87,26 @@ export default function NewsList() {
           </Button>
         </Row>
         <Row>
+          {loading && <p className="text-light">Carregando notícias...</p>}
+          {errorMessage && <p className="text-light">{errorMessage}</p>}
+          {!loading && !errorMessage && NYTData.length === 0 && (
+            <p className="text-light">Nenhuma notícia encontrada.</p>
+          )}
           {NYTData.map((article) => (
-            <>
-              <Col key={article.uri} md={4}>
+            <Col key={article.uri} md={4}>
                 <Card className="text-light mt-3 mb-3" border="light">
-                  <Card.Img
-                    variant="top"
-                    src={`https://www.nytimes.com/${article.multimedia[0].url}`}
-                    alt={article.headline.main}
-                  />
+                  {article.multimedia?.[0]?.url && (
+                    <Card.Img
+                      className="news-card-image"
+                      variant="top"
+                      src={article.multimedia[0].url}
+                      alt={article.title}
+                    />
+                  )}
                   <Card.Body>
                     <Card.Title>
-                      <h4>{article.headline.main}</h4>
-                      <p>{formatPubDate(article.pub_date)}</p>
+                      <h4>{article.title}</h4>
+                      <p>{formatPubDate(article.published_date)}</p>
                     </Card.Title>
                     <div className="d-grid gap-2">
                       <Button
@@ -109,6 +123,7 @@ export default function NewsList() {
                   </Card.Body>
                 </Card>
               </Col>
+          ))}
               <Modal
                 size="lg"
                 centered
@@ -120,16 +135,21 @@ export default function NewsList() {
                   <>
                     <Modal.Header closeButton className="bg-dark">
                       <Modal.Title className="bg-dark">
-                        <h4 className="bg-dark">{NYTArticle.headline.main}</h4>
+                        <h4 className="bg-dark">{NYTArticle.title}</h4>
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="bg-dark">
-                      <p className="bg-dark">{NYTArticle.lead_paragraph}</p>
-                      <img
-                        src={`https://www.nytimes.com/${NYTArticle.multimedia[0].url}`}
-                        alt={NYTArticle.headline.main}
-                      />
-                      <a href={NYTArticle.web_url[0]}>Ver artigo original</a>
+                      <p className="bg-dark">{NYTArticle.abstract}</p>
+                      {NYTArticle.multimedia?.[0]?.url && (
+                        <img
+                          className="news-modal-image"
+                          src={NYTArticle.multimedia[0].url}
+                          alt={NYTArticle.title}
+                        />
+                      )}
+                      <a href={NYTArticle.url} target="_blank" rel="noopener noreferrer">
+                        Ver artigo original
+                      </a>
                     </Modal.Body>
                     <Modal.Footer className="bg-dark">
                       <Button onClick={handleCloseModal}>Fechar</Button>
@@ -137,8 +157,6 @@ export default function NewsList() {
                   </>
                 )}
               </Modal>
-            </>
-          ))}
         </Row>
       </Container>
       <Footer/>

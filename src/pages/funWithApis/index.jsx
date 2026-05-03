@@ -8,10 +8,15 @@ import imageObj from "../../assets/images";
 
 export default function FunWithAPIs() {
   const [loading, setLoading] = useState(true);
-  const [NYTScienceData, setNYTScienceData] = useState([]);
-  const [NYTTechnologyData, setNYTTechnologyData] = useState([]);
-  const [randomAdvice, setRandomAdvice] = useState([]);
-  const NYTToken = "B0qUCjKC46AvyPpAlIIgsGV62GOhnrzw";
+  const [scienceNews, setScienceNews] = useState(null);
+  const [technologyNews, setTechnologyNews] = useState(null);
+  const [randomAdvice, setRandomAdvice] = useState(null);
+
+  const [scienceError, setScienceError] = useState("");
+  const [technologyError, setTechnologyError] = useState("");
+  const [adviceError, setAdviceError] = useState("");
+
+  const NYTToken = import.meta.env.VITE_NYT_API_KEY;
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,33 +26,44 @@ export default function FunWithAPIs() {
 
   const fetchNYTScienceNews = async () => {
     try {
+      setScienceError("");
+
       const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`
+        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`,
       );
-      setNYTScienceData(response.data);
+
+      setScienceNews(response.data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
+      setScienceError("Não foi possível carregar notícias de ciência.");
     }
   };
 
   const fetchNYTTechnologyNews = async () => {
     try {
+      setTechnologyError("");
+
       const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${NYTToken}`
+        `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${NYTToken}`,
       );
-      setNYTTechnologyData(response.data);
+
+      setTechnologyNews(response.data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
+      setTechnologyError("Não foi possível carregar notícias de tecnologia.");
     }
   };
 
   const fetchRandomAdvice = async () => {
     try {
+      setAdviceError("");
+
       const response = await axios.get("https://api.adviceslip.com/advice");
-      setRandomAdvice(response.data);
-      console.log(response.data);
+
+      setRandomAdvice(response.data.slip);
     } catch (error) {
       console.error("Erro ao pegar advice: ", error);
+      setAdviceError("Não foi possível carregar o conselho agora.");
     }
   };
 
@@ -85,72 +101,81 @@ export default function FunWithAPIs() {
                 <Button variant="primary" onClick={fetchRandomAdvice}>
                   Obter Novo Conselho
                 </Button>
-                <h4 style={{ marginTop: "20px" }}>
-                  <b>{randomAdvice.slip.advice}</b>
-                </h4>
+                {adviceError && <p>{adviceError}</p>}
+
+                {randomAdvice ? (
+                  <h4 style={{ marginTop: "20px" }}>
+                    <b>{randomAdvice.advice}</b>
+                  </h4>
+                ) : (
+                  <p>Carregando conselho...</p>
+                )}
               </Col>
             </Row>
 
             <Row className="mb-5">
               <Col md={4}>
-                <Card className="text-light mb-3">
-                  <Card.Img
-                    variant="top"
-                    src={NYTScienceData.results[0].multimedia[0].url}
-                  />
-                  <Card.Body>
-                    <Card.Title>Notícias da Ciência</Card.Title>
-                    <Card.Text>
-                      Notícias da comunidade científica a partir do New York
-                      Times
-                    </Card.Text>
-                    <Row>
-                      <Col md={6}>
-                        <Button variant="outline-light" href="/sciencenewslist">
-                          Ver mais
-                        </Button>
-                      </Col>
-                      <Col md={6}>
-                        <img
-                          src={imageObj.nytWhiteLogo}
-                          alt="NYT Logo"
-                          style={{ maxWidth: "100%", maxHeight: "100px" }}
-                        />
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
+                {scienceError && <p>{scienceError}</p>}
+
+                {scienceNews ? (
+                  <Card className="text-light mb-3">
+                    <Card.Img
+                      variant="top"
+                      src={scienceNews.multimedia?.[0]?.url}
+                      alt={scienceNews.title}
+                    />
+                    <Card.Body>
+                      <Card.Title>Notícias da Ciência</Card.Title>
+                      <Card.Text>
+                        Notícias da comunidade científica a partir do New York
+                        Times
+                      </Card.Text>
+                      <Button variant="outline-light" href="/sciencenewslist">
+                        Ver mais
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                ) : (
+                  <p>Carregando notícias de ciência...</p>
+                )}
               </Col>
               <Col md={4}>
-                <Card className="text-light mb-3">
-                  <Card.Img
-                    variant="top"
-                    src={NYTTechnologyData.results[0].multimedia[0].url}
-                  />
-                  <Card.Body>
-                    <Card.Title>Notícias da Tecnologia</Card.Title>
-                    <Card.Text>
-                      Notícias de tecnologia a partir do New York Times
-                    </Card.Text>
-                    <Row>
-                      <Col md={6}>
-                        <Button
-                          variant="outline-light"
-                          href="/technologynewslist"
-                        >
-                          Ver mais
-                        </Button>
-                      </Col>
-                      <Col md={6}>
-                        <img
-                          src={imageObj.nytWhiteLogo}
-                          alt="NYT Logo"
-                          style={{ maxWidth: "100%", maxHeight: "100px" }}
-                        />
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
+                {technologyError && <p>{technologyError}</p>}
+
+                {technologyNews ? (
+                  <Card className="text-light mb-3">
+                    <Card.Img
+                      variant="top"
+                      src={technologyNews.multimedia?.[0]?.url}
+                      alt={technologyNews.title}
+                    />
+                    <Card.Body>
+                      <Card.Title>Notícias da Tecnologia</Card.Title>
+                      <Card.Text>
+                        Notícias de tecnologia a partir do New York Times
+                      </Card.Text>
+                      <Row>
+                        <Col md={6}>
+                          <Button
+                            variant="outline-light"
+                            href="/technologynewslist"
+                          >
+                            Ver mais
+                          </Button>
+                        </Col>
+                        <Col md={6}>
+                          <img
+                            src={imageObj.nytWhiteLogo}
+                            alt="NYT Logo"
+                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                          />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                ) : (
+                  <p>Carregando notícias de tecnologia...</p>
+                )}
               </Col>
               <Col md={4}>
                 <Card className="text-light mb-3">

@@ -8,11 +8,12 @@ export default function WeatherAPI() {
   const [weatherInfo, setWeatherInfo] = useState([]);
   const [cityName, setCityName] = useState("");
   const [cityFound, setCityFound] = useState(false);
+  const weatherApiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://api.weatherapi.com/v1/current.json?key=73b87b7b27954146b35173937232909&q=${cityName}&aqi=no`
+        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${cityName}&aqi=no`
       );
       console.log(response.data);
       setWeatherInfo(response.data);

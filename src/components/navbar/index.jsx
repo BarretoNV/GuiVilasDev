@@ -102,7 +102,7 @@ function NavBar() {
               href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
               target="_blank"
             >
-              Currículo
+              Currículo (Desatualizado)
             </Button>
           </Nav>
         </Navbar.Collapse>

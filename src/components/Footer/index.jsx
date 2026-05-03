@@ -12,7 +12,7 @@ export default function Footer() {
   const [repoData, setRepoData] = useState({});
   const username = "BarretoNV";
   const repoName = "GuiVilasDev";
-  const apiKey = process.env.REACT_APP_GITHUB_KEY;
+  const apiKey = import.meta.env.VITE_GITHUB_KEY;
 
   useEffect(() => {
     axios
@@ -27,7 +27,7 @@ export default function Footer() {
       .catch((error) => {
         console.error("Erro ao buscar dados do GitHub:", error);
       });
-  }, []);
+  }, [apiKey]);
 
   useEffect(() => {
     axios
@@ -42,7 +42,7 @@ export default function Footer() {
       .catch((error) => {
         console.error("Erro ao buscar dados do repositório:", error);
       });
-  }, []);
+  }, [apiKey]);
 
   return (
     <>
