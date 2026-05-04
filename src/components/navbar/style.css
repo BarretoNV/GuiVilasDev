@@ -1,34 +1,218 @@
-/* ToggleButton.css */
+.custom-navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  padding: 0.7rem 0;
+}
+
+.custom-navbar .container {
+  gap: 1rem;
+}
+
+.navbar-brand-custom {
+  align-items: center;
+  border-radius: 8px;
+  color: #f8fafc !important;
+  display: inline-flex;
+  font-weight: 700;
+  gap: 0.65rem;
+  padding: 0.45rem 0.65rem;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.navbar-brand-custom:hover,
+.navbar-brand-custom:focus {
+  color: #fff !important;
+}
+
+.navbar-brand-custom:hover {
+  background-color: rgba(103, 232, 249, 0.12);
+}
+
+.navbar-brand-custom:active {
+  transform: translateY(1px);
+}
+
+.navbar-brand-custom:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+.navbar-logo {
+  display: inline-block;
+}
+
+.navbar-primary-links,
+.navbar-section-links {
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.custom-navbar .nav-link-custom {
+  border-radius: 8px;
+  color: #dbeafe !important;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin: 0 0.05rem;
+  padding: 0.55rem 0.75rem;
+  position: relative;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.custom-navbar .nav-link-custom:hover,
+.custom-navbar .nav-link-custom:focus {
+  background-color: rgba(103, 232, 249, 0.12);
+  color: #fff !important;
+}
+
+.custom-navbar .nav-link-custom:active {
+  background-color: rgba(103, 232, 249, 0.18);
+  color: #fff !important;
+  transform: translateY(1px);
+}
+
+.custom-navbar .nav-link-custom:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+.custom-navbar .nav-link-custom.active {
+  color: #fff !important;
+}
+
+.custom-navbar .nav-link-custom.active::after {
+  background-color: #67e8f9;
+  border-radius: 999px;
+  bottom: 0.3rem;
+  content: "";
+  height: 2px;
+  left: 0.75rem;
+  position: absolute;
+  right: 0.75rem;
+}
+
+.nav-resume-button {
+  align-items: center;
+  border-color: #67e8f9;
+  border-radius: 8px;
+  color: #67e8f9 !important;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 700;
+  justify-content: center;
+  margin-left: 0.5rem;
+  padding: 0.55rem 0.95rem;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.nav-resume-button:hover,
+.nav-resume-button:focus {
+  background-color: #67e8f9;
+  border-color: #67e8f9;
+  color: #fff !important;
+}
+
+.nav-resume-button:active {
+  background-color: #22d3ee;
+  border-color: #22d3ee;
+  color: #fff !important;
+  transform: translateY(1px);
+}
+
+.nav-resume-button:focus-visible {
+  box-shadow: none;
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+.custom-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.45rem;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.custom-toggler:hover,
+.custom-toggler:focus {
+  background-color: rgba(103, 232, 249, 0.12);
+  border-color: rgba(103, 232, 249, 0.7);
+}
+
+.custom-toggler:active {
+  transform: translateY(1px);
+}
+
+.custom-toggler:focus,
+.custom-toggler:focus-visible {
+  box-shadow: none;
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
 .toggle-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 30px;
-    height: 30px;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 26px;
+  justify-content: space-between;
+  padding: 4px;
+  width: 30px;
+}
+
+.bar {
+  background-color: #fff;
+  border-radius: 999px;
+  height: 3px;
+  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+  width: 100%;
+}
+
+.custom-toggler:hover .bar,
+.custom-toggler:focus .bar {
+  background-color: #67e8f9;
+}
+
+.toggle-button.is-active .bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.toggle-button.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.toggle-button.is-active .bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+@media (max-width: 991.98px) {
+  .custom-navbar .navbar-collapse {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
   }
-  
-  .bar {
+
+  .navbar-primary-links,
+  .navbar-section-links {
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  .custom-navbar .nav-link-custom {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .custom-navbar .nav-link-custom.active::after {
+    bottom: 0.35rem;
+  }
+
+  .nav-resume-button {
+    margin: 0.5rem 0 0;
+    min-height: 44px;
     width: 100%;
-    height: 4px;
-    background-color: #fff;
-    transition: transform 0.2s ease-in-out;
   }
-  
-  /* Estilo quando o botão está ativo (transforma em "x") */
-  .toggle-button.is-active .bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  
-  .toggle-button.is-active .bar:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .toggle-button.is-active .bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-  
+}

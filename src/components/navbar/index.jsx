@@ -8,38 +8,60 @@ import "./style.css";
 
 function NavBar() {
   const [isActive, setIsActive] = useState(false);
+  const [activeKey, setActiveKey] = useState(
+    () => `${window.location.pathname}${window.location.hash}`
+  );
 
   const toggleButton = () => {
-    setIsActive(!isActive);
+    setIsActive((currentState) => !currentState);
   };
 
+  const getNavLinkClass = (href) =>
+    `nav-link-custom ${activeKey === href ? "active" : ""}`;
+
   useEffect(() => {
-    // Encontrar a altura da navbar
     const navbar = document.querySelector(".custom-navbar");
-    const navbarHeight = navbar.clientHeight;
+    const links = document.querySelectorAll(".nav-link-custom[href*='#']");
 
-    // Encontrar todos os links da navbar que levam a elementos com IDs
-    const links = document.querySelectorAll(".nav-link[href^='#']");
+    const syncActiveKey = () => {
+      setActiveKey(`${window.location.pathname}${window.location.hash}`);
+    };
 
-    // Adicionar um evento de clique a cada link
-    links.forEach((link) => {
-      link.addEventListener("click", (event) => {
+    const scrollToSection = (event) => {
+      const link = event.currentTarget;
+      const href = link.getAttribute("href");
+      const targetId = href?.split("#")[1];
+      const targetElement = targetId ? document.getElementById(targetId) : null;
+
+      if (targetElement && window.location.pathname === "/") {
         event.preventDefault();
-        const targetId = link.getAttribute("href").substring(1);
-        const targetElement = document.getElementById(targetId);
+        const navbarHeight = navbar?.clientHeight || 0;
+        const targetPosition = targetElement.offsetTop - navbarHeight;
 
-        if (targetElement) {
-          // Calcular a posição do elemento de destino com base na altura da navbar
-          const targetPosition = targetElement.offsetTop - navbarHeight;
+        window.history.pushState(null, "", `/#${targetId}`);
+        setActiveKey(`/#${targetId}`);
+        setIsActive(false);
 
-          // Rolagem suave para o elemento de destino
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth",
-          });
-        }
-      });
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+    };
+
+    links.forEach((link) => {
+      link.addEventListener("click", scrollToSection);
     });
+    window.addEventListener("popstate", syncActiveKey);
+    window.addEventListener("hashchange", syncActiveKey);
+
+    return () => {
+      links.forEach((link) => {
+        link.removeEventListener("click", scrollToSection);
+      });
+      window.removeEventListener("popstate", syncActiveKey);
+      window.removeEventListener("hashchange", syncActiveKey);
+    };
   }, []);
 
   return (
@@ -50,59 +72,79 @@ function NavBar() {
       sticky="top"
     >
       <Container>
-        <Navbar.Brand className="text-light" href="#home">
-          <a href="/">
-            <img
-              src={Logo}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="logo"
-            />
-          </a>
+        <Navbar.Brand className="navbar-brand-custom" href="/">
+          <img
+            src={Logo}
+            width="30"
+            height="30"
+            className="navbar-logo"
+            alt="Logo Gui Vilas"
+          />
+          <span>Gui Vilas v2.0</span>
         </Navbar.Brand>
+
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
+          aria-label="Alternar menu de navegação"
           className="custom-toggler"
+          onClick={toggleButton}
         >
-          <div
-            className={`toggle-button ${isActive ? "is-active" : ""}`}
-            onClick={toggleButton}
-          >
+          <div className={`toggle-button ${isActive ? "is-active" : ""}`}>
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>
-          </div>{" "}
+          </div>
         </Navbar.Toggle>
+
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/" className="text-light">
-              Gui Vilas v2.0
+          <Nav
+            className="me-auto navbar-primary-links"
+            onSelect={() => setIsActive(false)}
+          >
+            <Nav.Link
+              href="/"
+              className={getNavLinkClass("/")}
+              onClick={() => setActiveKey("/")}
+            >
+              Início
             </Nav.Link>
-            <Nav.Link href="/funwithapis" className="text-light">
-              Consumo de API's
+            <Nav.Link
+              href="/funwithapis"
+              className={getNavLinkClass("/funwithapis")}
+              onClick={() => setActiveKey("/funwithapis")}
+            >
+              Consumo de APIs
             </Nav.Link>
           </Nav>
-          <Nav>
-            <Nav.Link href="/#aboutMe" className="text-light">
+
+          <Nav
+            className="navbar-section-links"
+            onSelect={() => setIsActive(false)}
+          >
+            <Nav.Link href="/#aboutMe" className={getNavLinkClass("/#aboutMe")}>
               01. Sobre mim
             </Nav.Link>
-            <Nav.Link href="/#workHistory" className="text-light">
+            <Nav.Link
+              href="/#workHistory"
+              className={getNavLinkClass("/#workHistory")}
+            >
               02. Experiência
             </Nav.Link>
-            <Nav.Link href="/#projects" className="text-light">
+            <Nav.Link href="/#projects" className={getNavLinkClass("/#projects")}>
               03. Projetos
             </Nav.Link>
-            <Nav.Link href="/#contact" className="text-light">
+            <Nav.Link href="/#contact" className={getNavLinkClass("/#contact")}>
               04. Contato
             </Nav.Link>
             <Button
               type="button"
-              variant="dark"
+              variant="outline-light"
+              className="nav-resume-button"
               href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
               target="_blank"
+              rel="noreferrer"
             >
-              Currículo (Desatualizado)
+              Currículo
             </Button>
           </Nav>
         </Navbar.Collapse>
