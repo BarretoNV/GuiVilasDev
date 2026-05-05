@@ -7,93 +7,144 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import ImagesObject from "../../assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLinkedin,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 
 import "./style.css";
 import imageObj from "../../assets/images";
 
 export default function Home() {
-  const [selectedCompany, setSelectedCompany] = useState("Fichar.io");
-  const [ficharioSelected, setFicharioSelected] = useState("light");
-  const [vettaSelected, setVettaSelected] = useState("outline-light");
-  const [retornarSelected, setRetornarSelected] = useState("outline-light");
-  const [aureaSelected, setAureaSelected] = useState("outline-light");
+  const [selectedCompany, setSelectedCompany] = useState("Food Digital");
 
-  const [loading, setLoading] = useState(true);
+  const [pageReady, setPageReady] = useState(false);
+  const loading = useMinimumLoadingTime(!pageReady);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    const preloadImage = (src) =>
+      new Promise((resolve) => {
+        const image = new Image();
+        image.onload = resolve;
+        image.onerror = resolve;
+        image.src = src;
+      });
+
+    Promise.allSettled([
+      preloadImage(imageObj.scrollDown),
+      preloadImage(imageObj.heroPic),
+    ]).finally(() => {
+      setPageReady(true);
+    });
   }, []);
-
-  const companyColors = {
-    "Fichar.io": {
-      fichario: "light",
-      vetta: "outline-light",
-      retornar: "outline-light",
-      aurea: "outline-light",
-    },
-    "Vetta.Digital": {
-      fichario: "outline-light",
-      vetta: "light",
-      retornar: "outline-light",
-      aurea: "outline-light",
-    },
-    "Retornar Tecnologia": {
-      fichario: "outline-light",
-      vetta: "outline-light",
-      retornar: "light",
-      aurea: "outline-light",
-    },
-    "Aurea Empresa Júnior": {
-      fichario: "outline-light",
-      vetta: "outline-light",
-      retornar: "outline-light",
-      aurea: "light",
-    },
-  };
-
-  const handleCompanyClick = (company) => {
-    setSelectedCompany(company);
-
-    const { fichario, vetta, retornar, aurea } = companyColors[company];
-
-    setFicharioSelected(fichario);
-    setVettaSelected(vetta);
-    setRetornarSelected(retornar);
-    setAureaSelected(aurea);
-  };
 
   const companies = [
     {
+      value: "Food Digital",
+      companyMeta: "Tempo integral",
+      location: "Remota",
+      logo: ImagesObject.foodDigitalLogo,
+      roles: [
+        {
+          title: "Gerente de mídias sociais",
+          period: "abr de 2025 - o momento · 1 ano 2 meses",
+          description:
+            "Gestão de mídias sociais. Edição de vídeos e imagens. Planejamento estratégico de marketing. Gestão de projetos.",
+          stack:
+            "Gestão de projetos · Publicidade em mídias sociais · Edição de vídeo · Planejamento estratégico",
+        },
+      ],
+    },
+    {
+      value: "Rush Co",
+      companyMeta: "Tempo integral · 10 m",
+      location: "Remota",
+      logo: ImagesObject.rushCoDigitalLogo,
+      roles: [
+        {
+          title: "Gerente de contas",
+          period: "mar de 2025 - abr de 2025 · 2 meses",
+          description:
+            "Gestão de projetos e liderança de equipes multidisciplinar. Manutenção de relacionamento próximo e produtivo com a carteira de clientes. Identificação de oportunidades de negócios. Gestão de expectativas dos clientes. Monitoramento do uso de produtos e serviços. Gestão de crises. Representação da empresa e das necessidades dos clientes. Provisão de suporte diário para atender às necessidades dos clientes.",
+          stack:
+            "Gestão de projetos · Suporte ao cliente · Métricas de mídias sociais · Gestão de tráfego",
+        },
+        {
+          title: "Social Media",
+          period: "jul de 2024 - mar de 2025 · 9 meses",
+          description:
+            "Gerenciamento, planejamento, estruturação e manutenção de redes sociais.",
+          stack: "Instagram · Copywriting",
+        },
+      ],
+    },
+    {
+      value: "Infinite Growth",
+      companyMeta: "Tempo integral",
+      location: "Campos dos Goytacazes · Híbrida",
+      logo: ImagesObject.infiniteLogo,
+      roles: [
+        {
+          title: "Social Media",
+          period: "jan de 2024 - jun de 2024 · 6 meses",
+          description:
+            "Elaboração e desenvolvimento de criativos para redes sociais, assim como idealização de roteiros e editoriais de postagens para utilização em campanhas ou em simples posts em plataformas, como: Meta, Google, Tiktok, Kwai e outras similares.",
+          stack:
+            "Desenvolvimento de ideias · Marketing de mídias sociais · Narrativas visuais · Produção de vídeo",
+        },
+      ],
+    },
+    {
       value: "Fichar.io",
-      text: "Desenvolvimento em Front-End com React + Vite, usando Bootstrap. Trabalhando como bolsista a partir do Instituto Federal Fluminense em parceria com a Fichar.io",
-      stack: "React · Javascript · CSS Bootstrap · Consumo de APIs · Vite",
       logo: ImagesObject.ficharioLogo,
+      roles: [
+        {
+          title: "Desenvolvedor Front-End",
+          period: "jun de 2023 - jan de 2024 · 8 meses",
+          description:
+            "Desenvolvimento em Front-End com React + Vite, usando Bootstrap. Trabalhando como bolsista a partir do Instituto Federal Fluminense em parceria com a Fichar.io.",
+          stack: "React · Javascript · CSS Bootstrap · Consumo de APIs · Vite",
+        },
+      ],
     },
     {
       value: "Vetta.Digital",
-      text: "Estágio de Desenvolvimento de programas e sistemas em Javascript e Back-End em Java, mobile e desktop. PairPogramming e uso  de Frameworks próprios da empresa.",
-      stack: "React · Javascript · Java · PostGre · React Native",
       logo: ImagesObject.vettaLogo,
+      roles: [
+        {
+          title: "Estagiário de desenvolvimento",
+          period: "nov de 2022 - jun de 2023 · 8 meses",
+          description:
+            "Estágio de desenvolvimento de programas e sistemas em Javascript e Back-End em Java, mobile e desktop. Pair programming e uso de frameworks próprios da empresa.",
+          stack: "React · Javascript · Java · PostGre · React Native",
+        },
+      ],
     },
     {
       value: "Retornar Tecnologia",
-      text: "O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.O foco do meu trabalho com a Retornar foi garantir o lançamento e manutenção das várias Landing Pages da empresa, feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.",
-      stack:
-        "GitFlow · Git · HTML · JavaScript · React.js · E-mails em HTML · Bootstrap · Informática · HTML5 · CSS",
       logo: ImagesObject.retornarLogo,
+      roles: [
+        {
+          title: "Desenvolvedor Front-End",
+          period: "nov de 2021 - ago de 2022 · 10 meses",
+          description:
+            "Lançamento e manutenção de landing pages feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.",
+          stack:
+            "GitFlow · Git · HTML · JavaScript · React.js · E-mails em HTML · Bootstrap · Informática · HTML5 · CSS",
+        },
+      ],
     },
     {
       value: "Aurea Empresa Júnior",
-      text: "Primeiro contato profissional com desenvolvimento web / Front-End. Desenvolvendo websites em Wordpress e React.js",
-      stack:
-        "GitFlow · Git · HTML · SASS · JavaScript · React.js · Informática · CSS",
       logo: ImagesObject.aureaLogo,
+      roles: [
+        {
+          title: "Desenvolvedor Front-End",
+          period: "abr de 2019 - jan de 2022 · 2 anos 10 meses",
+          description:
+            "Primeiro contato profissional com desenvolvimento web e Front-End, desenvolvendo websites em Wordpress e React.js.",
+          stack:
+            "GitFlow · Git · HTML · SASS · JavaScript · React.js · Informática · CSS",
+        },
+      ],
     },
   ];
 
@@ -102,7 +153,7 @@ export default function Home() {
   }
 
   const selectedCompanyData = companies.find(
-    (opt) => opt.value === selectedCompany
+    (opt) => opt.value === selectedCompany,
   );
 
   const projects = [
@@ -131,46 +182,59 @@ export default function Home() {
       ) : (
         <>
           <NavBar />
-          <Container>
-            <Row
-              className="mb-5 mt-5 align-items-center"
-              style={{ height: "80vh" }}
-            >
-              <Col>
-                <div className="mt-4 text-light">
-                  <p>Olá mundo, meu nome é</p>
-                  <h1>
-                    <b>Guilherme Vilas</b>
-                  </h1>
-                  <h2>Desenvolvedor Front-End</h2>
-                  <p>
-                    Desenvolvedor Front-End, com foco em React.js, com formação
-                    em design e atualmente cursando Engenharia de Computação no
-                    <a
-                      href="https://portal1.iff.edu.br"
+          <section
+            className="hero-section"
+            style={{ "--hero-image": `url(${imageObj.heroPic})` }}
+          >
+            <Container className="hero-container">
+              <Row className="hero-row align-items-center">
+                <Col lg={9} xl={8}>
+                  <div className="hero-content text-light">
+                    <p>Olá mundo, meu nome é</p>
+                    <h1>
+                      <b>Guilherme Vilas</b>
+                    </h1>
+                    <h2>Engenheiro da Computação</h2>
+                    <p>
+                      Trabalho na interseção entre tecnologia, marketing digital
+                      e criação visual. Atuo com estratégia de conteúdo para
+                      restaurantes, edição de vídeos, social media, disparos de
+                      mensagens e otimização de Google Meu Negócio.
+                    </p>{" "}
+                    <p>
+                      Tenho experiência com Front-End em React.js e JavaScript,
+                      além de formação inicial em design e fotografia. Formado
+                      em engenharia pelo
+                      <a
+                        href="https://portal1.iff.edu.br"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {" "}
+                        Instituto Federal Fluminense.
+                      </a>
+                    </p>
+                    <Button
+                      type="button"
+                      variant="dark"
+                      href="https://www.linkedin.com/in/guibarreto/"
                       target="_blank"
-                      rel="noreferrer"
-                      style={{ textDecoration: "none" }}
+                      size="lg"
+                      className="hero-linkedin-button"
                     >
-                      {" "}
-                      Instituto Federal Fluminense.
-                    </a>
-                  </p>
-                  <Button
-                    type="button"
-                    variant="dark"
-                    href="https://www.linkedin.com/in/guibarreto/"
-                    target="_blank"
-                    size="lg"
-                  >
-                    Meu Linkedin
-                  </Button>
-                </div>
-              </Col>
-              <div className="d-flex justify-content-end">
-                <img src={imageObj.scrollDown} style={{ height: "10em" }} />
+                      Meu Linkedin
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+              <small className="hero-credit">Imagem: NASA.gov</small>
+              <div className="hero-scroll-indicator">
+                <img src={imageObj.scrollDown} alt="Role para baixo" />
               </div>
-            </Row>
+            </Container>
+          </section>
+          <Container>
             <Row id="aboutMe" className="mt-5 mb-5 text-light">
               <Col sm={12}>
                 <div>
@@ -304,42 +368,20 @@ export default function Home() {
                   className="d-grid gap-2 gap-md-5 mb-4 menu-container"
                 >
                   <ul className="menu-list">
-                    <li>
-                      <Button
-                        variant={ficharioSelected}
-                        onClick={() => handleCompanyClick("Fichar.io")}
-                      >
-                        Fichar.io 2023-Presente
-                      </Button>
-                    </li>
-                    <li>
-                      <Button
-                        variant={vettaSelected}
-                        onClick={() => handleCompanyClick("Vetta.Digital")}
-                      >
-                        Vetta.Digital 2022-2023
-                      </Button>
-                    </li>
-                    <li>
-                      <Button
-                        variant={retornarSelected}
-                        onClick={() =>
-                          handleCompanyClick("Retornar Tecnologia")
-                        }
-                      >
-                        Retornar Tecnologia 2021-2022
-                      </Button>
-                    </li>
-                    <li>
-                      <Button
-                        variant={aureaSelected}
-                        onClick={() =>
-                          handleCompanyClick("Aurea Empresa Júnior")
-                        }
-                      >
-                        Aurea Empresa Júnior 2019-2021
-                      </Button>
-                    </li>
+                    {companies.map((company) => (
+                      <li key={company.value}>
+                        <Button
+                          variant={
+                            selectedCompany === company.value
+                              ? "light"
+                              : "outline-light"
+                          }
+                          onClick={() => setSelectedCompany(company.value)}
+                        >
+                          {company.value}
+                        </Button>
+                      </li>
+                    ))}
                   </ul>
                 </Col>
                 <Col md={8}>
@@ -354,10 +396,28 @@ export default function Home() {
                     <Col md={8}>
                       <div className="company-details">
                         <h3>{selectedCompanyData.value}</h3>
-                        <p>{selectedCompanyData.text}</p>
+                        {selectedCompanyData.companyMeta && (
+                          <p className="company-meta">
+                            {selectedCompanyData.companyMeta}
+                          </p>
+                        )}
+                        {selectedCompanyData.location && (
+                          <p className="company-location">
+                            {selectedCompanyData.location}
+                          </p>
+                        )}
                       </div>
-                      <div className="company-stack">
-                        <p>{selectedCompanyData.stack}</p>
+                      <div className="company-roles">
+                        {selectedCompanyData.roles.map((role) => (
+                          <article className="company-role" key={role.title}>
+                            <h4>{role.title}</h4>
+                            <p className="role-period">{role.period}</p>
+                            <p>{role.description}</p>
+                            <p className="company-stack">
+                              <b>Competências:</b> {role.stack}
+                            </p>
+                          </article>
+                        ))}
                       </div>
                     </Col>
                   </Row>
@@ -426,7 +486,7 @@ export default function Home() {
           </Container>
         </>
       )}
-      <Footer/>
+      <Footer />
     </>
   );
 }

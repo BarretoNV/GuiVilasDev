@@ -1,16 +1,19 @@
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { Container, Button, Col, Row, Card } from "react-bootstrap";
+import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 import NavBar from "../../components/navbar";
-import Footer from "../../components/Footer";
-import { useState, useEffect } from "react";
-import { Container, Button, Col, Row, Card } from "react-bootstrap";
-import axios from "axios";
 import imageObj from "../../assets/images";
+import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 
 export default function FunWithAPIs() {
   const [loading, setLoading] = useState(true);
+  const shouldShowLoader = useMinimumLoadingTime(loading);
   const [scienceNews, setScienceNews] = useState(null);
   const [technologyNews, setTechnologyNews] = useState(null);
   const [randomAdvice, setRandomAdvice] = useState(null);
+  const [adviceLoading, setAdviceLoading] = useState(false);
 
   const [scienceError, setScienceError] = useState("");
   const [technologyError, setTechnologyError] = useState("");
@@ -18,18 +21,18 @@ export default function FunWithAPIs() {
 
   const NYTToken = import.meta.env.VITE_NYT_API_KEY;
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-
-  const fetchNYTScienceNews = async () => {
+  const fetchNYTScienceNews = useCallback(async () => {
     try {
       setScienceError("");
 
+      if (!NYTToken) {
+        setScienceNews(null);
+        setScienceError("Chave da API do New York Times não configurada.");
+        return;
+      }
+
       const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`,
+        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`
       );
 
       setScienceNews(response.data.results?.[0] ?? null);
@@ -37,14 +40,20 @@ export default function FunWithAPIs() {
       console.error("Erro: ", error);
       setScienceError("Não foi possível carregar notícias de ciência.");
     }
-  };
+  }, [NYTToken]);
 
-  const fetchNYTTechnologyNews = async () => {
+  const fetchNYTTechnologyNews = useCallback(async () => {
     try {
       setTechnologyError("");
 
+      if (!NYTToken) {
+        setTechnologyNews(null);
+        setTechnologyError("Chave da API do New York Times não configurada.");
+        return;
+      }
+
       const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${NYTToken}`,
+        `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${NYTToken}`
       );
 
       setTechnologyNews(response.data.results?.[0] ?? null);
@@ -52,10 +61,14 @@ export default function FunWithAPIs() {
       console.error("Erro: ", error);
       setTechnologyError("Não foi possível carregar notícias de tecnologia.");
     }
-  };
+  }, [NYTToken]);
 
-  const fetchRandomAdvice = async () => {
+  const fetchRandomAdvice = useCallback(async (showInlineLoading = false) => {
     try {
+      if (showInlineLoading) {
+        setAdviceLoading(true);
+      }
+
       setAdviceError("");
 
       const response = await axios.get("https://api.adviceslip.com/advice");
@@ -64,21 +77,32 @@ export default function FunWithAPIs() {
     } catch (error) {
       console.error("Erro ao pegar advice: ", error);
       setAdviceError("Não foi possível carregar o conselho agora.");
+    } finally {
+      if (showInlineLoading) {
+        setAdviceLoading(false);
+      }
     }
-  };
-
-  useEffect(() => {
-    fetchRandomAdvice();
   }, []);
 
   useEffect(() => {
-    fetchNYTScienceNews();
-    fetchNYTTechnologyNews();
-  }, []);
+    const fetchInitialData = async () => {
+      setLoading(true);
+
+      await Promise.allSettled([
+        fetchRandomAdvice(),
+        fetchNYTScienceNews(),
+        fetchNYTTechnologyNews(),
+      ]);
+
+      setLoading(false);
+    };
+
+    fetchInitialData();
+  }, [fetchNYTScienceNews, fetchNYTTechnologyNews, fetchRandomAdvice]);
 
   return (
     <>
-      {loading ? (
+      {shouldShowLoader ? (
         <>
           <Loader />
         </>
@@ -98,12 +122,18 @@ export default function FunWithAPIs() {
                 </h3>
               </Col>
               <Col md={12} className="text-center">
-                <Button variant="primary" onClick={fetchRandomAdvice}>
+                <Button
+                  variant="primary"
+                  onClick={() => fetchRandomAdvice(true)}
+                  disabled={adviceLoading}
+                >
                   Obter Novo Conselho
                 </Button>
                 {adviceError && <p>{adviceError}</p>}
 
-                {randomAdvice ? (
+                {adviceLoading ? (
+                  <p>Carregando conselho...</p>
+                ) : randomAdvice ? (
                   <h4 style={{ marginTop: "20px" }}>
                     <b>{randomAdvice.advice}</b>
                   </h4>
@@ -136,7 +166,7 @@ export default function FunWithAPIs() {
                     </Card.Body>
                   </Card>
                 ) : (
-                  <p>Carregando notícias de ciência...</p>
+                  !scienceError && <p>Carregando notícias de ciência...</p>
                 )}
               </Col>
               <Col md={4}>
@@ -174,7 +204,9 @@ export default function FunWithAPIs() {
                     </Card.Body>
                   </Card>
                 ) : (
-                  <p>Carregando notícias de tecnologia...</p>
+                  !technologyError && (
+                    <p>Carregando notícias de tecnologia...</p>
+                  )
                 )}
               </Col>
               <Col md={4}>

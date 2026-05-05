@@ -19,6 +19,10 @@ import gitHubLogo from './github-mark-white.png';
 import nytWhiteLogo from './nytWhiteLogo.png';
 import scrollDown from './scrollDown.gif';
 import weatherAPILogo from './WeatherAPI.png'
+import heroPic from './HeroPic.jpg';
+import infiniteLogo from './infinite.jpg';
+import rushCoDigitalLogo from './rushcodigital.jpg';
+import foodDigitalLogo from './Fooddigitall.png';
 
 const imageObj = {
   aureaLogo,
@@ -42,6 +46,10 @@ const imageObj = {
   nytWhiteLogo,
   scrollDown,
   weatherAPILogo,
+  heroPic,
+  infiniteLogo,
+  rushCoDigitalLogo,
+  foodDigitalLogo,
 };
 
 export default imageObj;

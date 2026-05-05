@@ -1,12 +1,10 @@
 import LoadingGIF from "../../assets/loadingGIF.gif";
-import "./style.css"
+import "./style.css";
 
 const Loader = () => {
   return (
-    <div>
-      <div className="loader">
-        <img src={LoadingGIF} alt="Loader" className="loader-image" />
-      </div>
+    <div className="loader" role="status" aria-label="Carregando conteúdo">
+      <img src={LoadingGIF} alt="" className="loader-image" />
     </div>
   );
 };
