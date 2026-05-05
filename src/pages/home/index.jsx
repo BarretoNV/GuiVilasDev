@@ -309,7 +309,7 @@ export default function Home() {
             </Row>
             <Row id="workHistory" className="mt-5 mb-5 text-light">
               <Col md={12}>
-                <h2>02. Onde Trabalhei</h2>
+                <h2>02. Minha carreira</h2>
               </Col>
               <Row>
                 <Col
