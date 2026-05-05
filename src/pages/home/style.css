@@ -123,6 +123,50 @@
   object-fit: contain;
 }
 
+.about-section,
+.about-section h2,
+.about-section h3,
+.about-section p,
+.about-pillars,
+.about-pillar {
+  background-color: transparent;
+}
+
+.about-section {
+  max-width: 1180px;
+}
+
+.about-section > p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 1120px;
+}
+
+.about-pillars {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1.5rem;
+}
+
+.about-pillar {
+  border-left: 2px solid rgba(103, 232, 249, 0.45);
+  min-width: 0;
+  padding-left: 1rem;
+}
+
+.about-pillar h3 {
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.about-pillar p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
 /* CompanyInfo.css */
 
 /* Estilos para a seção de informações da empresa */
@@ -286,5 +330,13 @@
 
   .hero-scroll-indicator img {
     height: 5.25rem;
+  }
+
+  .about-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section > p {
+    font-size: 0.95rem;
   }
 }

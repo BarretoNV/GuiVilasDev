@@ -1,7 +1,13 @@
 .custom-navbar {
+  background-color: #000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
   padding: 0.7rem 0;
+  z-index: 1030;
+}
+
+.navbar-page-offset {
+  height: 74px;
 }
 
 .custom-navbar .container {
@@ -190,6 +196,10 @@
 }
 
 @media (max-width: 991.98px) {
+  .navbar-page-offset {
+    height: 76px;
+  }
+
   .custom-navbar .navbar-collapse {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 0.75rem;

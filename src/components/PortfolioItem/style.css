@@ -9,6 +9,23 @@
     background-color: #000;
 }
 
+.portfolio-description,
+.portfolio-note {
+  background-color: transparent;
+}
+
+.portfolio-description {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.portfolio-note {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
 /* Classe para aplicar o filtro preto e branco nas imagens */
 .portfolio-card .portfolio-screenshot {
   filter: grayscale(50%);

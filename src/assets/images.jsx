@@ -23,6 +23,7 @@ import heroPic from './HeroPic.jpg';
 import infiniteLogo from './infinite.jpg';
 import rushCoDigitalLogo from './rushcodigital.jpg';
 import foodDigitalLogo from './Fooddigitall.png';
+import blocklyScreenshot from './blockly.png';
 
 const imageObj = {
   aureaLogo,
@@ -50,6 +51,7 @@ const imageObj = {
   infiniteLogo,
   rushCoDigitalLogo,
   foodDigitalLogo,
+  blocklyScreenshot,
 };
 
 export default imageObj;

@@ -158,6 +158,25 @@ export default function Home() {
 
   const projects = [
     {
+      title: "Implementação Blockly em sistema embarcado",
+      logo: ImagesObject.ficharioLogo,
+      screenshot: ImagesObject.blocklyScreenshot,
+      websiteLink:
+        "https://developers.google.com/blockly?hl=pt-br#build-with-blockly",
+      buttonLabel: "Ver biblioteca Blockly",
+      description:
+        "Projeto profissional desenvolvido na Fichar.io com implementação da biblioteca Blockly em um sistema embarcado fechado. Por sigilo, a imagem é uma referência pública da documentação, não uma tela do produto real.",
+      note: "Sistema real não exibido por confidencialidade.",
+      technologies: [
+        "Blockly",
+        "Python",
+        "React.js",
+        "Sistemas embarcados",
+        "Integração de bibliotecas",
+        "UI visual",
+      ],
+    },
+    {
       title: "Site Aurea Empresa Júnior",
       logo: ImagesObject.aureaLogo,
       screenshot: ImagesObject.aureaSite,
@@ -237,124 +256,54 @@ export default function Home() {
           <Container>
             <Row id="aboutMe" className="mt-5 mb-5 text-light">
               <Col sm={12}>
-                <div>
+                <div className="about-section">
                   <h2>01. Sobre mim</h2>
                   <p>
-                    Trabalho com Desenvolvimento Web e Desenvolvimento
-                    Front-End, com bastante experiência com HTML5, CSS e
-                    Javascript puros, mas principalmente em REACT.JS.
-                  </p>{" "}
-                  <p>
-                    {" "}
-                    Sempre tive facilidade com pessoas, talvez esse seja o
-                    motivo pelo qual sempre fui representante de turma em todas
-                    as minhas turmas e, dentro da faculdade, me tornei
-                    Coordenador dentro da
-                    <a
-                      href="https://www.aureaej.com"
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ textDecoration: "none" }}
-                    >
-                      {" "}
-                      Aurea Empresa Júnior{" "}
-                    </a>
-                    (Fiz parte do desenvolvimento desse site também 😉), onde
-                    aprimorei ainda mais minhas Soft Skills.
+                    Sou engenheiro da computação e trabalho na interseção entre
+                    produto digital, conteúdo e operação de marketing. Minha
+                    trajetória passou por desenvolvimento front-end, projetos em
+                    React.js e, mais recentemente, pela rotina de social media,
+                    gestão de contas e presença digital para marcas e
+                    restaurantes.
                   </p>
                   <p>
-                    Hoje sou bolsista na Universidade, em um projeto de
-                    desenvolvimento em React.js, onde sou responsável pelas
-                    tarefas no front-end, como design de telas, funcionalidades
-                    variadas, integrações em APIs e etc.
+                    Gosto de atuar onde a parte técnica encontra o problema de
+                    negócio: estruturar interfaces, consumir APIs, organizar
+                    processos, criar narrativas para redes sociais, acompanhar
+                    métricas e transformar demandas soltas em entregas mais
+                    claras para clientes e equipes.
                   </p>
-                  <p>
-                    Aqui estão algumas das tecnologias que tenho trabalhado
-                    recentemente:
-                  </p>
-                  <Row>
-                    <Col>
-                      <ul
-                        style={{
-                          listStyleType: "none",
-                          display: "flex",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.javascriptLogo}
-                              alt="Javascript"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>Javascript</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.nodeLogo}
-                              alt="Node.js"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>Node.js</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.reactLogo}
-                              alt="React.js"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>React.js</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.cLogo}
-                              alt="C"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>C</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.wordpressLogo}
-                              alt="WordPress"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>WordPress</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.htmlLogo}
-                              alt="HTML"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>HTML</p>
-                          </div>
-                        </li>
-                        <li style={{ margin: "10px", textAlign: "center" }}>
-                          <div>
-                            <img
-                              src={ImagesObject.cssLogo}
-                              alt="CSS"
-                              style={{ width: "100px", height: "100px" }}
-                            />
-                            <p>CSS</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </Col>
-                  </Row>
+                  <p>Hoje meu trabalho conecta:</p>
+                  <div className="about-pillars">
+                    <article className="about-pillar">
+                      <h3>Estratégia e conteúdo</h3>
+                      <p>
+                        Planejamento editorial, narrativas para redes sociais,
+                        criativos e consistência de comunicação.
+                      </p>
+                    </article>
+                    <article className="about-pillar">
+                      <h3>Operação e relacionamento</h3>
+                      <p>
+                        Gestão de contas, suporte, rotina com clientes e
+                        alinhamento de expectativas.
+                      </p>
+                    </article>
+                    <article className="about-pillar">
+                      <h3>Produto e tecnologia</h3>
+                      <p>
+                        React, JavaScript, APIs, interfaces, automações e
+                        pensamento de engenharia aplicado.
+                      </p>
+                    </article>
+                    <article className="about-pillar">
+                      <h3>Métricas e melhoria contínua</h3>
+                      <p>
+                        Google Meu Negócio, campanhas, leitura de resultados e
+                        ajustes de presença digital.
+                      </p>
+                    </article>
+                  </div>
                 </div>
               </Col>
             </Row>

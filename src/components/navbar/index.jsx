@@ -65,91 +65,103 @@ function NavBar() {
   }, []);
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      className="text-light custom-navbar"
-      sticky="top"
-    >
-      <Container>
-        <Navbar.Brand className="navbar-brand-custom" href="/">
-          <img
-            src={Logo}
-            width="30"
-            height="30"
-            className="navbar-logo"
-            alt="Logo Gui Vilas"
-          />
-          <span>Gui Vilas v2.0</span>
-        </Navbar.Brand>
+    <>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        className="text-light custom-navbar"
+        fixed="top"
+      >
+        <Container>
+          <Navbar.Brand className="navbar-brand-custom" href="/">
+            <img
+              src={Logo}
+              width="30"
+              height="30"
+              className="navbar-logo"
+              alt="Logo Gui Vilas"
+            />
+            <span>Gui Vilas v2.0</span>
+          </Navbar.Brand>
 
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          aria-label="Alternar menu de navegação"
-          className="custom-toggler"
-          onClick={toggleButton}
-        >
-          <div className={`toggle-button ${isActive ? "is-active" : ""}`}>
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
-          </div>
-        </Navbar.Toggle>
-
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav
-            className="me-auto navbar-primary-links"
-            onSelect={() => setIsActive(false)}
+          <Navbar.Toggle
+            aria-controls="responsive-navbar-nav"
+            aria-label="Alternar menu de navegação"
+            className="custom-toggler"
+            onClick={toggleButton}
           >
-            <Nav.Link
-              href="/"
-              className={getNavLinkClass("/")}
-              onClick={() => setActiveKey("/")}
-            >
-              Início
-            </Nav.Link>
-            <Nav.Link
-              href="/funwithapis"
-              className={getNavLinkClass("/funwithapis")}
-              onClick={() => setActiveKey("/funwithapis")}
-            >
-              Consumo de APIs
-            </Nav.Link>
-          </Nav>
+            <div className={`toggle-button ${isActive ? "is-active" : ""}`}>
+              <span className="bar"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </div>
+          </Navbar.Toggle>
 
-          <Nav
-            className="navbar-section-links"
-            onSelect={() => setIsActive(false)}
-          >
-            <Nav.Link href="/#aboutMe" className={getNavLinkClass("/#aboutMe")}>
-              01. Sobre mim
-            </Nav.Link>
-            <Nav.Link
-              href="/#workHistory"
-              className={getNavLinkClass("/#workHistory")}
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav
+              className="me-auto navbar-primary-links"
+              onSelect={() => setIsActive(false)}
             >
-              02. Experiência
-            </Nav.Link>
-            <Nav.Link href="/#projects" className={getNavLinkClass("/#projects")}>
-              03. Projetos
-            </Nav.Link>
-            <Nav.Link href="/#contact" className={getNavLinkClass("/#contact")}>
-              04. Contato
-            </Nav.Link>
-            <Button
-              type="button"
-              variant="outline-light"
-              className="nav-resume-button"
-              href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
-              target="_blank"
-              rel="noreferrer"
+              <Nav.Link
+                href="/"
+                className={getNavLinkClass("/")}
+                onClick={() => setActiveKey("/")}
+              >
+                Início
+              </Nav.Link>
+              <Nav.Link
+                href="/funwithapis"
+                className={getNavLinkClass("/funwithapis")}
+                onClick={() => setActiveKey("/funwithapis")}
+              >
+                Consumo de APIs
+              </Nav.Link>
+            </Nav>
+
+            <Nav
+              className="navbar-section-links"
+              onSelect={() => setIsActive(false)}
             >
-              Currículo
-            </Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+              <Nav.Link
+                href="/#aboutMe"
+                className={getNavLinkClass("/#aboutMe")}
+              >
+                01. Sobre mim
+              </Nav.Link>
+              <Nav.Link
+                href="/#workHistory"
+                className={getNavLinkClass("/#workHistory")}
+              >
+                02. Experiência
+              </Nav.Link>
+              <Nav.Link
+                href="/#projects"
+                className={getNavLinkClass("/#projects")}
+              >
+                03. Projetos
+              </Nav.Link>
+              <Nav.Link
+                href="/#contact"
+                className={getNavLinkClass("/#contact")}
+              >
+                04. Contato
+              </Nav.Link>
+              <Button
+                type="button"
+                variant="outline-light"
+                className="nav-resume-button"
+                href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Currículo
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <div className="navbar-page-offset" aria-hidden="true" />
+    </>
   );
 }
 
