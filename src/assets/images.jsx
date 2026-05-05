@@ -24,6 +24,9 @@ import infiniteLogo from './infinite.jpg';
 import rushCoDigitalLogo from './rushcodigital.jpg';
 import foodDigitalLogo from './Fooddigitall.png';
 import blocklyScreenshot from './blockly.png';
+import n8nScreenshot from './n8n.png';
+import clickUpScreenshot from './clickUp.png';
+import clickUpPowerUserBadge from './CluckupPowerUser.png';
 
 const imageObj = {
   aureaLogo,
@@ -52,6 +55,9 @@ const imageObj = {
   rushCoDigitalLogo,
   foodDigitalLogo,
   blocklyScreenshot,
+  n8nScreenshot,
+  clickUpScreenshot,
+  clickUpPowerUserBadge,
 };
 
 export default imageObj;

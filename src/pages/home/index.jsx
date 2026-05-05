@@ -9,12 +9,39 @@ import ImagesObject from "../../assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
+import projects from "../../data/projects";
 
 import "./style.css";
 import imageObj from "../../assets/images";
 
+const formatDurationSince = (startYear, startMonthIndex, referenceDate = new Date()) => {
+  const currentYear = referenceDate.getFullYear();
+  const currentMonthIndex = referenceDate.getMonth();
+  const totalMonths =
+    (currentYear - startYear) * 12 + currentMonthIndex - startMonthIndex + 1;
+
+  if (totalMonths <= 0) {
+    return "0 meses";
+  }
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const parts = [];
+
+  if (years > 0) {
+    parts.push(`${years} ${years === 1 ? "ano" : "anos"}`);
+  }
+
+  if (months > 0) {
+    parts.push(`${months} ${months === 1 ? "mês" : "meses"}`);
+  }
+
+  return parts.join(" ");
+};
+
 export default function Home() {
   const [selectedCompany, setSelectedCompany] = useState("Food Digital");
+  const foodDigitalDuration = formatDurationSince(2025, 3);
 
   const [pageReady, setPageReady] = useState(false);
   const loading = useMinimumLoadingTime(!pageReady);
@@ -45,7 +72,7 @@ export default function Home() {
       roles: [
         {
           title: "Gerente de mídias sociais",
-          period: "abr de 2025 - o momento · 1 ano 2 meses",
+          period: `abr de 2025 - o momento · ${foodDigitalDuration}`,
           description:
             "Gestão de mídias sociais. Edição de vídeos e imagens. Planejamento estratégico de marketing. Gestão de projetos.",
           stack:
@@ -134,15 +161,32 @@ export default function Home() {
     },
     {
       value: "Aurea Empresa Júnior",
+      companyMeta: "2 anos 10 meses",
+      location: "Campos dos Goytacazes, Rio de Janeiro, Brasil",
       logo: ImagesObject.aureaLogo,
       roles: [
         {
-          title: "Desenvolvedor Front-End",
+          title: "Desenvolvedor da web",
           period: "abr de 2019 - jan de 2022 · 2 anos 10 meses",
           description:
-            "Primeiro contato profissional com desenvolvimento web e Front-End, desenvolvendo websites em Wordpress e React.js.",
+            "Primeiro contato profissional com desenvolvimento web e front-end, criando sites em WordPress e React.js.",
+          stack: "CSS · React.js · GitFlow · Git · Informática · SASS · JavaScript · HTML",
+        },
+        {
+          title: "Coordenador de Endomarketing",
+          period: "jan de 2021 - dez de 2021 · 1 ano",
+          description:
+            "Coordenação de comunicação interna, ações de endomarketing e alinhamento da equipe.",
           stack:
-            "GitFlow · Git · HTML · SASS · JavaScript · React.js · Informática · CSS",
+            "Mídias sociais · Adobe Photoshop · Informática · Edição de imagens · Design gráfico · Corel Draw · Adobe Premiere",
+        },
+        {
+          title: "Assessor de comunicação",
+          period: "abr de 2019 - jan de 2021 · 1 ano 10 meses",
+          description:
+            "Atuação com comunicação, marketing interno, edição de imagem e vídeo, divulgação da marca e aprendizado sobre equipe, liderança e relações com clientes.",
+          stack:
+            "Mídias sociais · Adobe Photoshop · Informática · Edição de imagens · Design gráfico · Corel Draw · Adobe Premiere",
         },
       ],
     },
@@ -156,41 +200,7 @@ export default function Home() {
     (opt) => opt.value === selectedCompany,
   );
 
-  const projects = [
-    {
-      title: "Implementação Blockly em sistema embarcado",
-      logo: ImagesObject.ficharioLogo,
-      screenshot: ImagesObject.blocklyScreenshot,
-      websiteLink:
-        "https://developers.google.com/blockly?hl=pt-br#build-with-blockly",
-      buttonLabel: "Ver biblioteca Blockly",
-      description:
-        "Projeto profissional desenvolvido na Fichar.io com implementação da biblioteca Blockly em um sistema embarcado fechado. Por sigilo, a imagem é uma referência pública da documentação, não uma tela do produto real.",
-      note: "Sistema real não exibido por confidencialidade.",
-      technologies: [
-        "Blockly",
-        "Python",
-        "React.js",
-        "Sistemas embarcados",
-        "Integração de bibliotecas",
-        "UI visual",
-      ],
-    },
-    {
-      title: "Site Aurea Empresa Júnior",
-      logo: ImagesObject.aureaLogo,
-      screenshot: ImagesObject.aureaSite,
-      websiteLink: "https://www.aureaej.com",
-      technologies: ["React.js", "Javascript", "HTML", "CSS", "FireBase"],
-    },
-    {
-      title: "Site Cactus SketchBooks",
-      logo: ImagesObject.cactusLogo,
-      screenshot: ImagesObject.cactusSite,
-      websiteLink: "https://www.cactussketchbooks.com",
-      technologies: ["React.js", "Javascript", "HTML", "CSS", "Consumo de API"],
-    },
-  ];
+  const featuredProjects = projects.slice(0, 3);
 
   return (
     <>
@@ -304,6 +314,28 @@ export default function Home() {
                       </p>
                     </article>
                   </div>
+                  <div className="about-credential">
+                    <img
+                      src={ImagesObject.clickUpPowerUserBadge}
+                      alt="Selo ClickUp Power User"
+                      className="about-credential-badge"
+                    />
+                    <div className="about-credential-content">
+                      <h3>ClickUp Power User</h3>
+                      <p>
+                        Usuário avançado autenticado pela ClickUp,
+                        reconhecimento associado ao uso intenso da plataforma em
+                        operações, dashboards, tarefas e processos.
+                      </p>
+                      <a
+                        href="https://clickup.com/verified-power-user"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Ver programa ClickUp Verified
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </Col>
             </Row>
@@ -379,9 +411,19 @@ export default function Home() {
               </Col>
               <section className="portfolio">
                 <div className="portfolio-grid">
-                  {projects.map((project, index) => (
+                  {featuredProjects.map((project, index) => (
                     <PortfolioItem key={index} {...project} />
                   ))}
+                </div>
+                <div className="projects-cta">
+                  <Button
+                    type="button"
+                    variant="outline-primary"
+                    href="/projects"
+                    size="lg"
+                  >
+                    Ver todos os projetos
+                  </Button>
                 </div>
               </section>
             </Row>

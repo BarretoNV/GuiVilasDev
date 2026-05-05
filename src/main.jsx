@@ -8,6 +8,7 @@ import FunWithAPIs from "./pages/funWithApis";
 import NewsList from "./pages/scienceNewsList";
 import TechNewsList from "./pages/technologyNewsList";
 import WeatherInfo from "./pages/weatherApi";
+import Projects from "./pages/projects";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/funwithapis",
     element: <FunWithAPIs />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/projects",
+    element: <Projects />,
     errorElement: <ErrorPage />,
   },
   {

@@ -1,0 +1,61 @@
+.projects-page,
+.projects-page-header,
+.projects-page-header p,
+.projects-page-header h1,
+.projects-page-list,
+.projects-pagination,
+.projects-pagination span {
+  background-color: transparent;
+}
+
+.projects-page {
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+}
+
+.projects-page-header {
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+
+.projects-page-header p:first-child {
+  color: #67e8f9;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.projects-page-header h1 {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.projects-page-header p:last-child {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.projects-pagination {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.projects-pagination span {
+  color: rgba(255, 255, 255, 0.78);
+  min-width: 9rem;
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .projects-pagination {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .projects-pagination span {
+    min-width: 0;
+  }
+}

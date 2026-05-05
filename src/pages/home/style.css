@@ -128,7 +128,10 @@
 .about-section h3,
 .about-section p,
 .about-pillars,
-.about-pillar {
+.about-pillar,
+.about-credential,
+.about-credential-content,
+.about-credential-content a {
   background-color: transparent;
 }
 
@@ -165,6 +168,46 @@
   font-size: 0.92rem;
   line-height: 1.55;
   margin-bottom: 0;
+}
+
+.about-credential {
+  align-items: center;
+  border-left: 2px solid rgba(103, 232, 249, 0.45);
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  max-width: 780px;
+  padding-left: 1rem;
+}
+
+.about-credential-badge {
+  background-color: transparent;
+  flex: 0 0 auto;
+  height: 72px;
+  object-fit: contain;
+  width: 72px;
+}
+
+.about-credential-content h3 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.about-credential-content p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 0.35rem;
+}
+
+.about-credential-content a {
+  color: #67e8f9;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.about-credential-content a:hover {
+  color: #fff;
 }
 
 /* CompanyInfo.css */
@@ -269,6 +312,13 @@
   text-align: left;
 }
 
+.projects-cta {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
 /* Seu arquivo CSS ou estilo em linha */
 
 .footer {
@@ -338,5 +388,14 @@
 
   .about-section > p {
     font-size: 0.95rem;
+  }
+
+  .about-credential {
+    align-items: flex-start;
+  }
+
+  .about-credential-badge {
+    height: 64px;
+    width: 64px;
   }
 }
