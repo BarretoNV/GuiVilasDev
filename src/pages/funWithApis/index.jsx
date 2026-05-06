@@ -100,14 +100,12 @@ export default function FunWithAPIs() {
     fetchInitialData();
   }, [fetchNYTScienceNews, fetchNYTTechnologyNews, fetchRandomAdvice]);
 
+  if (shouldShowLoader) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {shouldShowLoader ? (
-        <>
-          <Loader />
-        </>
-      ) : (
-        <>
           <NavBar />
           <Container>
             <Row className="mb-5 mt-5 align-items-center text-light text-center">
@@ -230,8 +228,6 @@ export default function FunWithAPIs() {
               </Col>
             </Row>
           </Container>
-        </>
-      )}
       <Footer />
     </>
   );

@@ -1,0 +1,87 @@
+@import "../blog/style.css";
+
+.post-page,
+.post-article,
+.post-header,
+.post-header h1,
+.post-header p,
+.post-back-link,
+.post-body,
+.post-body h2,
+.post-body h3,
+.post-body p,
+.post-body ul,
+.post-body ol,
+.post-body li,
+.post-body blockquote,
+.post-body a,
+.post-body strong,
+.post-body em {
+  background-color: transparent;
+}
+
+.post-page {
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+}
+
+.post-article {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.post-back-link {
+  color: #67e8f9;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.post-header {
+  margin-bottom: 1.5rem;
+}
+
+.post-header h1 {
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  margin-bottom: 1rem;
+}
+
+.post-header p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.post-cover {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  height: auto;
+  margin-bottom: 1.25rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.post-body {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.02rem;
+  line-height: 1.85;
+  margin-top: 2rem;
+}
+
+.post-body h2,
+.post-body h3 {
+  color: #fff;
+  margin-top: 2rem;
+}
+
+.post-body a {
+  color: #67e8f9;
+}
+
+.post-body blockquote {
+  border-left: 3px solid #67e8f9;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+

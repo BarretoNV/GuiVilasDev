@@ -3,44 +3,75 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./error-page";
-import Home from "./pages/home";
-import FunWithAPIs from "./pages/funWithApis";
-import NewsList from "./pages/scienceNewsList";
-import TechNewsList from "./pages/technologyNewsList";
-import WeatherInfo from "./pages/weatherApi";
-import Projects from "./pages/projects";
-import "./index.css";
+import Loader from "./components/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+const Home = React.lazy(() => import("./pages/home"));
+const FunWithAPIs = React.lazy(() => import("./pages/funWithApis"));
+const NewsList = React.lazy(() => import("./pages/scienceNewsList"));
+const TechNewsList = React.lazy(() => import("./pages/technologyNewsList"));
+const WeatherInfo = React.lazy(() => import("./pages/weatherApi"));
+const Projects = React.lazy(() => import("./pages/projects"));
+const Blog = React.lazy(() => import("./pages/blog"));
+const BlogPost = React.lazy(() => import("./pages/blogPost"));
+const Astrophotography = React.lazy(() => import("./pages/astrophotography"));
+const AstrophotographyPost = React.lazy(
+  () => import("./pages/astrophotographyPost")
+);
+
+const withPageLoader = (page) => (
+  <React.Suspense fallback={<Loader />}>{page}</React.Suspense>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: withPageLoader(<Home />),
     errorElement: <ErrorPage />,
   },
   {
     path: "/funwithapis",
-    element: <FunWithAPIs />,
+    element: withPageLoader(<FunWithAPIs />),
     errorElement: <ErrorPage />,
   },
   {
     path: "/projects",
-    element: <Projects />,
+    element: withPageLoader(<Projects />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/blog",
+    element: withPageLoader(<Blog />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/blog/:slug",
+    element: withPageLoader(<BlogPost />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/astrofotografia",
+    element: withPageLoader(<Astrophotography />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/astrofotografia/:slug",
+    element: withPageLoader(<AstrophotographyPost />),
     errorElement: <ErrorPage />,
   },
   {
     path: "/sciencenewslist",
-    element: <NewsList/>,
+    element: withPageLoader(<NewsList />),
     errorElement: <ErrorPage />,
   },
   {
     path: "/technologynewslist",
-    element: <TechNewsList/>,
+    element: withPageLoader(<TechNewsList />),
     errorElement: <ErrorPage />,
   },
   {
     path: "/weatherinfos",
-    element: <WeatherInfo/>,
+    element: withPageLoader(<WeatherInfo />),
     errorElement: <ErrorPage />,
   },
 ]);

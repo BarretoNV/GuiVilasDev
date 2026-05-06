@@ -6,7 +6,11 @@
 }
 
 .portfolio-card {
-    background-color: #000;
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
 }
 
 .portfolio-description,

@@ -3,7 +3,9 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import Footer from "../Footer";
+import Loader from "../Loader";
 import NavBar from "../navbar";
+import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 import "./style.css";
 
 const formatPubDate = (timestampString) => {
@@ -32,6 +34,7 @@ export default function NYTNewsListPage({ section, title, errorMessage }) {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
+  const shouldShowLoader = useMinimumLoadingTime(loading);
   const [requestError, setRequestError] = useState("");
   const NYTToken = import.meta.env.VITE_NYT_API_KEY;
 
@@ -76,6 +79,10 @@ export default function NYTNewsListPage({ section, title, errorMessage }) {
     setShow(false);
   };
 
+  if (shouldShowLoader) {
+    return <Loader />;
+  }
+
   return (
     <>
       <NavBar />
@@ -90,7 +97,6 @@ export default function NYTNewsListPage({ section, title, errorMessage }) {
         </Row>
 
         <Row>
-          {loading && <p className="text-light">Carregando notícias...</p>}
           {requestError && <p className="text-light">{requestError}</p>}
           {!loading && !requestError && articles.length === 0 && (
             <p className="text-light">Nenhuma notícia encontrada.</p>

@@ -1,0 +1,129 @@
+.content-page,
+.content-page-header,
+.content-page-header p,
+.content-page-header h1,
+.content-empty,
+.content-empty h2,
+.content-empty p,
+.blog-list,
+.blog-card,
+.blog-card-content,
+.blog-card-content h2,
+.blog-card-content p,
+.blog-card-content a,
+.content-meta,
+.content-meta span,
+.content-meta time,
+.tag-list,
+.tag-list li {
+  background-color: transparent;
+}
+
+.content-page {
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+}
+
+.content-page-header {
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+
+.content-page-header p:first-child {
+  color: #67e8f9;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.content-page-header h1 {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.content-page-header p:last-child,
+.content-empty p,
+.blog-card-content p {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+}
+
+.content-empty {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.blog-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.blog-card {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(220px, 340px) 1fr;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.blog-card-image {
+  aspect-ratio: 16 / 10;
+  border-radius: 6px;
+  display: block;
+  overflow: hidden;
+}
+
+.blog-card-image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.content-meta {
+  color: #67e8f9;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.blog-card-content h2 {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+.blog-card-content h2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.blog-card-content h2 a:hover {
+  color: #67e8f9;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.tag-list li {
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.8rem;
+  padding: 0.25rem 0.65rem;
+}
+
+@media (max-width: 767.98px) {
+  .blog-card {
+    grid-template-columns: 1fr;
+  }
+}
+

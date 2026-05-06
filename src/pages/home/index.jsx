@@ -202,14 +202,12 @@ export default function Home() {
 
   const featuredProjects = projects.slice(0, 3);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : (
-        <>
           <NavBar />
           <section
             className="hero-section"
@@ -475,8 +473,6 @@ export default function Home() {
               </Col>
             </Row>
           </Container>
-        </>
-      )}
       <Footer />
     </>
   );

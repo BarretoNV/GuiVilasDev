@@ -1,0 +1,63 @@
+@import "../blogPost/style.css";
+
+.astro-detail-page,
+.astro-detail,
+.astro-details-list,
+.astro-details-list div,
+.astro-details-list dt,
+.astro-details-list dd {
+  background-color: transparent;
+}
+
+.astro-detail-page {
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+}
+
+.astro-detail {
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+.astro-detail-image {
+  border-radius: 8px;
+  display: block;
+  height: auto;
+  margin-bottom: 1.5rem;
+  max-height: 78vh;
+  object-fit: contain;
+  width: 100%;
+}
+
+.astro-details-list {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1.5rem 0 2rem;
+  overflow: hidden;
+}
+
+.astro-details-list div {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1rem;
+}
+
+.astro-details-list dt {
+  color: #67e8f9;
+  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
+}
+
+.astro-details-list dd {
+  color: rgba(255, 255, 255, 0.84);
+  margin: 0;
+}
+
+@media (max-width: 767.98px) {
+  .astro-details-list {
+    grid-template-columns: 1fr;
+  }
+}
+

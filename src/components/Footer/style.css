@@ -1,3 +1,37 @@
-* {
-    overflow-x: hidden;
+.footer {
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  padding: 2.5rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.footer,
+.footer .container,
+.footer .row,
+.footer [class*="col"],
+.footer h3,
+.footer p {
+  background-color: transparent;
+}
+
+.footer-content {
+  align-items: flex-start;
+  row-gap: 2rem;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.footer a:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 767.98px) {
+  .footer {
+    padding: 2rem 0;
+  }
 }

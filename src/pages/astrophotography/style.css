@@ -1,0 +1,60 @@
+@import "../blog/style.css";
+
+.astro-grid,
+.astro-card,
+.astro-card a,
+.astro-card-content,
+.astro-card-content h2,
+.astro-card-content p,
+.astro-target {
+  background-color: transparent;
+}
+
+.astro-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.astro-card {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.astro-card-image {
+  aspect-ratio: 4 / 3;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.astro-card-content {
+  padding: 1rem;
+}
+
+.astro-card-content h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.astro-card-content h2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.astro-card-content h2 a:hover {
+  color: #67e8f9;
+}
+
+.astro-card-content p {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+}
+
+.astro-target {
+  color: #67e8f9 !important;
+  margin-bottom: 0.4rem;
+}
+

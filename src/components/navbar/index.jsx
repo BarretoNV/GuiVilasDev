@@ -2,9 +2,25 @@ import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Logo from "../../assets/GV.png";
 import "./style.css";
+
+const pageLinks = [
+  { href: "/", label: "Início" },
+  { href: "/projects", label: "Projetos" },
+  { href: "/funwithapis", label: "Consumo de APIs" },
+  { href: "/blog", label: "Blog" },
+  { href: "/astrofotografia", label: "Astrofotografia" },
+];
+
+const homeLinks = [
+  { href: "/#aboutMe", label: "Sobre mim" },
+  { href: "/#workHistory", label: "Experiência" },
+  { href: "/#projects", label: "Destaques" },
+  { href: "/#contact", label: "Contato" },
+];
 
 function NavBar() {
   const [isActive, setIsActive] = useState(false);
@@ -12,53 +28,76 @@ function NavBar() {
     () => `${window.location.pathname}${window.location.hash}`
   );
 
+  const isPagesDropdownActive =
+    pageLinks.some((link) => activeKey === link.href) ||
+    activeKey.startsWith("/blog/") ||
+    activeKey.startsWith("/astrofotografia/");
+  const isHomeDropdownActive = homeLinks.some((link) => activeKey === link.href);
+
   const toggleButton = () => {
     setIsActive((currentState) => !currentState);
   };
 
-  const getNavLinkClass = (href) =>
-    `nav-link-custom ${activeKey === href ? "active" : ""}`;
+  const getDropdownItemClass = (href) =>
+    `nav-dropdown-item ${activeKey === href ? "active" : ""}`;
+
+  const handleBrandClick = (event) => {
+    if (window.location.pathname !== "/") {
+      return;
+    }
+
+    event.preventDefault();
+    window.history.pushState(null, "", "/");
+    setActiveKey("/");
+    setIsActive(false);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handlePageLinkClick = (href) => {
+    setActiveKey(href);
+    setIsActive(false);
+  };
+
+  const handleHomeLinkClick = (event, href) => {
+    const targetId = href.split("#")[1];
+    const targetElement = targetId ? document.getElementById(targetId) : null;
+
+    if (targetElement && window.location.pathname === "/") {
+      event.preventDefault();
+
+      const navbar = document.querySelector(".custom-navbar");
+      const navbarHeight = navbar?.clientHeight || 0;
+      const targetPosition = targetElement.offsetTop - navbarHeight;
+
+      window.history.pushState(null, "", href);
+      setActiveKey(href);
+      setIsActive(false);
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    setActiveKey(href);
+    setIsActive(false);
+  };
 
   useEffect(() => {
-    const navbar = document.querySelector(".custom-navbar");
-    const links = document.querySelectorAll(".nav-link-custom[href*='#']");
-
     const syncActiveKey = () => {
       setActiveKey(`${window.location.pathname}${window.location.hash}`);
     };
 
-    const scrollToSection = (event) => {
-      const link = event.currentTarget;
-      const href = link.getAttribute("href");
-      const targetId = href?.split("#")[1];
-      const targetElement = targetId ? document.getElementById(targetId) : null;
-
-      if (targetElement && window.location.pathname === "/") {
-        event.preventDefault();
-        const navbarHeight = navbar?.clientHeight || 0;
-        const targetPosition = targetElement.offsetTop - navbarHeight;
-
-        window.history.pushState(null, "", `/#${targetId}`);
-        setActiveKey(`/#${targetId}`);
-        setIsActive(false);
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
-      }
-    };
-
-    links.forEach((link) => {
-      link.addEventListener("click", scrollToSection);
-    });
     window.addEventListener("popstate", syncActiveKey);
     window.addEventListener("hashchange", syncActiveKey);
 
     return () => {
-      links.forEach((link) => {
-        link.removeEventListener("click", scrollToSection);
-      });
       window.removeEventListener("popstate", syncActiveKey);
       window.removeEventListener("hashchange", syncActiveKey);
     };
@@ -73,7 +112,11 @@ function NavBar() {
         fixed="top"
       >
         <Container>
-          <Navbar.Brand className="navbar-brand-custom" href="/">
+          <Navbar.Brand
+            className="navbar-brand-custom"
+            href="/"
+            onClick={handleBrandClick}
+          >
             <img
               src={Logo}
               width="30"
@@ -98,54 +141,47 @@ function NavBar() {
           </Navbar.Toggle>
 
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav
-              className="me-auto navbar-primary-links"
-              onSelect={() => setIsActive(false)}
-            >
-              <Nav.Link
-                href="/"
-                className={getNavLinkClass("/")}
-                onClick={() => setActiveKey("/")}
+            <Nav className="me-auto navbar-primary-links">
+              <NavDropdown
+                title="Páginas"
+                id="pages-nav-dropdown"
+                className={`nav-dropdown-custom ${
+                  isPagesDropdownActive ? "active" : ""
+                }`}
               >
-                Início
-              </Nav.Link>
-              <Nav.Link
-                href="/funwithapis"
-                className={getNavLinkClass("/funwithapis")}
-                onClick={() => setActiveKey("/funwithapis")}
+                {pageLinks.map((link) => (
+                  <NavDropdown.Item
+                    key={link.href}
+                    href={link.href}
+                    className={getDropdownItemClass(link.href)}
+                    onClick={() => handlePageLinkClick(link.href)}
+                  >
+                    {link.label}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+
+              <NavDropdown
+                title="Home"
+                id="home-nav-dropdown"
+                className={`nav-dropdown-custom ${
+                  isHomeDropdownActive ? "active" : ""
+                }`}
               >
-                Consumo de APIs
-              </Nav.Link>
+                {homeLinks.map((link) => (
+                  <NavDropdown.Item
+                    key={link.href}
+                    href={link.href}
+                    className={getDropdownItemClass(link.href)}
+                    onClick={(event) => handleHomeLinkClick(event, link.href)}
+                  >
+                    {link.label}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
             </Nav>
 
-            <Nav
-              className="navbar-section-links"
-              onSelect={() => setIsActive(false)}
-            >
-              <Nav.Link
-                href="/#aboutMe"
-                className={getNavLinkClass("/#aboutMe")}
-              >
-                01. Sobre mim
-              </Nav.Link>
-              <Nav.Link
-                href="/#workHistory"
-                className={getNavLinkClass("/#workHistory")}
-              >
-                02. Experiência
-              </Nav.Link>
-              <Nav.Link
-                href="/#projects"
-                className={getNavLinkClass("/#projects")}
-              >
-                03. Projetos
-              </Nav.Link>
-              <Nav.Link
-                href="/#contact"
-                className={getNavLinkClass("/#contact")}
-              >
-                04. Contato
-              </Nav.Link>
+            <Nav className="navbar-section-links">
               <Button
                 type="button"
                 variant="outline-light"

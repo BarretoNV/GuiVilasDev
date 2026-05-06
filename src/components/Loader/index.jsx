@@ -3,9 +3,9 @@ import "./style.css";
 
 const Loader = () => {
   return (
-    <div className="loader" role="status" aria-label="Carregando conteúdo">
+    <main className="loader" role="status" aria-label="Carregando conteúdo">
       <img src={LoadingGIF} alt="" className="loader-image" />
-    </div>
+    </main>
   );
 };
 
