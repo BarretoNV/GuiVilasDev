@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -19,7 +19,7 @@ const homeLinks = [
   { href: "/#aboutMe", label: "Sobre mim" },
   { href: "/#workHistory", label: "Experiência" },
   { href: "/#projects", label: "Destaques" },
-  { href: "/#contact", label: "Contato" },
+  { href: "/#culture", label: "Outros" },
 ];
 
 function NavBar() {
@@ -62,25 +62,33 @@ function NavBar() {
     setIsActive(false);
   };
 
-  const handleHomeLinkClick = (event, href) => {
+  const scrollToHomeTarget = useCallback((href, behavior = "smooth") => {
     const targetId = href.split("#")[1];
     const targetElement = targetId ? document.getElementById(targetId) : null;
 
-    if (targetElement && window.location.pathname === "/") {
-      event.preventDefault();
+    if (!targetElement) {
+      return false;
+    }
 
-      const navbar = document.querySelector(".custom-navbar");
-      const navbarHeight = navbar?.clientHeight || 0;
-      const targetPosition = targetElement.offsetTop - navbarHeight;
+    const navbar = document.querySelector(".custom-navbar");
+    const navbarHeight = navbar?.clientHeight || 0;
+    const targetPosition = targetElement.offsetTop - navbarHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior,
+    });
+
+    return true;
+  }, []);
+
+  const handleHomeLinkClick = (event, href) => {
+    if (window.location.pathname === "/" && scrollToHomeTarget(href)) {
+      event.preventDefault();
 
       window.history.pushState(null, "", href);
       setActiveKey(href);
       setIsActive(false);
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth",
-      });
 
       return;
     }
@@ -94,6 +102,18 @@ function NavBar() {
       setActiveKey(`${window.location.pathname}${window.location.hash}`);
     };
 
+    const alignInitialHash = () => {
+      if (window.location.pathname !== "/" || !window.location.hash) {
+        return;
+      }
+
+      window.requestAnimationFrame(() => {
+        scrollToHomeTarget(`/${window.location.hash}`, "auto");
+      });
+    };
+
+    alignInitialHash();
+
     window.addEventListener("popstate", syncActiveKey);
     window.addEventListener("hashchange", syncActiveKey);
 
@@ -101,7 +121,7 @@ function NavBar() {
       window.removeEventListener("popstate", syncActiveKey);
       window.removeEventListener("hashchange", syncActiveKey);
     };
-  }, []);
+  }, [scrollToHomeTarget]);
 
   return (
     <>
@@ -124,7 +144,7 @@ function NavBar() {
               className="navbar-logo"
               alt="Logo Gui Vilas"
             />
-            <span>Gui Vilas v2.0</span>
+            <span>Gui Vilas v3.0</span>
           </Navbar.Brand>
 
           <Navbar.Toggle
@@ -190,7 +210,7 @@ function NavBar() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Currículo
+                Currículo (desatualizado)
               </Button>
             </Nav>
           </Navbar.Collapse>

@@ -102,8 +102,8 @@ export default function WeatherAPI() {
             </Alert>
           ) : (
             <Alert variant="warning">
-              Informe o nome de uma cidade e clique em "Enviar" para verificar o
-              clima.
+              Informe o nome de uma cidade e clique em &quot;Enviar&quot; para
+              verificar o clima.
             </Alert>
           )}
         </div>

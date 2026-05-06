@@ -19,6 +19,14 @@ const details = [
   ["Processamento", "processing"],
 ];
 
+const getPostImages = (post) => {
+  if (Array.isArray(post.images) && post.images.length > 0) {
+    return post.images;
+  }
+
+  return post.image ? [post.image] : [];
+};
+
 export default function AstrophotographyPost() {
   const { slug } = useParams();
   const post = getAstrophotographyPostBySlug(slug);
@@ -41,6 +49,8 @@ export default function AstrophotographyPost() {
 
   const Content = post.Content;
   const visibleDetails = details.filter(([, key]) => post[key]);
+  const images = getPostImages(post);
+  const [featuredImage, ...supportingImages] = images;
 
   return (
     <>
@@ -63,14 +73,38 @@ export default function AstrophotographyPost() {
             {post.excerpt && <p>{post.excerpt}</p>}
           </header>
 
-          <CloudinaryImage
-            image={post.image}
-            alt={post.image?.alt || post.title}
-            className="astro-detail-image"
-            sizes="(max-width: 992px) 100vw, 1100px"
-            width={1440}
-            loading="eager"
-          />
+          {featuredImage && (
+            <figure className="astro-featured-figure">
+              <CloudinaryImage
+                image={featuredImage}
+                alt={featuredImage.alt || post.title}
+                className="astro-detail-image"
+                sizes="(max-width: 992px) 100vw, 1100px"
+                width={1440}
+                loading="eager"
+              />
+              {featuredImage.caption && (
+                <figcaption>{featuredImage.caption}</figcaption>
+              )}
+            </figure>
+          )}
+
+          {supportingImages.length > 0 && (
+            <section className="astro-image-gallery" aria-label="Imagens complementares">
+              {supportingImages.map((image, index) => (
+                <figure className="astro-gallery-item" key={image.publicId || image.url || index}>
+                  <CloudinaryImage
+                    image={image}
+                    alt={image.alt || `${post.title} - imagem ${index + 2}`}
+                    className="astro-gallery-image"
+                    sizes="(max-width: 992px) 100vw, 540px"
+                    width={900}
+                  />
+                  {image.caption && <figcaption>{image.caption}</figcaption>}
+                </figure>
+              ))}
+            </section>
+          )}
 
           {visibleDetails.length > 0 && (
             <dl className="astro-details-list">
@@ -92,4 +126,3 @@ export default function AstrophotographyPost() {
     </>
   );
 }
-

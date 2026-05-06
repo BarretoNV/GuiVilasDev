@@ -2,6 +2,9 @@
 
 .astro-detail-page,
 .astro-detail,
+.astro-featured-figure,
+.astro-image-gallery,
+.astro-gallery-item,
 .astro-details-list,
 .astro-details-list div,
 .astro-details-list dt,
@@ -19,11 +22,39 @@
   max-width: 1100px;
 }
 
+.astro-featured-figure,
+.astro-gallery-item {
+  margin: 0;
+}
+
 .astro-detail-image {
   border-radius: 8px;
   display: block;
   height: auto;
-  margin-bottom: 1.5rem;
+  max-height: 78vh;
+  object-fit: contain;
+  width: 100%;
+}
+
+.astro-featured-figure figcaption,
+.astro-gallery-item figcaption {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-top: 0.6rem;
+}
+
+.astro-image-gallery {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin: 1.5rem 0;
+}
+
+.astro-gallery-image {
+  border-radius: 8px;
+  display: block;
+  height: auto;
   max-height: 78vh;
   object-fit: contain;
   width: 100%;
@@ -60,4 +91,3 @@
     grid-template-columns: 1fr;
   }
 }
-

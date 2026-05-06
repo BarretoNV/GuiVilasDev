@@ -6,6 +6,8 @@ import CloudinaryImage from "../../components/CloudinaryImage";
 import { astrophotographyPosts } from "../../data/content";
 import "./style.css";
 
+const getCardImage = (post) => post.images?.[0] || post.image;
+
 export default function Astrophotography() {
   return (
     <>
@@ -31,34 +33,40 @@ export default function Astrophotography() {
           </section>
         ) : (
           <section className="astro-grid" aria-label="Galeria de astrofotografia">
-            {astrophotographyPosts.map((post) => (
-              <article className="astro-card" key={post.slug}>
-                <Link to={`/astrofotografia/${post.slug}`}>
-                  <CloudinaryImage
-                    image={post.image}
-                    alt={post.image?.alt || post.title}
-                    sizes="(max-width: 768px) 100vw, 420px"
-                    width={840}
-                    className="astro-card-image"
-                  />
-                </Link>
-                <div className="astro-card-content">
-                  <div className="content-meta">
-                    {post.date && (
-                      <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString("pt-BR")}
-                      </time>
-                    )}
-                    {post.constellation && <span>{post.constellation}</span>}
+            {astrophotographyPosts.map((post) => {
+              const cardImage = getCardImage(post);
+
+              return (
+                <article className="astro-card" key={post.slug}>
+                  {cardImage && (
+                    <Link to={`/astrofotografia/${post.slug}`}>
+                      <CloudinaryImage
+                        image={cardImage}
+                        alt={cardImage.alt || post.title}
+                        sizes="(max-width: 768px) 100vw, 420px"
+                        width={840}
+                        className="astro-card-image"
+                      />
+                    </Link>
+                  )}
+                  <div className="astro-card-content">
+                    <div className="content-meta">
+                      {post.date && (
+                        <time dateTime={post.date}>
+                          {new Date(post.date).toLocaleDateString("pt-BR")}
+                        </time>
+                      )}
+                      {post.constellation && <span>{post.constellation}</span>}
+                    </div>
+                    <h2>
+                      <Link to={`/astrofotografia/${post.slug}`}>{post.title}</Link>
+                    </h2>
+                    {post.target && <p className="astro-target">{post.target}</p>}
+                    {post.excerpt && <p>{post.excerpt}</p>}
                   </div>
-                  <h2>
-                    <Link to={`/astrofotografia/${post.slug}`}>{post.title}</Link>
-                  </h2>
-                  {post.target && <p className="astro-target">{post.target}</p>}
-                  {post.excerpt && <p>{post.excerpt}</p>}
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </section>
         )}
       </Container>
@@ -66,4 +74,3 @@ export default function Astrophotography() {
     </>
   );
 }
-

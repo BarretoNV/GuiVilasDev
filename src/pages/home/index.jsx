@@ -2,19 +2,27 @@ import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import PortfolioItem from "../../components/PortfolioItem";
-import ContactForm from "../../components/ContactForm";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import ImagesObject from "../../assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faInstagram,
+  faLinkedin,
+  faSpotify,
+} from "@fortawesome/free-brands-svg-icons";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 import projects from "../../data/projects";
 
 import "./style.css";
 import imageObj from "../../assets/images";
 
-const formatDurationSince = (startYear, startMonthIndex, referenceDate = new Date()) => {
+const formatDurationSince = (
+  startYear,
+  startMonthIndex,
+  referenceDate = new Date(),
+) => {
   const currentYear = referenceDate.getFullYear();
   const currentMonthIndex = referenceDate.getMonth();
   const totalMonths =
@@ -170,7 +178,8 @@ export default function Home() {
           period: "abr de 2019 - jan de 2022 · 2 anos 10 meses",
           description:
             "Primeiro contato profissional com desenvolvimento web e front-end, criando sites em WordPress e React.js.",
-          stack: "CSS · React.js · GitFlow · Git · Informática · SASS · JavaScript · HTML",
+          stack:
+            "CSS · React.js · GitFlow · Git · Informática · SASS · JavaScript · HTML",
         },
         {
           title: "Coordenador de Endomarketing",
@@ -201,278 +210,336 @@ export default function Home() {
   );
 
   const featuredProjects = projects.slice(0, 3);
-
   if (loading) {
     return <Loader />;
   }
 
   return (
     <>
-          <NavBar />
-          <section
-            className="hero-section"
-            style={{ "--hero-image": `url(${imageObj.heroPic})` }}
-          >
-            <Container className="hero-container">
-              <Row className="hero-row align-items-center">
-                <Col lg={9} xl={8}>
-                  <div className="hero-content text-light">
-                    <p>Olá mundo, meu nome é</p>
-                    <h1>
-                      <b>Guilherme Vilas</b>
-                    </h1>
-                    <h2>Engenheiro da Computação</h2>
-                    <p>
-                      Trabalho na interseção entre tecnologia, marketing digital
-                      e criação visual. Atuo com estratégia de conteúdo para
-                      restaurantes, edição de vídeos, social media, disparos de
-                      mensagens e otimização de Google Meu Negócio.
-                    </p>{" "}
-                    <p>
-                      Tenho experiência com Front-End em React.js e JavaScript,
-                      além de formação inicial em design e fotografia. Formado
-                      em engenharia pelo
-                      <a
-                        href="https://portal1.iff.edu.br"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {" "}
-                        Instituto Federal Fluminense.
-                      </a>
-                    </p>
-                    <Button
-                      type="button"
-                      variant="dark"
-                      href="https://www.linkedin.com/in/guibarreto/"
-                      target="_blank"
-                      size="lg"
-                      className="hero-linkedin-button"
-                    >
-                      Meu Linkedin
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-              <small className="hero-credit">Imagem: NASA.gov</small>
-              <div className="hero-scroll-indicator">
-                <img src={imageObj.scrollDown} alt="Role para baixo" />
-              </div>
-            </Container>
-          </section>
-          <Container>
-            <Row id="aboutMe" className="mt-5 mb-5 text-light">
-              <Col sm={12}>
-                <div className="about-section">
-                  <h2>01. Sobre mim</h2>
-                  <p>
-                    Sou engenheiro da computação e trabalho na interseção entre
-                    produto digital, conteúdo e operação de marketing. Minha
-                    trajetória passou por desenvolvimento front-end, projetos em
-                    React.js e, mais recentemente, pela rotina de social media,
-                    gestão de contas e presença digital para marcas e
-                    restaurantes.
-                  </p>
-                  <p>
-                    Gosto de atuar onde a parte técnica encontra o problema de
-                    negócio: estruturar interfaces, consumir APIs, organizar
-                    processos, criar narrativas para redes sociais, acompanhar
-                    métricas e transformar demandas soltas em entregas mais
-                    claras para clientes e equipes.
-                  </p>
-                  <p>Hoje meu trabalho conecta:</p>
-                  <div className="about-pillars">
-                    <article className="about-pillar">
-                      <h3>Estratégia e conteúdo</h3>
-                      <p>
-                        Planejamento editorial, narrativas para redes sociais,
-                        criativos e consistência de comunicação.
-                      </p>
-                    </article>
-                    <article className="about-pillar">
-                      <h3>Operação e relacionamento</h3>
-                      <p>
-                        Gestão de contas, suporte, rotina com clientes e
-                        alinhamento de expectativas.
-                      </p>
-                    </article>
-                    <article className="about-pillar">
-                      <h3>Produto e tecnologia</h3>
-                      <p>
-                        React, JavaScript, APIs, interfaces, automações e
-                        pensamento de engenharia aplicado.
-                      </p>
-                    </article>
-                    <article className="about-pillar">
-                      <h3>Métricas e melhoria contínua</h3>
-                      <p>
-                        Google Meu Negócio, campanhas, leitura de resultados e
-                        ajustes de presença digital.
-                      </p>
-                    </article>
-                  </div>
-                  <div className="about-credential">
-                    <img
-                      src={ImagesObject.clickUpPowerUserBadge}
-                      alt="Selo ClickUp Power User"
-                      className="about-credential-badge"
-                    />
-                    <div className="about-credential-content">
-                      <h3>ClickUp Power User</h3>
-                      <p>
-                        Usuário avançado autenticado pela ClickUp,
-                        reconhecimento associado ao uso intenso da plataforma em
-                        operações, dashboards, tarefas e processos.
-                      </p>
-                      <a
-                        href="https://clickup.com/verified-power-user"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Ver programa ClickUp Verified
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-            <Row id="workHistory" className="mt-5 mb-5 text-light">
-              <Col md={12}>
-                <h2>02. Minha carreira</h2>
-              </Col>
-              <Row>
-                <Col
-                  md={4}
-                  className="d-grid gap-2 gap-md-5 mb-4 menu-container"
+      <NavBar />
+      <section
+        className="hero-section"
+        style={{ "--hero-image": `url(${imageObj.heroPic})` }}
+      >
+        <Container className="hero-container">
+          <Row className="hero-row align-items-center">
+            <Col lg={9} xl={8}>
+              <div className="hero-content text-light">
+                <p>Olá mundo, meu nome é</p>
+                <h1>
+                  <b>Guilherme Vilas</b>
+                </h1>
+                <h2>Engenheiro da Computação</h2>
+                <p>
+                  Trabalho na interseção entre tecnologia, marketing digital e
+                  criação visual. Atuo com estratégia de conteúdo para
+                  restaurantes, edição de vídeos, social media, disparos de
+                  mensagens e otimização de Google Meu Negócio.
+                </p>{" "}
+                <p>
+                  Tenho experiência com Front-End em React.js e JavaScript, além
+                  de formação inicial em design e fotografia. Formado em
+                  engenharia pelo
+                  <a
+                    href="https://portal1.iff.edu.br"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {" "}
+                    Instituto Federal Fluminense.
+                  </a>
+                </p>
+                <Button
+                  type="button"
+                  variant="dark"
+                  href="https://www.linkedin.com/in/guibarreto/"
+                  target="_blank"
+                  size="lg"
+                  className="hero-linkedin-button"
                 >
-                  <ul className="menu-list">
-                    {companies.map((company) => (
-                      <li key={company.value}>
-                        <Button
-                          variant={
-                            selectedCompany === company.value
-                              ? "light"
-                              : "outline-light"
-                          }
-                          onClick={() => setSelectedCompany(company.value)}
-                        >
-                          {company.value}
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
+                  Meu Linkedin
+                </Button>
+              </div>
+            </Col>
+          </Row>
+          <small className="hero-credit">Imagem: NASA.gov</small>
+          <div className="hero-scroll-indicator">
+            <img src={imageObj.scrollDown} alt="Role para baixo" />
+          </div>
+        </Container>
+      </section>
+      <Container>
+        <Row id="aboutMe" className="mt-5 mb-5 text-light">
+          <Col sm={12}>
+            <div className="about-section">
+              <h2>01. Sobre mim</h2>
+              <p>
+                Sou engenheiro da computação e trabalho na interseção entre
+                produto digital, conteúdo e operação de marketing. Minha
+                trajetória passou por desenvolvimento front-end, projetos em
+                React.js e, mais recentemente, pela rotina de social media,
+                gestão de contas e presença digital para marcas e restaurantes.
+              </p>
+              <p>
+                Gosto de atuar onde a parte técnica encontra o problema de
+                negócio: estruturar interfaces, consumir APIs, organizar
+                processos, criar narrativas para redes sociais, acompanhar
+                métricas e transformar demandas soltas em entregas mais claras
+                para clientes e equipes.
+              </p>
+              <p>Hoje meu trabalho conecta:</p>
+              <div className="about-pillars">
+                <article className="about-pillar">
+                  <h3>Estratégia e conteúdo</h3>
+                  <p>
+                    Planejamento editorial, narrativas para redes sociais,
+                    criativos e consistência de comunicação.
+                  </p>
+                </article>
+                <article className="about-pillar">
+                  <h3>Operação e relacionamento</h3>
+                  <p>
+                    Gestão de contas, suporte, rotina com clientes e alinhamento
+                    de expectativas.
+                  </p>
+                </article>
+                <article className="about-pillar">
+                  <h3>Produto e tecnologia</h3>
+                  <p>
+                    React, JavaScript, APIs, interfaces, automações e pensamento
+                    de engenharia aplicado.
+                  </p>
+                </article>
+                <article className="about-pillar">
+                  <h3>Métricas e melhoria contínua</h3>
+                  <p>
+                    Google Meu Negócio, campanhas, leitura de resultados e
+                    ajustes de presença digital.
+                  </p>
+                </article>
+              </div>
+              <div className="about-credential">
+                <img
+                  src={ImagesObject.clickUpPowerUserBadge}
+                  alt="Selo ClickUp Power User"
+                  className="about-credential-badge"
+                />
+                <div className="about-credential-content">
+                  <h3>ClickUp Power User</h3>
+                  <p>
+                    Usuário avançado autenticado pela ClickUp, reconhecimento
+                    associado ao uso intenso da plataforma em operações,
+                    dashboards, tarefas e processos.
+                  </p>
+                  <a
+                    href="https://clickup.com/verified-power-user"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Ver programa ClickUp Verified
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <Row id="workHistory" className="mt-5 mb-5 text-light">
+          <Col md={12}>
+            <h2>02. Minha carreira</h2>
+          </Col>
+          <Row>
+            <Col md={4} className="d-grid gap-2 gap-md-5 mb-4 menu-container">
+              <ul className="menu-list">
+                {companies.map((company) => (
+                  <li key={company.value}>
+                    <Button
+                      variant={
+                        selectedCompany === company.value
+                          ? "light"
+                          : "outline-light"
+                      }
+                      onClick={() => setSelectedCompany(company.value)}
+                    >
+                      {company.value}
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </Col>
+            <Col md={8}>
+              <Row className="company-info">
+                <Col md={3}>
+                  <img
+                    src={selectedCompanyData.logo}
+                    alt={selectedCompanyData.value}
+                    className="company-logo"
+                  />
                 </Col>
                 <Col md={8}>
-                  <Row className="company-info">
-                    <Col md={3}>
-                      <img
-                        src={selectedCompanyData.logo}
-                        alt={selectedCompanyData.value}
-                        className="company-logo"
-                      />
-                    </Col>
-                    <Col md={8}>
-                      <div className="company-details">
-                        <h3>{selectedCompanyData.value}</h3>
-                        {selectedCompanyData.companyMeta && (
-                          <p className="company-meta">
-                            {selectedCompanyData.companyMeta}
-                          </p>
-                        )}
-                        {selectedCompanyData.location && (
-                          <p className="company-location">
-                            {selectedCompanyData.location}
-                          </p>
-                        )}
-                      </div>
-                      <div className="company-roles">
-                        {selectedCompanyData.roles.map((role) => (
-                          <article className="company-role" key={role.title}>
-                            <h4>{role.title}</h4>
-                            <p className="role-period">{role.period}</p>
-                            <p>{role.description}</p>
-                            <p className="company-stack">
-                              <b>Competências:</b> {role.stack}
-                            </p>
-                          </article>
-                        ))}
-                      </div>
-                    </Col>
-                  </Row>
+                  <div className="company-details">
+                    <h3>{selectedCompanyData.value}</h3>
+                    {selectedCompanyData.companyMeta && (
+                      <p className="company-meta">
+                        {selectedCompanyData.companyMeta}
+                      </p>
+                    )}
+                    {selectedCompanyData.location && (
+                      <p className="company-location">
+                        {selectedCompanyData.location}
+                      </p>
+                    )}
+                  </div>
+                  <div className="company-roles">
+                    {selectedCompanyData.roles.map((role) => (
+                      <article className="company-role" key={role.title}>
+                        <h4>{role.title}</h4>
+                        <p className="role-period">{role.period}</p>
+                        <p>{role.description}</p>
+                        <p className="company-stack">
+                          <b>Competências:</b> {role.stack}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
                 </Col>
               </Row>
-            </Row>
-            <Row id="projects" className="mt-5 mb-5 text-light">
-              <Col md={12}>
-                <h2>03. Alguns projetos que fiz</h2>
-              </Col>
-              <section className="portfolio">
-                <div className="portfolio-grid">
-                  {featuredProjects.map((project, index) => (
-                    <PortfolioItem key={index} {...project} />
-                  ))}
-                </div>
-                <div className="projects-cta">
-                  <Button
-                    type="button"
-                    variant="outline-primary"
-                    href="/projects"
-                    size="lg"
-                  >
-                    Ver todos os projetos
-                  </Button>
-                </div>
-              </section>
-            </Row>
-            <Row
-              id="contact"
-              className="mb-5 mt-5 align-items-center text-light"
-              style={{ height: "80vh" }}
-            >
-              <Col md={12}>
-                <h2>04. Entre em contato comigo</h2>
-              </Col>
-              <Col md={8} className="text-center">
-                <h3>Minhas redes sociais:</h3>
-                <ul className="list-unstyled">
-                  <li>
-                    <Button
-                      href="https://www.linkedin.com/in/guibarreto/"
-                      target="_blank"
-                      variant="outline-primary"
-                      className="mb-2"
-                    >
-                      <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      href="https://www.instagram.com/barretonvilas/"
-                      target="_blank"
-                      variant="outline-primary"
-                      className="mb-2"
-                    >
-                      <FontAwesomeIcon icon={faInstagram} /> Instagram
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      href="https://www.instagram.com/gbarretodesign/"
-                      target="_blank"
-                      variant="outline-primary"
-                      className="mb-2"
-                    >
-                      <FontAwesomeIcon icon={faInstagram} /> Design
-                    </Button>
-                  </li>
-                </ul>
-              </Col>
-              <Col md={4}>
-                <ContactForm />
-              </Col>
-            </Row>
-          </Container>
+            </Col>
+          </Row>
+        </Row>
+        <Row id="projects" className="mt-5 mb-5 text-light">
+          <Col md={12}>
+            <h2>03. Alguns projetos que fiz</h2>
+          </Col>
+          <section className="portfolio">
+            <div className="portfolio-grid">
+              {featuredProjects.map((project, index) => (
+                <PortfolioItem key={index} {...project} />
+              ))}
+            </div>
+            <div className="projects-cta">
+              <Button
+                type="button"
+                variant="outline-primary"
+                href="/projects"
+                size="lg"
+              >
+                Ver todos os projetos
+              </Button>
+            </div>
+          </section>
+        </Row>
+        <Row id="culture" className="mt-5 mb-5 text-light culture-section">
+          <Col md={12}>
+            <h2>04. Outros</h2>
+            <p className="culture-intro">
+              Músicas e filmes que eu gosto.
+            </p>
+          </Col>
+          <Col lg={8} className="mb-4 mb-lg-0">
+            <div className="spotify-embed-wrapper">
+              <iframe
+                data-testid="embed-iframe"
+                src="https://open.spotify.com/embed/playlist/3XYLiGb2FzX7kgpM84BWXX?utm_source=generator"
+                width="100%"
+                height="352"
+                frameBorder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </Col>
+              <Col lg={4}>
+                <article className="letterboxd-card">
+                  <img
+                    src={ImagesObject.letterboxdLogo}
+                    alt="Letterboxd"
+                    className="letterboxd-logo"
+                  />
+                  <h3>Meu diário de filmes</h3>
+              <p>
+                Não espere resenhas profundas.
+              </p>
+              <Button
+                href="https://letterboxd.com/guibarr3to/"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+                className="letterboxd-link"
+              >
+                Abrir Letterboxd
+              </Button>
+            </article>
+          </Col>
+        </Row>
+        <Row
+          id="contact-legacy"
+          className="mb-5 mt-5 align-items-center text-light contact-section"
+        >
+          <Col md={12}>
+            <h2>05. Entre em contato comigo</h2>
+          </Col>
+          <Col lg={5}>
+            <p className="contact-copy">
+              Para conversar sobre projetos, conteúdo, tecnologia ou uma boa
+              ideia ainda meio solta, estes são os melhores caminhos.
+            </p>
+          </Col>
+          <Col lg={7}>
+            <div className="contact-links">
+              <Button
+                href="https://www.linkedin.com/in/guibarreto/"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
+              </Button>
+              <Button
+                href="https://www.instagram.com/barretonvilas/"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                <FontAwesomeIcon icon={faInstagram} /> Instagram
+              </Button>
+              <Button
+                href="https://www.instagram.com/gbarretodesign/"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                <FontAwesomeIcon icon={faInstagram} /> Design
+              </Button>
+              <Button
+                href="https://github.com/BarretoNV"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                <FontAwesomeIcon icon={faGithub} /> GitHub
+              </Button>
+              <Button
+                href="https://open.spotify.com/playlist/37i9dQZF1F5p3rmiWPIYgZ"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                <FontAwesomeIcon icon={faSpotify} /> Spotify
+              </Button>
+              <Button
+                href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline-primary"
+              >
+                Currículo
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Container>
       <Footer />
     </>
   );

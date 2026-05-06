@@ -27,6 +27,7 @@ import blocklyScreenshot from './blockly.png';
 import n8nScreenshot from './n8n.png';
 import clickUpScreenshot from './clickUp.png';
 import clickUpPowerUserBadge from './CluckupPowerUser.png';
+import letterboxdLogo from './logo-letterboxd.png';
 
 const imageObj = {
   aureaLogo,
@@ -58,6 +59,7 @@ const imageObj = {
   n8nScreenshot,
   clickUpScreenshot,
   clickUpPowerUserBadge,
+  letterboxdLogo,
 };
 
 export default imageObj;

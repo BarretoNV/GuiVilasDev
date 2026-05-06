@@ -22,15 +22,13 @@ const ContactForm = () => {
         "Ycq5-IiWAbEwYYJ5-"
       )
       .then(
-        (result) => {
+        () => {
           setSuccessMessage("E-mail enviado com sucesso.");
           setErrorMessage(""); // Limpar mensagem de erro, se houver.
-          console.log(result.text);
         },
-        (error) => {
+        () => {
           setErrorMessage("Erro ao enviar o e-mail.");
           setSuccessMessage(""); // Limpar mensagem de sucesso, se houver.
-          console.log(error.text);
         }
       )
       .finally(() => {
