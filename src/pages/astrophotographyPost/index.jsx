@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import CloudinaryImage from "../../components/CloudinaryImage";
+import ShareButton from "../../components/ShareButton";
 import { getAstrophotographyPostBySlug } from "../../data/content";
 import "./style.css";
 
@@ -56,9 +57,17 @@ export default function AstrophotographyPost() {
     <>
       <NavBar />
       <Container className="astro-detail-page text-light">
-        <Link to="/astrofotografia" className="post-back-link">
-          Voltar para astrofotografia
-        </Link>
+        <div className="post-page-actions">
+          <Link to="/astrofotografia" className="post-back-link">
+            Voltar para astrofotografia
+          </Link>
+          <ShareButton
+            title={post.title}
+            text={post.excerpt || "Confira este registro no GuiVilas Dev."}
+            path={`/astrofotografia/${post.slug}`}
+            imagePath={`/social/astrofotografia/${post.slug}.png`}
+          />
+        </div>
         <article className="astro-detail">
           <header className="post-header">
             <div className="content-meta">

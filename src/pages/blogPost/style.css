@@ -33,8 +33,17 @@
 .post-back-link {
   color: #67e8f9;
   display: inline-block;
-  margin-bottom: 1.5rem;
   text-decoration: none;
+}
+
+.post-page-actions {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: 0 auto 1.5rem;
+  max-width: 960px;
 }
 
 .post-header {
@@ -85,3 +94,9 @@
   padding-left: 1rem;
 }
 
+@media (max-width: 575.98px) {
+  .post-page-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

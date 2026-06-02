@@ -22,6 +22,10 @@
   max-width: 1100px;
 }
 
+.astro-detail-page .post-page-actions {
+  max-width: 1100px;
+}
+
 .astro-featured-figure,
 .astro-gallery-item {
   margin: 0;

@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import CloudinaryImage from "../../components/CloudinaryImage";
+import ShareButton from "../../components/ShareButton";
 import { getBlogPostBySlug } from "../../data/content";
 import "./style.css";
 
@@ -32,9 +33,17 @@ export default function BlogPost() {
     <>
       <NavBar />
       <Container className="post-page text-light">
-        <Link to="/blog" className="post-back-link">
-          Voltar para o blog
-        </Link>
+        <div className="post-page-actions">
+          <Link to="/blog" className="post-back-link">
+            Voltar para o blog
+          </Link>
+          <ShareButton
+            title={post.title}
+            text={post.excerpt || "Confira este post no GuiVilas Dev."}
+            path={`/blog/${post.slug}`}
+            imagePath={`/social/blog/${post.slug}.png`}
+          />
+        </div>
         <article className="post-article">
           <header className="post-header">
             <div className="content-meta">
@@ -78,4 +87,3 @@ export default function BlogPost() {
     </>
   );
 }
-
