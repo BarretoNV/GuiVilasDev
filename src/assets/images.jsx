@@ -20,6 +20,7 @@ import nytWhiteLogo from './nytWhiteLogo.png';
 import scrollDown from './scrollDown.gif';
 import weatherAPILogo from './WeatherAPI.png'
 import heroPic from './HeroPic.jpg';
+import newProfilePic from './newprofilepic.jpg';
 import infiniteLogo from './infinite.jpg';
 import rushCoDigitalLogo from './rushcodigital.jpg';
 import foodDigitalLogo from './Fooddigitall.png';
@@ -52,6 +53,7 @@ const imageObj = {
   scrollDown,
   weatherAPILogo,
   heroPic,
+  newProfilePic,
   infiniteLogo,
   rushCoDigitalLogo,
   foodDigitalLogo,

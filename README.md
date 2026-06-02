@@ -77,3 +77,42 @@ Tambem e possivel definir `VITE_CLOUDINARY_CLOUD_NAME` no `.env` e omitir
 e larguras responsivas.
 
 Os arquivos `_template.mdx` possuem `template: true` e nao aparecem no site.
+
+## Previews sociais
+
+O site usa metatags Open Graph e Twitter Card em `index.html` para gerar um
+preview geral quando um link e colado no WhatsApp, LinkedIn, Discord, iMessage
+e outros apps que leem metadata social.
+
+Configure `VITE_SITE_URL` com a URL publica do deploy, sem barra final. Exemplo:
+
+```env
+VITE_SITE_URL=https://guivilassite.vercel.app
+```
+
+As imagens prontas ficam em `public/social`:
+
+- `og-default.png`: card `1200x630` usado pelos previews de link.
+- `instagram-feed.png`: card `1080x1080` para posts no feed.
+- `instagram-story.png`: card `1080x1920` para stories.
+
+Para testar localmente com URLs absolutas no HTML gerado:
+
+```bash
+VITE_SITE_URL=https://guivilassite.vercel.app npm run build
+```
+
+No PowerShell:
+
+```powershell
+$env:VITE_SITE_URL = "https://guivilassite.vercel.app"; npm run build
+```
+
+Depois do deploy, cole a URL em uma conversa do WhatsApp ou use um debugger de
+Open Graph/LinkedIn/Facebook para conferir o resultado. Se um preview antigo
+aparecer, pode ser cache do app social.
+
+A versao inicial e um preview geral para todo o site. Previews especificos para
+rotas como `/blog/:slug` ou `/astrofotografia/:slug` precisam de prerender, SSR
+ou geracao de HTML por rota, porque o `vercel.json` atual reescreve todas as
+rotas para `/`.
