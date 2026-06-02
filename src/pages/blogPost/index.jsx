@@ -41,7 +41,7 @@ export default function BlogPost() {
             title={post.title}
             text={post.excerpt || "Confira este post no GuiVilas Dev."}
             path={`/blog/${post.slug}`}
-            imagePath={`/social/blog/${post.slug}.png`}
+            imagePath={`/social/blog/${post.slug}-square.png`}
           />
         </div>
         <article className="post-article">

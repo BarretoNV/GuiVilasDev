@@ -65,7 +65,7 @@ export default function AstrophotographyPost() {
             title={post.title}
             text={post.excerpt || "Confira este registro no GuiVilas Dev."}
             path={`/astrofotografia/${post.slug}`}
-            imagePath={`/social/astrofotografia/${post.slug}.png`}
+            imagePath={`/social/astrofotografia/${post.slug}-square.png`}
           />
         </div>
         <article className="astro-detail">

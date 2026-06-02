@@ -11,14 +11,45 @@ dotenv.config({ path: path.join(rootDir, ".env") });
 const distDir = path.join(rootDir, "dist");
 const contentDir = path.join(rootDir, "src", "content");
 const socialDir = path.join(distDir, "social");
-const defaultOgPath = path.join(rootDir, "public", "social", "og-default.png");
+const heroImagePath = path.join(rootDir, "src", "assets", "HeroPic.jpg");
+const logoPath = path.join(rootDir, "src", "assets", "GV.png");
 const siteUrl = normalizeSiteUrl(
   process.env.VITE_SITE_URL || "https://guivilassite.vercel.app",
 );
 const cloudName = process.env.VITE_CLOUDINARY_CLOUD_NAME || "demo";
+const siteLabel = siteUrl.replace(/^https?:\/\//, "");
 
-const cardWidth = 1200;
-const cardHeight = 630;
+const presets = {
+  og: {
+    width: 1200,
+    height: 630,
+    suffix: "",
+    logoSize: 92,
+    logoX: 68,
+    logoY: 68,
+  },
+  square: {
+    width: 1080,
+    height: 1080,
+    suffix: "-square",
+    logoSize: 118,
+    logoX: 74,
+    logoY: 78,
+  },
+};
+
+const homeEntry = {
+  title: "GuiVilas Dev",
+  slug: "home",
+  excerpt: "Projetos, blog e astrofotografia por Guilherme Barreto.",
+};
+
+const homeConfig = {
+  routePrefix: "",
+  socialPrefix: "",
+  eyebrow: () => "GuiVilas Dev",
+  image: () => null,
+};
 
 const collections = [
   {
@@ -112,7 +143,7 @@ async function loadCollection({ collection, contentPath }) {
   return posts;
 }
 
-function getCloudinaryUrl(image, options = {}) {
+function getCloudinaryUrl(image, preset, options = {}) {
   if (!image) {
     return "";
   }
@@ -133,8 +164,8 @@ function getCloudinaryUrl(image, options = {}) {
     `f_${options.format || "auto"}`,
     `q_${options.quality || "auto"}`,
     `c_${options.crop || "fill"}`,
-    `w_${options.width || cardWidth}`,
-    `h_${options.height || cardHeight}`,
+    `w_${options.width || preset.width}`,
+    `h_${options.height || preset.height}`,
   ];
 
   return `https://res.cloudinary.com/${image.cloudName || cloudName}/image/upload/${transformations.join(
@@ -149,8 +180,8 @@ function encodePublicId(publicId) {
     .join("/");
 }
 
-async function fetchImageBuffer(image) {
-  const url = getCloudinaryUrl(image);
+async function fetchImageBuffer(image, preset) {
+  const url = getCloudinaryUrl(image, preset);
 
   if (!url) {
     return null;
@@ -170,12 +201,12 @@ async function fetchImageBuffer(image) {
   }
 }
 
-async function createBackground(image) {
-  const imageBuffer = await fetchImageBuffer(image);
+async function createBackground(image, preset) {
+  const imageBuffer = await fetchImageBuffer(image, preset);
 
   if (imageBuffer) {
     return sharp(imageBuffer)
-      .resize(cardWidth, cardHeight, { fit: "cover" })
+      .resize(preset.width, preset.height, { fit: "cover" })
       .modulate({ brightness: 0.62, saturation: 0.82 })
       .blur(1)
       .png()
@@ -183,15 +214,17 @@ async function createBackground(image) {
   }
 
   try {
-    return sharp(defaultOgPath)
-      .resize(cardWidth, cardHeight, { fit: "cover" })
+    return sharp(heroImagePath)
+      .resize(preset.width, preset.height, { fit: "cover" })
+      .modulate({ brightness: 0.72, saturation: 0.86 })
+      .blur(1)
       .png()
       .toBuffer();
   } catch {
     return sharp({
       create: {
-        width: cardWidth,
-        height: cardHeight,
+        width: preset.width,
+        height: preset.height,
         channels: 4,
         background: "#081216",
       },
@@ -232,24 +265,24 @@ function wrapText(text, maxChars, maxLines) {
   return lines;
 }
 
-function textLinesSvg(lines, x, y, size, color, weight = 400, lineHeight = 1.18) {
+function textLinesSvg(lines, x, y, size, color, weight = 400, lineHeight = 1.18, anchor = "start") {
   return lines
     .map(
       (line, index) =>
-        `<text x="${x}" y="${y + index * size * lineHeight}" font-size="${size}" font-weight="${weight}" fill="${color}">${escapeSvg(
+        `<text x="${x}" y="${y + index * size * lineHeight}" text-anchor="${anchor}" font-size="${size}" font-weight="${weight}" fill="${color}">${escapeSvg(
           line,
         )}</text>`,
     )
     .join("");
 }
 
-function createOverlaySvg(post, config) {
+function createOgOverlaySvg(post, config, preset) {
   const titleLines = wrapText(post.title, 24, 2);
   const excerptLines = wrapText(post.excerpt, 56, 2);
   const eyebrow = config.eyebrow(post);
 
   return Buffer.from(`
-    <svg width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}" xmlns="http://www.w3.org/2000/svg">
+    <svg width="${preset.width}" height="${preset.height}" viewBox="0 0 ${preset.width} ${preset.height}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
           <stop offset="0" stop-color="#05080d" stop-opacity="0.94"/>
@@ -257,10 +290,7 @@ function createOverlaySvg(post, config) {
           <stop offset="1" stop-color="#0e5c62" stop-opacity="0.48"/>
         </linearGradient>
       </defs>
-      <rect width="${cardWidth}" height="${cardHeight}" fill="url(#shade)"/>
-      <rect x="76" y="74" width="76" height="76" rx="0" fill="none" stroke="#f8fafc" stroke-width="3"/>
-      <path d="M92 91 L92 137 L141 114 Z" fill="none" stroke="#f8fafc" stroke-width="3" stroke-linejoin="round"/>
-      <text x="104" y="123" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#f8fafc">GV</text>
+      <rect width="${preset.width}" height="${preset.height}" fill="url(#shade)"/>
       <text x="76" y="204" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="1.5" fill="#4bd4b5">${escapeSvg(
         eyebrow || "GuiVilas Dev",
       )}</text>
@@ -268,31 +298,99 @@ function createOverlaySvg(post, config) {
         ${textLinesSvg(titleLines, 76, 292, 72, "#f8fafc", 800, 1.08)}
         ${textLinesSvg(excerptLines, 76, 438, 32, "#d5e5e8", 400, 1.28)}
         <rect x="76" y="538" width="224" height="5" rx="2.5" fill="#4bd4b5"/>
-        <text x="76" y="586" font-size="26" font-weight="700" fill="#f8fafc">${escapeSvg(
-          siteUrl.replace(/^https?:\/\//, ""),
-        )}</text>
+        <text x="76" y="586" font-size="26" font-weight="700" fill="#f8fafc">${escapeSvg(siteLabel)}</text>
       </g>
     </svg>
   `);
 }
 
-async function createSocialCard(post, config) {
-  const background = await createBackground(config.image(post));
-  const overlay = createOverlaySvg(post, config);
-  const outputPath = path.join(
-    socialDir,
-    config.socialPrefix,
-    `${post.slug}.png`,
-  );
+function createSquareOverlaySvg(post, config, preset) {
+  const titleLines = wrapText(post.title, 22, 3);
+  const excerptLines = wrapText(post.excerpt, 36, 3);
+  const eyebrow = config.eyebrow(post);
+  const centerX = preset.width / 2;
 
-  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  return Buffer.from(`
+    <svg width="${preset.width}" height="${preset.height}" viewBox="0 0 ${preset.width} ${preset.height}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="shade" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#05080d" stop-opacity="0.9"/>
+          <stop offset="0.52" stop-color="#071319" stop-opacity="0.82"/>
+          <stop offset="1" stop-color="#0e5c62" stop-opacity="0.62"/>
+        </linearGradient>
+      </defs>
+      <rect width="${preset.width}" height="${preset.height}" fill="url(#shade)"/>
+      <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+        <text x="${centerX}" y="270" font-size="27" font-weight="700" letter-spacing="1.5" fill="#4bd4b5">${escapeSvg(
+          eyebrow || "GuiVilas Dev",
+        )}</text>
+        ${textLinesSvg(titleLines, centerX, 396, 72, "#f8fafc", 800, 1.08, "middle")}
+        ${textLinesSvg(excerptLines, centerX, 650, 34, "#d5e5e8", 400, 1.24, "middle")}
+        <rect x="${centerX - 112}" y="822" width="224" height="5" rx="2.5" fill="#4bd4b5"/>
+        <text x="${centerX}" y="882" font-size="29" font-weight="700" fill="#f8fafc">${escapeSvg(siteLabel)}</text>
+      </g>
+    </svg>
+  `);
+}
+
+function createOverlaySvg(post, config, presetName, preset) {
+  return presetName === "square"
+    ? createSquareOverlaySvg(post, config, preset)
+    : createOgOverlaySvg(post, config, preset);
+}
+
+async function createLogoBuffer(preset) {
+  return sharp(logoPath)
+    .resize(preset.logoSize, preset.logoSize, { fit: "contain" })
+    .png()
+    .toBuffer();
+}
+
+function getSocialOutput(post, config, preset) {
+  const filename = `${post.slug}${preset.suffix}.png`;
+
+  if (!config.socialPrefix) {
+    return {
+      filePath: path.join(socialDir, filename),
+      publicPath: `social/${filename}`,
+    };
+  }
+
+  return {
+    filePath: path.join(socialDir, config.socialPrefix, filename),
+    publicPath: `social/${config.socialPrefix}/${filename}`,
+  };
+}
+
+async function createSocialCard(post, config, presetName) {
+  const preset = presets[presetName];
+  const background = await createBackground(config.image(post), preset);
+  const overlay = createOverlaySvg(post, config, presetName, preset);
+  const logo = await createLogoBuffer(preset);
+  const output = getSocialOutput(post, config, preset);
+
+  await fs.mkdir(path.dirname(output.filePath), { recursive: true });
 
   await sharp(background)
-    .composite([{ input: overlay, top: 0, left: 0 }])
+    .composite([
+      { input: overlay, top: 0, left: 0 },
+      { input: logo, top: preset.logoY, left: preset.logoX },
+    ])
     .png()
-    .toFile(outputPath);
+    .toFile(output.filePath);
 
-  return `social/${config.socialPrefix}/${post.slug}.png`;
+  return output.publicPath;
+}
+
+async function writeHomeHtml(ogPath, baseHtml) {
+  const html = updateHtmlMetadata(baseHtml, {
+    title: "GuiVilas Dev",
+    description: homeEntry.excerpt,
+    url: `${siteUrl}/`,
+    image: `${siteUrl}/${ogPath}`,
+  });
+
+  await fs.writeFile(path.join(distDir, "index.html"), html);
 }
 
 async function writeRouteHtml(post, config, socialPath, baseHtml) {
@@ -300,7 +398,7 @@ async function writeRouteHtml(post, config, socialPath, baseHtml) {
   const routeUrl = `${siteUrl}/${routePath}`;
   const imageUrl = `${siteUrl}/${socialPath}`;
   const title = `${post.title} | GuiVilas Dev`;
-  const description = post.excerpt || "Projetos, blog e astrofotografia por Guilherme Barreto.";
+  const description = post.excerpt || homeEntry.excerpt;
   const html = updateHtmlMetadata(baseHtml, {
     title,
     description,
@@ -360,17 +458,23 @@ async function main() {
   const baseHtml = await fs.readFile(path.join(distDir, "index.html"), "utf8");
   let generatedCount = 0;
 
+  const homeOgPath = await createSocialCard(homeEntry, homeConfig, "og");
+  await createSocialCard(homeEntry, homeConfig, "square");
+  await writeHomeHtml(homeOgPath, baseHtml);
+  generatedCount += 2;
+
   for (const config of collections) {
     const posts = await loadCollection(config);
 
     for (const post of posts) {
-      const socialPath = await createSocialCard(post, config);
+      const socialPath = await createSocialCard(post, config, "og");
+      await createSocialCard(post, config, "square");
       await writeRouteHtml(post, config, socialPath, baseHtml);
-      generatedCount += 1;
+      generatedCount += 2;
     }
   }
 
-  console.log(`Generated ${generatedCount} specific social previews.`);
+  console.log(`Generated ${generatedCount} social preview images.`);
 }
 
 main().catch((error) => {

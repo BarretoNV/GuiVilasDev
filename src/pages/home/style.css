@@ -45,6 +45,7 @@
 .hero-content h2,
 .hero-content b,
 .hero-content a,
+.hero-actions,
 .hero-credit,
 .hero-scroll-indicator {
   background-color: transparent;
@@ -90,8 +91,16 @@
   max-width: 1080px;
 }
 
-.hero-linkedin-button {
+.hero-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
   margin-top: 0.55rem;
+}
+
+.hero-linkedin-button {
+  margin-top: 0;
 }
 
 .hero-credit {

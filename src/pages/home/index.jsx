@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import PortfolioItem from "../../components/PortfolioItem";
+import ShareButton from "../../components/ShareButton";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import ImagesObject from "../../assets/images";
@@ -250,16 +251,24 @@ export default function Home() {
                     Instituto Federal Fluminense.
                   </a>
                 </p>
-                <Button
-                  type="button"
-                  variant="dark"
-                  href="https://www.linkedin.com/in/guibarreto/"
-                  target="_blank"
-                  size="lg"
-                  className="hero-linkedin-button"
-                >
-                  Meu Linkedin
-                </Button>
+                <div className="hero-actions">
+                  <Button
+                    type="button"
+                    variant="dark"
+                    href="https://www.linkedin.com/in/guibarreto/"
+                    target="_blank"
+                    size="lg"
+                    className="hero-linkedin-button"
+                  >
+                    Meu Linkedin
+                  </Button>
+                  <ShareButton
+                    title="GuiVilas Dev"
+                    text="Projetos, blog e astrofotografia por Guilherme Barreto."
+                    path="/"
+                    imagePath="/social/home-square.png"
+                  />
+                </div>
               </div>
             </Col>
           </Row>
