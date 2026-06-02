@@ -13,6 +13,7 @@ const contentDir = path.join(rootDir, "src", "content");
 const socialDir = path.join(distDir, "social");
 const heroImagePath = path.join(rootDir, "src", "assets", "HeroPic.jpg");
 const logoPath = path.join(rootDir, "src", "assets", "GV.png");
+const profileImagePath = path.join(rootDir, "src", "assets", "newprofilepic.jpg");
 const siteUrl = normalizeSiteUrl(
   process.env.VITE_SITE_URL || "https://guivilassite.vercel.app",
 );
@@ -27,6 +28,9 @@ const presets = {
     logoSize: 92,
     logoX: 68,
     logoY: 68,
+    profileSize: 230,
+    profileX: 890,
+    profileY: 236,
   },
   square: {
     width: 1080,
@@ -35,12 +39,15 @@ const presets = {
     logoSize: 118,
     logoX: 74,
     logoY: 78,
+    profileSize: 184,
+    profileX: 802,
+    profileY: 80,
   },
 };
 
 const homeEntry = {
   title: "GuiVilas Dev",
-  slug: "home",
+  slug: "home-profile",
   excerpt: "Projetos, blog e astrofotografia por Guilherme Barreto.",
 };
 
@@ -346,6 +353,35 @@ async function createLogoBuffer(preset) {
     .toBuffer();
 }
 
+async function createProfileBuffer(preset) {
+  const size = preset.profileSize;
+  const mask = Buffer.from(`
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 4}" fill="#fff"/>
+    </svg>
+  `);
+  const border = Buffer.from(`
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 5}" fill="none" stroke="#4bd4b5" stroke-width="8"/>
+    </svg>
+  `);
+
+  const croppedProfile = await sharp(profileImagePath)
+    .extract({ left: 110, top: 650, width: 860, height: 860 })
+    .resize(size, size, { fit: "cover" })
+    .png()
+    .toBuffer();
+
+  return sharp(croppedProfile)
+    .ensureAlpha()
+    .composite([
+      { input: mask, blend: "dest-in" },
+      { input: border, blend: "over" },
+    ])
+    .png()
+    .toBuffer();
+}
+
 function getSocialOutput(post, config, preset) {
   const filename = `${post.slug}${preset.suffix}.png`;
 
@@ -367,6 +403,7 @@ async function createSocialCard(post, config, presetName) {
   const background = await createBackground(config.image(post), preset);
   const overlay = createOverlaySvg(post, config, presetName, preset);
   const logo = await createLogoBuffer(preset);
+  const profile = await createProfileBuffer(preset);
   const output = getSocialOutput(post, config, preset);
 
   await fs.mkdir(path.dirname(output.filePath), { recursive: true });
@@ -375,6 +412,7 @@ async function createSocialCard(post, config, presetName) {
     .composite([
       { input: overlay, top: 0, left: 0 },
       { input: logo, top: preset.logoY, left: preset.logoX },
+      { input: profile, top: preset.profileY, left: preset.profileX },
     ])
     .png()
     .toFile(output.filePath);

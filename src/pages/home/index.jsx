@@ -266,7 +266,7 @@ export default function Home() {
                     title="GuiVilas Dev"
                     text="Projetos, blog e astrofotografia por Guilherme Barreto."
                     path="/"
-                    imagePath="/social/home-square.png"
+                    imagePath="/social/home-profile-square.png"
                   />
                 </div>
               </div>
