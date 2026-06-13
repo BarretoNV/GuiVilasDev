@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
@@ -20,11 +19,21 @@ export default function WeatherAPI() {
     setLoading(true);
 
     try {
-      const response = await axios.get(
-        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${cityName}&aqi=no`
-      );
+      const url = new URL("https://api.weatherapi.com/v1/current.json");
+      url.search = new URLSearchParams({
+        key: weatherApiKey,
+        q: cityName,
+        aqi: "no",
+      }).toString();
 
-      setWeatherInfo(response.data);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Weather API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setWeatherInfo(data);
       setCityFound(true);
     } catch (error) {
       console.error(error);

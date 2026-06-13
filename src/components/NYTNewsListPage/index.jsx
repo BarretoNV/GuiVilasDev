@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import Footer from "../Footer";
@@ -51,11 +50,19 @@ export default function NYTNewsListPage({ section, title, errorMessage }) {
       }
 
       try {
-        const response = await axios.get(
-          `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${NYTToken}`
+        const url = new URL(
+          `https://api.nytimes.com/svc/topstories/v2/${section}.json`
         );
+        url.searchParams.set("api-key", NYTToken);
 
-        const results = response.data?.results;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`NYT ${section} request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const results = data?.results;
         setArticles(Array.isArray(results) ? results : []);
       } catch (error) {
         console.error("Erro: ", error);

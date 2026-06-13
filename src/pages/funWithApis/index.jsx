@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { Container, Button, Col, Row, Card } from "react-bootstrap";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
@@ -31,11 +30,19 @@ export default function FunWithAPIs() {
         return;
       }
 
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${NYTToken}`
+      const url = new URL(
+        "https://api.nytimes.com/svc/topstories/v2/science.json"
       );
+      url.searchParams.set("api-key", NYTToken);
 
-      setScienceNews(response.data.results?.[0] ?? null);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`NYT science request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setScienceNews(data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
       setScienceError("Não foi possível carregar notícias de ciência.");
@@ -52,11 +59,19 @@ export default function FunWithAPIs() {
         return;
       }
 
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${NYTToken}`
+      const url = new URL(
+        "https://api.nytimes.com/svc/topstories/v2/technology.json"
       );
+      url.searchParams.set("api-key", NYTToken);
 
-      setTechnologyNews(response.data.results?.[0] ?? null);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`NYT technology request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTechnologyNews(data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
       setTechnologyError("Não foi possível carregar notícias de tecnologia.");
@@ -71,9 +86,14 @@ export default function FunWithAPIs() {
 
       setAdviceError("");
 
-      const response = await axios.get("https://api.adviceslip.com/advice");
+      const response = await fetch("https://api.adviceslip.com/advice");
 
-      setRandomAdvice(response.data.slip);
+      if (!response.ok) {
+        throw new Error(`Advice request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setRandomAdvice(data.slip);
     } catch (error) {
       console.error("Erro ao pegar advice: ", error);
       setAdviceError("Não foi possível carregar o conselho agora.");
