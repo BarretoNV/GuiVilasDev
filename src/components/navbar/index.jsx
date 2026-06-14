@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
 import Logo from "../../assets/GV.png";
 import "./style.css";
 
@@ -20,6 +19,17 @@ const homeLinks = [
   { href: "/#workHistory", label: "Experiência" },
   { href: "/#projects", label: "Destaques" },
   { href: "/#culture", label: "Outros" },
+];
+
+const resumeLinks = [
+  {
+    href: "https://drive.google.com/file/d/1NcG-JwL5efz0XSZZGEkvCtosFVR4tB9E/view?usp=sharing",
+    label: "Dev & Tecnologia",
+  },
+  {
+    href: "https://drive.google.com/file/d/1G1UHlPCz28z57uGBokAww2hceBLbxxIB/view?usp=sharing",
+    label: "Marketing & Conteúdo",
+  },
 ];
 
 function NavBar() {
@@ -202,16 +212,24 @@ function NavBar() {
             </Nav>
 
             <Nav className="navbar-section-links">
-              <Button
-                type="button"
-                variant="outline-light"
-                className="nav-resume-button"
-                href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
-                target="_blank"
-                rel="noreferrer"
+              <NavDropdown
+                title="Currículo"
+                id="resume-nav-dropdown"
+                className="nav-dropdown-custom nav-resume-dropdown"
               >
-                Currículo (desatualizado)
-              </Button>
+                {resumeLinks.map((link) => (
+                  <NavDropdown.Item
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="nav-dropdown-item"
+                    onClick={() => setIsActive(false)}
+                  >
+                    {link.label}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

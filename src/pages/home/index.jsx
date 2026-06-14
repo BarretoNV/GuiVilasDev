@@ -537,14 +537,6 @@ export default function Home() {
               >
                 <FontAwesomeIcon icon={faSpotify} /> Spotify
               </Button>
-              <Button
-                href="https://drive.google.com/file/d/1VZI6sMqri527RFEdTOKwwMOeT1l3O2V5/view?usp=sharing"
-                target="_blank"
-                rel="noreferrer"
-                variant="outline-primary"
-              >
-                Currículo
-              </Button>
             </div>
           </Col>
         </Row>
