@@ -2,6 +2,25 @@ import ImagesObject from "../assets/images";
 
 const projects = [
   {
+    title:
+      "TCC: Algoritmos Genéticos e Redes Neurais para o PPCCM",
+    logo: ImagesObject.tccGraphExample,
+    screenshot: ImagesObject.tccMethodologyFlow,
+    websiteLink: "/tcc",
+    buttonLabel: "Ver página do TCC",
+    description:
+      "Trabalho de Conclusão de Curso em Engenharia de Computação investigando uma abordagem híbrida para o Problema da Partição Cromática de Custo Mínimo, combinando algoritmo genético e MLP para ranquear soluções candidatas.",
+    note: "Pesquisa defendida no IFF Campus Campos Centro em abril de 2026.",
+    technologies: [
+      "Python",
+      "Algoritmos Genéticos",
+      "Redes Neurais",
+      "MLP",
+      "Otimização combinatória",
+      "Coloração de grafos",
+    ],
+  },
+  {
     title: "Dashboards e processos no ClickUp",
     logo: ImagesObject.foodDigitalLogo,
     screenshot: ImagesObject.clickUpScreenshot,

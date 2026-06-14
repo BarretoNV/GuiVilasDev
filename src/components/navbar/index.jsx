@@ -9,6 +9,7 @@ import "./style.css";
 const pageLinks = [
   { href: "/", label: "Início" },
   { href: "/projects", label: "Projetos" },
+  { href: "/tcc", label: "TCC" },
   { href: "/funwithapis", label: "Consumo de APIs" },
   { href: "/blog", label: "Blog" },
   { href: "/astrofotografia", label: "Astrofotografia" },

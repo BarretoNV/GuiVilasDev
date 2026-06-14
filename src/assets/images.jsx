@@ -29,6 +29,15 @@ import n8nScreenshot from './n8n.png';
 import clickUpScreenshot from './clickUp.png';
 import clickUpPowerUserBadge from './CluckupPowerUser.png';
 import letterboxdLogo from './logo-letterboxd.png';
+import tccMethodologyFlow from './TCC/FluxogramaMetodologia.png';
+import tccGAFlow from './TCC/FluxogramaGA.png';
+import tccCrossoverGraph from './TCC/CruzamentoGrafos.png';
+import tccMutationGraph from './TCC/MutaçãoGrafos.png';
+import tccNeuralNetwork from './TCC/RedeNeural.png';
+import tccBoxGain from './TCC/box_gain10_A_vs_B.png';
+import tccGainHistogram from './TCC/hist_delta_gain10_B_minus_A.png';
+import tccTopInstances from './TCC/top10_instances_B_gain10.png';
+import tccGraphExample from './TCC/GRAFO2.png';
 
 const imageObj = {
   aureaLogo,
@@ -62,6 +71,15 @@ const imageObj = {
   clickUpScreenshot,
   clickUpPowerUserBadge,
   letterboxdLogo,
+  tccMethodologyFlow,
+  tccGAFlow,
+  tccCrossoverGraph,
+  tccMutationGraph,
+  tccNeuralNetwork,
+  tccBoxGain,
+  tccGainHistogram,
+  tccTopInstances,
+  tccGraphExample,
 };
 
 export default imageObj;

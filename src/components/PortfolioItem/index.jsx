@@ -12,6 +12,11 @@ const PortfolioItem = ({
   note,
   technologies,
 }) => {
+  const isExternalLink = websiteLink?.startsWith("http");
+  const linkProps = isExternalLink
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   const linkedLogo = (
     <Card.Img
       src={logo}
@@ -41,7 +46,7 @@ const PortfolioItem = ({
       <Row className="p-3">
         <Col md={4}>
           {websiteLink ? (
-            <a href={websiteLink} target="_blank" rel="noopener noreferrer">
+            <a href={websiteLink} {...linkProps}>
               {linkedLogo}
             </a>
           ) : (
@@ -58,8 +63,7 @@ const PortfolioItem = ({
               <Button
                 variant="outline-primary"
                 href={websiteLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...linkProps}
                 style={{
                   marginBottom: "10px",
                 }}
@@ -78,7 +82,7 @@ const PortfolioItem = ({
         </Col>
         <Col md={8}>
           {websiteLink ? (
-            <a href={websiteLink} target="_blank" rel="noopener noreferrer">
+            <a href={websiteLink} {...linkProps}>
               {linkedScreenshot}
             </a>
           ) : (

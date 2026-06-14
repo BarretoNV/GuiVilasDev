@@ -14,6 +14,7 @@ const NewsList = React.lazy(() => import("./pages/scienceNewsList"));
 const TechNewsList = React.lazy(() => import("./pages/technologyNewsList"));
 const WeatherInfo = React.lazy(() => import("./pages/weatherApi"));
 const Projects = React.lazy(() => import("./pages/projects"));
+const Tcc = React.lazy(() => import("./pages/tcc"));
 const Blog = React.lazy(() => import("./pages/blog"));
 const BlogPost = React.lazy(() => import("./pages/blogPost"));
 const Astrophotography = React.lazy(() => import("./pages/astrophotography"));
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/projects",
     element: withPageLoader(<Projects />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/tcc",
+    element: withPageLoader(<Tcc />),
     errorElement: <ErrorPage />,
   },
   {
