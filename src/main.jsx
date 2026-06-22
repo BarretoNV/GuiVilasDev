@@ -21,6 +21,9 @@ const Astrophotography = React.lazy(() => import("./pages/astrophotography"));
 const AstrophotographyPost = React.lazy(
   () => import("./pages/astrophotographyPost")
 );
+const AudiovisualPortfolio = React.lazy(
+  () => import("./pages/audiovisualPortfolio")
+);
 
 const withPageLoader = (page) => (
   <React.Suspense fallback={<Loader />}>{page}</React.Suspense>
@@ -40,6 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/projects",
     element: withPageLoader(<Projects />),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/portfolio-audiovisual",
+    element: withPageLoader(<AudiovisualPortfolio />),
     errorElement: <ErrorPage />,
   },
   {

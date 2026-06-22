@@ -78,6 +78,29 @@ e larguras responsivas.
 
 Os arquivos `_template.mdx` possuem `template: true` e nao aparecem no site.
 
+## Portfolio audiovisual
+
+Os videos exibidos na Home e em `/portfolio-audiovisual` sao configurados em
+`src/data/audiovisualPortfolio.js`.
+
+Para adicionar um trabalho, suba o video no Cloudinary e preencha o `publicId`:
+
+```js
+{
+  title: "Titulo do trabalho",
+  category: "Reels",
+  description: "Breve descricao do projeto.",
+  publicId: "portfolio-audiovisual/nome-do-video",
+  featured: true,
+  posterTime: 1,
+}
+```
+
+- `featured: true` permite que o item apareca entre os tres destaques da Home.
+- `posterTime` define, em segundos, o frame usado como capa.
+- As capas sao geradas pelo Cloudinary; o arquivo de video so e carregado
+  quando o visitante abre o player.
+
 ## Previews sociais
 
 O site usa metatags Open Graph e Twitter Card em `index.html` para gerar um

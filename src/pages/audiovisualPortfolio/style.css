@@ -1,0 +1,132 @@
+.audiovisual-page,
+.audiovisual-page-header,
+.audiovisual-page-header p,
+.audiovisual-page-header h1,
+.audiovisual-grid,
+.audiovisual-modal,
+.audiovisual-modal .modal-header,
+.audiovisual-modal .modal-body,
+.audiovisual-modal .modal-title,
+.audiovisual-modal-category,
+.audiovisual-modal-description {
+  background-color: transparent;
+}
+
+.audiovisual-page {
+  padding-bottom: 5rem;
+  padding-top: 3rem;
+}
+
+.audiovisual-page-header {
+  margin-bottom: 2.5rem;
+  max-width: 900px;
+}
+
+.audiovisual-page-header > p:first-child,
+.audiovisual-modal-category {
+  color: #67e8f9;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.audiovisual-page-header h1 {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.audiovisual-page-header > p:last-child {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+}
+
+.audiovisual-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.audiovisual-modal {
+  background-color: #050505;
+  border: 1px solid rgba(103, 232, 249, 0.3);
+  color: #fff;
+}
+
+.audiovisual-modal .modal-header {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.audiovisual-modal-category {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.audiovisual-player-frame {
+  aspect-ratio: 9 / 16;
+  background-color: #000;
+  margin: 0 auto;
+  max-height: 70vh;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  width: min(100%, 394px);
+}
+
+.audiovisual-player {
+  background-color: #000;
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.audiovisual-player-loading {
+  align-items: center;
+  background-color: #000;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.audiovisual-player-loading img {
+  background-color: transparent;
+  height: auto;
+  max-width: min(160px, 48%);
+}
+
+.audiovisual-modal-description {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+  margin: 1rem auto 0;
+  max-width: 720px;
+}
+
+.audiovisual-video-error {
+  border-color: rgba(103, 232, 249, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.audiovisual-video-error code {
+  background-color: transparent;
+  color: #67e8f9;
+}
+
+@media (max-width: 1199.98px) {
+  .audiovisual-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .audiovisual-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479.98px) {
+  .audiovisual-grid {
+    grid-template-columns: 1fr;
+  }
+}

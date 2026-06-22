@@ -328,6 +328,33 @@
   margin-top: 1.5rem;
 }
 
+.audiovisual-home-section,
+.audiovisual-home-section h2,
+.audiovisual-home-intro,
+.audiovisual-home-grid,
+.audiovisual-home-cta {
+  background-color: transparent;
+}
+
+.audiovisual-home-intro {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  max-width: 920px;
+}
+
+.audiovisual-home-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.audiovisual-home-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
 .culture-section,
 .culture-section h2,
 .culture-section h3,
@@ -487,6 +514,10 @@
   .about-credential-badge {
     height: 64px;
     width: 64px;
+  }
+
+  .audiovisual-home-grid {
+    grid-template-columns: 1fr;
   }
 
   .spotify-embed-wrapper,

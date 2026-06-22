@@ -15,6 +15,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 import projects from "../../data/projects";
+import audiovisualPortfolio from "../../data/audiovisualPortfolio";
+import AudiovisualCard from "../../components/AudiovisualCard";
 
 import "./style.css";
 import imageObj from "../../assets/images";
@@ -211,6 +213,9 @@ export default function Home() {
   );
 
   const featuredProjects = projects.slice(0, 3);
+  const featuredVideos = audiovisualPortfolio
+    .filter((video) => video.featured)
+    .slice(0, 3);
   if (loading) {
     return <Loader />;
   }
@@ -438,9 +443,42 @@ export default function Home() {
             </div>
           </section>
         </Row>
+        <Row
+          id="audiovisual"
+          className="mt-5 mb-5 text-light audiovisual-home-section"
+        >
+          <Col md={12}>
+            <h2>04. Portfólio Audiovisual</h2>
+            <p className="audiovisual-home-intro">
+              Texto placeholder para apresentar meu trabalho com edição de
+              vídeos, criação visual e conteúdo pensado para redes sociais.
+            </p>
+          </Col>
+          <Col md={12}>
+            <div className="audiovisual-home-grid">
+              {featuredVideos.map((video) => (
+                <AudiovisualCard
+                  key={video.title}
+                  video={video}
+                  href="/portfolio-audiovisual"
+                />
+              ))}
+            </div>
+            <div className="audiovisual-home-cta">
+              <Button
+                type="button"
+                variant="outline-primary"
+                href="/portfolio-audiovisual"
+                size="lg"
+              >
+                Ver portfólio audiovisual
+              </Button>
+            </div>
+          </Col>
+        </Row>
         <Row id="culture" className="mt-5 mb-5 text-light culture-section">
           <Col md={12}>
-            <h2>04. Outros</h2>
+            <h2>05. Outros</h2>
             <p className="culture-intro">
               Músicas e filmes que eu gosto.
             </p>
