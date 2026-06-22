@@ -8,12 +8,15 @@ import "./style.css";
 
 const pageLinks = [
   { href: "/", label: "Início" },
-  { href: "/projects", label: "Projetos" },
-  { href: "/portfolio-audiovisual", label: "Portfólio Audiovisual" },
   { href: "/tcc", label: "TCC" },
   { href: "/funwithapis", label: "Consumo de APIs" },
   { href: "/blog", label: "Blog" },
   { href: "/astrofotografia", label: "Astrofotografia" },
+];
+
+const featuredLinks = [
+  { href: "/projects", label: "Projetos" },
+  { href: "/portfolio-audiovisual", label: "Audiovisual" },
 ];
 
 const homeLinks = [
@@ -215,6 +218,20 @@ function NavBar() {
             </Nav>
 
             <Nav className="navbar-section-links">
+              <div className="navbar-featured-links">
+                {featuredLinks.map((link) => (
+                  <Nav.Link
+                    key={link.href}
+                    href={link.href}
+                    className={`nav-featured-link ${
+                      activeKey === link.href ? "active" : ""
+                    }`}
+                    onClick={() => handlePageLinkClick(link.href)}
+                  >
+                    {link.label}
+                  </Nav.Link>
+                ))}
+              </div>
               <NavDropdown
                 title="Currículo"
                 id="resume-nav-dropdown"

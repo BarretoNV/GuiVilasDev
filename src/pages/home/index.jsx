@@ -450,8 +450,8 @@ export default function Home() {
           <Col md={12}>
             <h2>04. Portfólio Audiovisual</h2>
             <p className="audiovisual-home-intro">
-              Texto placeholder para apresentar meu trabalho com edição de
-              vídeos, criação visual e conteúdo pensado para redes sociais.
+              Conheça meu trabalho com edição de vídeos, criação visual e
+              conteúdo pensado para redes sociais.
             </p>
           </Col>
           <Col md={12}>
@@ -479,9 +479,7 @@ export default function Home() {
         <Row id="culture" className="mt-5 mb-5 text-light culture-section">
           <Col md={12}>
             <h2>05. Outros</h2>
-            <p className="culture-intro">
-              Músicas e filmes que eu gosto.
-            </p>
+            <p className="culture-intro">Músicas e filmes que eu gosto.</p>
           </Col>
           <Col lg={8} className="mb-4 mb-lg-0">
             <div className="spotify-embed-wrapper">
@@ -497,17 +495,15 @@ export default function Home() {
               ></iframe>
             </div>
           </Col>
-              <Col lg={4}>
-                <article className="letterboxd-card">
-                  <img
-                    src={ImagesObject.letterboxdLogo}
-                    alt="Letterboxd"
-                    className="letterboxd-logo"
-                  />
-                  <h3>Meu diário de filmes</h3>
-              <p>
-                Não espere resenhas profundas.
-              </p>
+          <Col lg={4}>
+            <article className="letterboxd-card">
+              <img
+                src={ImagesObject.letterboxdLogo}
+                alt="Letterboxd"
+                className="letterboxd-logo"
+              />
+              <h3>Meu diário de filmes</h3>
+              <p>Não espere resenhas profundas.</p>
               <Button
                 href="https://letterboxd.com/guibarr3to/"
                 target="_blank"

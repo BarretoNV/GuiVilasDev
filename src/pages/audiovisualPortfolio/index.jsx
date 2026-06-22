@@ -56,7 +56,7 @@ export default function AudiovisualPortfolio() {
             <p>Social media e edição</p>
             <h1>Portfólio Audiovisual</h1>
             <p>
-              Texto placeholder para apresentar minha experiência com edição de
+              Algumas das minhas experiências com edição de
               vídeos, criação de conteúdo e desenvolvimento de peças para redes
               sociais.
             </p>
