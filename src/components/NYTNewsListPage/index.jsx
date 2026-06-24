@@ -8,12 +8,16 @@ import NavBar from "../navbar";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 import useLocale from "../../hooks/useLocale";
 import { localizePath } from "../../utils/i18nRouting";
+import { getValidNYTArticles } from "../../utils/nytArticles";
 import "./style.css";
 
 const formatPubDate = (timestampString, locale) =>
   new Intl.DateTimeFormat(locale === "en" ? "en-US" : "pt-BR", {
-    dateStyle: "short",
-    timeStyle: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
     timeZoneName: "short",
   }).format(new Date(timestampString));
 
@@ -53,8 +57,7 @@ export default function NYTNewsListPage({ section, titleKey, errorKey }) {
         }
 
         const data = await response.json();
-        const results = data?.results;
-        setArticles(Array.isArray(results) ? results : []);
+        setArticles(getValidNYTArticles(data?.results));
       } catch (error) {
         console.error("Erro: ", error);
         setArticles([]);

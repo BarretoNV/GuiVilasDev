@@ -8,6 +8,7 @@ import imageObj from "../../assets/images";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
 import useLocale from "../../hooks/useLocale";
 import { localizePath } from "../../utils/i18nRouting";
+import { getValidNYTArticles } from "../../utils/nytArticles";
 
 export default function FunWithAPIs() {
   const locale = useLocale();
@@ -47,7 +48,7 @@ export default function FunWithAPIs() {
       }
 
       const data = await response.json();
-      setScienceNews(data.results?.[0] ?? null);
+      setScienceNews(getValidNYTArticles(data.results)[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
       setScienceError(t("apis.scienceError"));
@@ -76,7 +77,7 @@ export default function FunWithAPIs() {
       }
 
       const data = await response.json();
-      setTechnologyNews(data.results?.[0] ?? null);
+      setTechnologyNews(getValidNYTArticles(data.results)[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
       setTechnologyError(t("apis.technologyError"));
