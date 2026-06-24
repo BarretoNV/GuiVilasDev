@@ -1,48 +1,65 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Logo from "../../assets/GV.png";
+import {
+  getLocaleFromPathname,
+  getOppositeLocale,
+  getPathWithoutLocale,
+  localizePath,
+} from "../../utils/i18nRouting";
+import {
+  findTranslatedAstrophotographyPost,
+  findTranslatedBlogPost,
+} from "../../data/content";
 import "./style.css";
-
-const pageLinks = [
-  { href: "/", label: "Início" },
-  { href: "/tcc", label: "TCC" },
-  { href: "/funwithapis", label: "Consumo de APIs" },
-  { href: "/blog", label: "Blog" },
-  { href: "/astrofotografia", label: "Astrofotografia" },
-];
-
-const featuredLinks = [
-  { href: "/projects", label: "Projetos" },
-  { href: "/portfolio-audiovisual", label: "Audiovisual" },
-];
-
-const homeLinks = [
-  { href: "/#aboutMe", label: "Sobre mim" },
-  { href: "/#workHistory", label: "Experiência" },
-  { href: "/#projects", label: "Destaques" },
-  { href: "/#audiovisual", label: "Audiovisual" },
-  { href: "/#culture", label: "Outros" },
-];
 
 const resumeLinks = [
   {
     href: "https://drive.google.com/file/d/1NcG-JwL5efz0XSZZGEkvCtosFVR4tB9E/view?usp=sharing",
-    label: "Dev & Tecnologia",
+    labelKey: "nav.resumeLinks.tech",
   },
   {
     href: "https://drive.google.com/file/d/1G1UHlPCz28z57uGBokAww2hceBLbxxIB/view?usp=sharing",
-    label: "Marketing & Conteúdo",
+    labelKey: "nav.resumeLinks.marketing",
   },
 ];
 
 function NavBar() {
+  const location = useLocation();
+  const { t } = useTranslation("common");
+  const locale = getLocaleFromPathname(location.pathname);
+  const oppositeLocale = getOppositeLocale(locale);
+  const currentPathWithoutLocale = getPathWithoutLocale(location.pathname);
   const [isActive, setIsActive] = useState(false);
   const [activeKey, setActiveKey] = useState(
-    () => `${window.location.pathname}${window.location.hash}`
+    () => `${getPathWithoutLocale(window.location.pathname)}${window.location.hash}`,
   );
+
+  const pageLinks = [
+    { href: "/", label: t("nav.links.home") },
+    { href: "/tcc", label: t("nav.links.tcc") },
+    { href: "/funwithapis", label: t("nav.links.apis") },
+    { href: "/blog", label: t("nav.links.blog") },
+    { href: "/astrofotografia", label: t("nav.links.astrophotography") },
+  ];
+
+  const featuredLinks = [
+    { href: "/projects", label: t("nav.links.projects") },
+    { href: "/portfolio-audiovisual", label: t("nav.links.audiovisual") },
+  ];
+
+  const homeLinks = [
+    { href: "/#aboutMe", label: t("nav.links.about") },
+    { href: "/#workHistory", label: t("nav.links.experience") },
+    { href: "/#projects", label: t("nav.links.featured") },
+    { href: "/#audiovisual", label: t("nav.links.audiovisual") },
+    { href: "/#culture", label: t("nav.links.others") },
+  ];
 
   const isPagesDropdownActive =
     pageLinks.some((link) => activeKey === link.href) ||
@@ -58,12 +75,12 @@ function NavBar() {
     `nav-dropdown-item ${activeKey === href ? "active" : ""}`;
 
   const handleBrandClick = (event) => {
-    if (window.location.pathname !== "/") {
+    if (getPathWithoutLocale(window.location.pathname) !== "/") {
       return;
     }
 
     event.preventDefault();
-    window.history.pushState(null, "", "/");
+    window.history.pushState(null, "", localizePath("/", locale));
     setActiveKey("/");
     setIsActive(false);
 
@@ -74,7 +91,7 @@ function NavBar() {
   };
 
   const handlePageLinkClick = (href) => {
-    setActiveKey(href);
+    setActiveKey(getPathWithoutLocale(href));
     setIsActive(false);
   };
 
@@ -99,10 +116,10 @@ function NavBar() {
   }, []);
 
   const handleHomeLinkClick = (event, href) => {
-    if (window.location.pathname === "/" && scrollToHomeTarget(href)) {
+    if (getPathWithoutLocale(window.location.pathname) === "/" && scrollToHomeTarget(href)) {
       event.preventDefault();
 
-      window.history.pushState(null, "", href);
+      window.history.pushState(null, "", localizePath(href, locale));
       setActiveKey(href);
       setIsActive(false);
 
@@ -113,13 +130,36 @@ function NavBar() {
     setIsActive(false);
   };
 
+  const getLanguageSwitchPath = () => {
+    const slugMatch = currentPathWithoutLocale.match(/^\/(blog|astrofotografia)\/(.+)$/);
+
+    if (slugMatch) {
+      const [, collection, slug] = slugMatch;
+      const translatedPost =
+        collection === "blog"
+          ? findTranslatedBlogPost(slug, locale, oppositeLocale)
+          : findTranslatedAstrophotographyPost(slug, locale, oppositeLocale);
+
+      if (translatedPost) {
+        return localizePath(`/${collection}/${translatedPost.slug}${location.hash}`, oppositeLocale);
+      }
+
+      return localizePath(`/${collection}`, oppositeLocale);
+    }
+
+    return localizePath(
+      `${currentPathWithoutLocale}${location.search}${location.hash}`,
+      oppositeLocale,
+    );
+  };
+
   useEffect(() => {
     const syncActiveKey = () => {
-      setActiveKey(`${window.location.pathname}${window.location.hash}`);
+      setActiveKey(`${getPathWithoutLocale(window.location.pathname)}${window.location.hash}`);
     };
 
     const alignInitialHash = () => {
-      if (window.location.pathname !== "/" || !window.location.hash) {
+      if (getPathWithoutLocale(window.location.pathname) !== "/" || !window.location.hash) {
         return;
       }
 
@@ -139,6 +179,10 @@ function NavBar() {
     };
   }, [scrollToHomeTarget]);
 
+  useEffect(() => {
+    setActiveKey(`${currentPathWithoutLocale}${location.hash}`);
+  }, [currentPathWithoutLocale, location.hash]);
+
   return (
     <>
       <Navbar
@@ -150,7 +194,7 @@ function NavBar() {
         <Container>
           <Navbar.Brand
             className="navbar-brand-custom"
-            href="/"
+            href={localizePath("/", locale)}
             onClick={handleBrandClick}
           >
             <img
@@ -160,12 +204,12 @@ function NavBar() {
               className="navbar-logo"
               alt="Logo Gui Vilas"
             />
-            <span>Gui Vilas v3.0</span>
+            <span>{t("nav.brand")}</span>
           </Navbar.Brand>
 
           <Navbar.Toggle
             aria-controls="responsive-navbar-nav"
-            aria-label="Alternar menu de navegação"
+            aria-label={t("nav.toggle")}
             className="custom-toggler"
             onClick={toggleButton}
           >
@@ -179,7 +223,7 @@ function NavBar() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto navbar-primary-links">
               <NavDropdown
-                title="Páginas"
+                title={t("nav.pages")}
                 id="pages-nav-dropdown"
                 className={`nav-dropdown-custom ${
                   isPagesDropdownActive ? "active" : ""
@@ -188,7 +232,7 @@ function NavBar() {
                 {pageLinks.map((link) => (
                   <NavDropdown.Item
                     key={link.href}
-                    href={link.href}
+                    href={localizePath(link.href, locale)}
                     className={getDropdownItemClass(link.href)}
                     onClick={() => handlePageLinkClick(link.href)}
                   >
@@ -198,7 +242,7 @@ function NavBar() {
               </NavDropdown>
 
               <NavDropdown
-                title="Home"
+                title={t("nav.home")}
                 id="home-nav-dropdown"
                 className={`nav-dropdown-custom ${
                   isHomeDropdownActive ? "active" : ""
@@ -207,7 +251,7 @@ function NavBar() {
                 {homeLinks.map((link) => (
                   <NavDropdown.Item
                     key={link.href}
-                    href={link.href}
+                    href={localizePath(link.href, locale)}
                     className={getDropdownItemClass(link.href)}
                     onClick={(event) => handleHomeLinkClick(event, link.href)}
                   >
@@ -222,7 +266,7 @@ function NavBar() {
                 {featuredLinks.map((link) => (
                   <Nav.Link
                     key={link.href}
-                    href={link.href}
+                    href={localizePath(link.href, locale)}
                     className={`nav-featured-link ${
                       activeKey === link.href ? "active" : ""
                     }`}
@@ -233,7 +277,7 @@ function NavBar() {
                 ))}
               </div>
               <NavDropdown
-                title="Currículo"
+                title={t("nav.resume")}
                 id="resume-nav-dropdown"
                 className="nav-dropdown-custom nav-resume-dropdown"
               >
@@ -246,10 +290,20 @@ function NavBar() {
                     className="nav-dropdown-item"
                     onClick={() => setIsActive(false)}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </NavDropdown.Item>
                 ))}
               </NavDropdown>
+              <Nav.Link
+                href={getLanguageSwitchPath()}
+                className="nav-featured-link"
+                aria-label={t("language.switchTo", {
+                  language: t(oppositeLocale === "en" ? "language.en" : "language.pt"),
+                })}
+                onClick={() => setIsActive(false)}
+              >
+                {oppositeLocale === "en" ? "EN" : "PT"}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,4 +1,5 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import "./style.css";
 
@@ -7,11 +8,12 @@ const PortfolioItem = ({
   logo,
   screenshot,
   websiteLink,
-  buttonLabel = "Acessar o Site",
+  buttonLabel,
   description,
   note,
   technologies,
 }) => {
+  const { t } = useTranslation("common");
   const isExternalLink = websiteLink?.startsWith("http");
   const linkProps = isExternalLink
     ? { target: "_blank", rel: "noopener noreferrer" }
@@ -68,11 +70,11 @@ const PortfolioItem = ({
                   marginBottom: "10px",
                 }}
               >
-                {buttonLabel}
+                {buttonLabel || t("portfolio.defaultButton")}
               </Button>
             )}
             {note && <p className="portfolio-note">{note}</p>}
-            <h5>Tecnologias Utilizadas:</h5>
+            <h5>{t("portfolio.technologies")}</h5>
             <ul>
               {technologies.map((tech, index) => (
                 <li key={index}>{tech}</li>

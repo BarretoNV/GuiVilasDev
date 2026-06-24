@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import "./style.css";
 
 const getSiteUrl = () => {
@@ -30,6 +31,7 @@ const copyToClipboard = async (value) => {
 };
 
 export default function ShareButton({ title, text, path, imagePath }) {
+  const { t } = useTranslation("common");
   const [status, setStatus] = useState("");
 
   const shareData = useMemo(() => {
@@ -62,7 +64,7 @@ export default function ShareButton({ title, text, path, imagePath }) {
 
           if (navigator.canShare(fileShareData)) {
             await navigator.share(fileShareData);
-            setStatus("Compartilhado");
+            setStatus(t("share.shared"));
             return;
           }
         }
@@ -72,19 +74,19 @@ export default function ShareButton({ title, text, path, imagePath }) {
           text: shareData.text,
           url: shareData.url,
         });
-        setStatus("Compartilhado");
+        setStatus(t("share.shared"));
         return;
       }
 
       await copyToClipboard(shareData.url);
-      setStatus("Link copiado");
+      setStatus(t("share.copied"));
     } catch (error) {
       if (error.name === "AbortError") {
         return;
       }
 
       await copyToClipboard(shareData.url);
-      setStatus("Link copiado");
+      setStatus(t("share.copied"));
     }
   };
 
@@ -94,7 +96,7 @@ export default function ShareButton({ title, text, path, imagePath }) {
         type="button"
         className="share-button"
         onClick={handleShare}
-        aria-label={`Compartilhar ${title}`}
+        aria-label={t("share.aria", { title })}
       >
         <svg
           aria-hidden="true"
@@ -104,7 +106,7 @@ export default function ShareButton({ title, text, path, imagePath }) {
         >
           <path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .22 1.12L8.91 8.77A3 3 0 1 0 9 15.16l6.18 3.58A3 3 0 1 0 16 17.26l-6.18-3.58a3.02 3.02 0 0 0-.01-2.34l6.3-3.65A2.98 2.98 0 0 0 18 8Z" />
         </svg>
-        Compartilhar
+        {t("share.button")}
       </button>
       {status && <span className="share-button-status">{status}</span>}
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import {
   getCloudinaryVideoPosterSrcSet,
@@ -7,14 +8,15 @@ import {
 import "./style.css";
 
 export default function AudiovisualCard({ video, onSelect, href }) {
+  const { t } = useTranslation("common");
   const [imageState, setImageState] = useState(
     video.publicId ? "loading" : "error",
   );
   const poster = getCloudinaryVideoPosterUrl(video);
   const posterSrcSet = getCloudinaryVideoPosterSrcSet(video);
   const accessibleLabel = href
-    ? `Ver portfólio audiovisual: ${video.title}`
-    : `Reproduzir ${video.title}`;
+    ? `${t("nav.links.audiovisual")}: ${video.title}`
+    : `Play ${video.title}`;
 
   const content = (
     <>
@@ -24,7 +26,7 @@ export default function AudiovisualCard({ video, onSelect, href }) {
             src={poster}
             srcSet={posterSrcSet}
             sizes="(max-width: 575px) 88vw, (max-width: 991px) 44vw, 25vw"
-            alt={`Capa do vídeo ${video.title}`}
+            alt={`${video.title} cover`}
             loading="lazy"
             onLoad={() => setImageState("loaded")}
             onError={() => setImageState("error")}
@@ -33,14 +35,14 @@ export default function AudiovisualCard({ video, onSelect, href }) {
           <div
             className="audiovisual-card-fallback"
             role="img"
-            aria-label="Capa indisponível"
+            aria-label={t("loading.coverUnavailable")}
           >
-            <span>Capa indisponível</span>
-            <small>O vídeo poderá ser aberto normalmente.</small>
+            <span>{t("loading.coverUnavailable")}</span>
+            <small>{t("loading.videoCanOpen")}</small>
           </div>
         )}
         {imageState === "loading" && (
-          <span className="audiovisual-card-loading">Carregando capa…</span>
+          <span className="audiovisual-card-loading">{t("loading.cover")}</span>
         )}
         <span className="audiovisual-card-play" aria-hidden="true">
           ▶
