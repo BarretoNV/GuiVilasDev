@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
+import useLocale from "../../hooks/useLocale";
+import { localizePath } from "../../utils/i18nRouting";
 import { Container, Button, Form, Alert } from "react-bootstrap";
 
 export default function WeatherAPI() {
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
   const [weatherInfo, setWeatherInfo] = useState([]);
   const [cityName, setCityName] = useState("");
   const [cityFound, setCityFound] = useState(false);
@@ -57,16 +62,20 @@ export default function WeatherAPI() {
     <>
       <NavBar />
       <Container className="text-light">
-        <h1 className="mt-4">Previs&atilde;o do Tempo</h1>
-        <Button variant="outline-light" href="/funwithapis" className="mb-4">
-          Voltar
+        <h1 className="mt-4">{t("weather.title")}</h1>
+        <Button
+          variant="outline-light"
+          href={localizePath("/funwithapis", locale)}
+          className="mb-4"
+        >
+          {t("weather.back")}
         </Button>
         <Form>
           <Form.Group controlId="cityName">
-            <Form.Label>Digite o nome da cidade</Form.Label>
+            <Form.Label>{t("weather.cityLabel")}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Digite o nome da cidade"
+              placeholder={t("weather.cityPlaceholder")}
               value={cityName}
               onChange={(event) => setCityName(event.target.value)}
             />
@@ -76,7 +85,7 @@ export default function WeatherAPI() {
             onClick={handleButtonClick}
             className="mb-3 mt-2"
           >
-            Enviar
+            {t("weather.submit")}
           </Button>
         </Form>
         <div>
@@ -88,32 +97,31 @@ export default function WeatherAPI() {
                   alt={weatherInfo.current.condition.text}
                 />
                 <h2 className="mb-3">
-                  Condi&ccedil;&otilde;es clim&aacute;ticas em{" "}
-                  {weatherInfo.location.name},{" "}
-                  {weatherInfo.location.country}
+                  {t("weather.conditions", {
+                    city: weatherInfo.location.name,
+                    country: weatherInfo.location.country,
+                  })}
                 </h2>
-                <p>Temperatura: {weatherInfo.current.temp_c}&deg;C</p>
                 <p>
-                  Sensa&ccedil;&atilde;o T&eacute;rmica:{" "}
-                  {weatherInfo.current.feelslike_c}&deg;C
+                  {t("weather.temperature")}: {weatherInfo.current.temp_c}°C
                 </p>
-                <p>Descri&ccedil;&atilde;o: {weatherInfo.current.condition.text}</p>
-                <p>Umidade: {weatherInfo.current.humidity}%</p>
+                <p>
+                  {t("weather.feelsLike")}: {weatherInfo.current.feelslike_c}°C
+                </p>
+                <p>
+                  {t("weather.description")}: {weatherInfo.current.condition.text}
+                </p>
+                <p>
+                  {t("weather.humidity")}: {weatherInfo.current.humidity}%
+                </p>
               </div>
             ) : (
-              <Alert variant="danger">
-                Cidade n&atilde;o encontrada. Verifique o nome e tente novamente.
-              </Alert>
+              <Alert variant="danger">{t("weather.notFound")}</Alert>
             )
           ) : hasSearched && !cityFound ? (
-            <Alert variant="danger">
-              Cidade n&atilde;o encontrada. Verifique o nome e tente novamente.
-            </Alert>
+            <Alert variant="danger">{t("weather.notFound")}</Alert>
           ) : (
-            <Alert variant="warning">
-              Informe o nome de uma cidade e clique em &quot;Enviar&quot; para
-              verificar o clima.
-            </Alert>
+            <Alert variant="warning">{t("weather.initial")}</Alert>
           )}
         </div>
       </Container>

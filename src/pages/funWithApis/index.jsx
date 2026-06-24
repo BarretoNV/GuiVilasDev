@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Container, Button, Col, Row, Card } from "react-bootstrap";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 import NavBar from "../../components/navbar";
 import imageObj from "../../assets/images";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
+import useLocale from "../../hooks/useLocale";
+import { localizePath } from "../../utils/i18nRouting";
 
 export default function FunWithAPIs() {
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
   const [loading, setLoading] = useState(true);
   const shouldShowLoader = useMinimumLoadingTime(loading);
   const [scienceNews, setScienceNews] = useState(null);
@@ -26,12 +31,12 @@ export default function FunWithAPIs() {
 
       if (!NYTToken) {
         setScienceNews(null);
-        setScienceError("Chave da API do New York Times não configurada.");
+        setScienceError(t("apis.nytKeyError"));
         return;
       }
 
       const url = new URL(
-        "https://api.nytimes.com/svc/topstories/v2/science.json"
+        "https://api.nytimes.com/svc/topstories/v2/science.json",
       );
       url.searchParams.set("api-key", NYTToken);
 
@@ -45,9 +50,9 @@ export default function FunWithAPIs() {
       setScienceNews(data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
-      setScienceError("Não foi possível carregar notícias de ciência.");
+      setScienceError(t("apis.scienceError"));
     }
-  }, [NYTToken]);
+  }, [NYTToken, t]);
 
   const fetchNYTTechnologyNews = useCallback(async () => {
     try {
@@ -55,12 +60,12 @@ export default function FunWithAPIs() {
 
       if (!NYTToken) {
         setTechnologyNews(null);
-        setTechnologyError("Chave da API do New York Times não configurada.");
+        setTechnologyError(t("apis.nytKeyError"));
         return;
       }
 
       const url = new URL(
-        "https://api.nytimes.com/svc/topstories/v2/technology.json"
+        "https://api.nytimes.com/svc/topstories/v2/technology.json",
       );
       url.searchParams.set("api-key", NYTToken);
 
@@ -74,35 +79,38 @@ export default function FunWithAPIs() {
       setTechnologyNews(data.results?.[0] ?? null);
     } catch (error) {
       console.error("Erro: ", error);
-      setTechnologyError("Não foi possível carregar notícias de tecnologia.");
+      setTechnologyError(t("apis.technologyError"));
     }
-  }, [NYTToken]);
+  }, [NYTToken, t]);
 
-  const fetchRandomAdvice = useCallback(async (showInlineLoading = false) => {
-    try {
-      if (showInlineLoading) {
-        setAdviceLoading(true);
+  const fetchRandomAdvice = useCallback(
+    async (showInlineLoading = false) => {
+      try {
+        if (showInlineLoading) {
+          setAdviceLoading(true);
+        }
+
+        setAdviceError("");
+
+        const response = await fetch("https://api.adviceslip.com/advice");
+
+        if (!response.ok) {
+          throw new Error(`Advice request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRandomAdvice(data.slip);
+      } catch (error) {
+        console.error("Erro ao pegar advice: ", error);
+        setAdviceError(t("apis.adviceError"));
+      } finally {
+        if (showInlineLoading) {
+          setAdviceLoading(false);
+        }
       }
-
-      setAdviceError("");
-
-      const response = await fetch("https://api.adviceslip.com/advice");
-
-      if (!response.ok) {
-        throw new Error(`Advice request failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setRandomAdvice(data.slip);
-    } catch (error) {
-      console.error("Erro ao pegar advice: ", error);
-      setAdviceError("Não foi possível carregar o conselho agora.");
-    } finally {
-      if (showInlineLoading) {
-        setAdviceLoading(false);
-      }
-    }
-  }, []);
+    },
+    [t],
+  );
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -126,128 +134,124 @@ export default function FunWithAPIs() {
 
   return (
     <>
-          <NavBar />
-          <Container>
-            <Row className="mb-5 mt-5 align-items-center text-light text-center">
-              <Col md={12}>
-                <h1>
-                  <b>Venha me conhecer por meio destas integrações básicas</b>
-                </h1>
-              </Col>
-              <Col md={12}>
-                <h3>
-                  <b>Mas antes, gere um conselho aleatório para você.</b>
-                </h3>
-              </Col>
-              <Col md={12} className="text-center">
-                <Button
-                  variant="primary"
-                  onClick={() => fetchRandomAdvice(true)}
-                  disabled={adviceLoading}
-                >
-                  Obter Novo Conselho
-                </Button>
-                {adviceError && <p>{adviceError}</p>}
+      <NavBar />
+      <Container>
+        <Row className="mb-5 mt-5 align-items-center text-light text-center">
+          <Col md={12}>
+            <h1>
+              <b>{t("apis.title")}</b>
+            </h1>
+          </Col>
+          <Col md={12}>
+            <h3>
+              <b>{t("apis.adviceTitle")}</b>
+            </h3>
+          </Col>
+          <Col md={12} className="text-center">
+            <Button
+              variant="primary"
+              onClick={() => fetchRandomAdvice(true)}
+              disabled={adviceLoading}
+            >
+              {t("apis.newAdvice")}
+            </Button>
+            {adviceError && <p>{adviceError}</p>}
 
-                {adviceLoading ? (
-                  <p>Carregando conselho...</p>
-                ) : randomAdvice ? (
-                  <h4 style={{ marginTop: "20px" }}>
-                    <b>{randomAdvice.advice}</b>
-                  </h4>
-                ) : (
-                  <p>Carregando conselho...</p>
-                )}
-              </Col>
-            </Row>
+            {adviceLoading ? (
+              <p>{t("apis.adviceLoading")}</p>
+            ) : randomAdvice ? (
+              <h4 style={{ marginTop: "20px" }}>
+                <b>{randomAdvice.advice}</b>
+              </h4>
+            ) : (
+              <p>{t("apis.adviceLoading")}</p>
+            )}
+          </Col>
+        </Row>
 
-            <Row className="mb-5">
-              <Col md={4}>
-                {scienceError && <p>{scienceError}</p>}
+        <Row className="mb-5">
+          <Col md={4}>
+            {scienceError && <p>{scienceError}</p>}
 
-                {scienceNews ? (
-                  <Card className="text-light mb-3">
-                    <Card.Img
-                      variant="top"
-                      src={scienceNews.multimedia?.[0]?.url}
-                      alt={scienceNews.title}
-                    />
-                    <Card.Body>
-                      <Card.Title>Notícias da Ciência</Card.Title>
-                      <Card.Text>
-                        Notícias da comunidade científica a partir do New York
-                        Times
-                      </Card.Text>
-                      <Button variant="outline-light" href="/sciencenewslist">
-                        Ver mais
+            {scienceNews ? (
+              <Card className="text-light mb-3">
+                <Card.Img
+                  variant="top"
+                  src={scienceNews.multimedia?.[0]?.url}
+                  alt={scienceNews.title}
+                />
+                <Card.Body>
+                  <Card.Title>{t("apis.scienceTitle")}</Card.Title>
+                  <Card.Text>{t("apis.scienceDescription")}</Card.Text>
+                  <Button
+                    variant="outline-light"
+                    href={localizePath("/sciencenewslist", locale)}
+                  >
+                    {t("apis.seeMore")}
+                  </Button>
+                </Card.Body>
+              </Card>
+            ) : (
+              !scienceError && <p>{t("apis.scienceLoading")}</p>
+            )}
+          </Col>
+          <Col md={4}>
+            {technologyError && <p>{technologyError}</p>}
+
+            {technologyNews ? (
+              <Card className="text-light mb-3">
+                <Card.Img
+                  variant="top"
+                  src={technologyNews.multimedia?.[0]?.url}
+                  alt={technologyNews.title}
+                />
+                <Card.Body>
+                  <Card.Title>{t("apis.technologyTitle")}</Card.Title>
+                  <Card.Text>{t("apis.technologyDescription")}</Card.Text>
+                  <Row>
+                    <Col md={6}>
+                      <Button
+                        variant="outline-light"
+                        href={localizePath("/technologynewslist", locale)}
+                      >
+                        {t("apis.seeMore")}
                       </Button>
-                    </Card.Body>
-                  </Card>
-                ) : (
-                  !scienceError && <p>Carregando notícias de ciência...</p>
-                )}
-              </Col>
-              <Col md={4}>
-                {technologyError && <p>{technologyError}</p>}
-
-                {technologyNews ? (
-                  <Card className="text-light mb-3">
-                    <Card.Img
-                      variant="top"
-                      src={technologyNews.multimedia?.[0]?.url}
-                      alt={technologyNews.title}
-                    />
-                    <Card.Body>
-                      <Card.Title>Notícias da Tecnologia</Card.Title>
-                      <Card.Text>
-                        Notícias de tecnologia a partir do New York Times
-                      </Card.Text>
-                      <Row>
-                        <Col md={6}>
-                          <Button
-                            variant="outline-light"
-                            href="/technologynewslist"
-                          >
-                            Ver mais
-                          </Button>
-                        </Col>
-                        <Col md={6}>
-                          <img
-                            src={imageObj.nytWhiteLogo}
-                            alt="NYT Logo"
-                            style={{ maxWidth: "100%", maxHeight: "100px" }}
-                          />
-                        </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
-                ) : (
-                  !technologyError && (
-                    <p>Carregando notícias de tecnologia...</p>
-                  )
-                )}
-              </Col>
-              <Col md={4}>
-                <Card className="text-light mb-3">
-                  <Card.Img variant="top" src={imageObj.weatherAPILogo} />
-                  <Card.Body>
-                    <Card.Title>Ver Clima em alguma cidade</Card.Title>
-                    <Card.Text>
-                      API de meteorologia, ver informações de tempo em qualquer
-                      cidade.
-                    </Card.Text>
-                    <Row>
-                      <Col md={6}>
-                        <Button variant="outline-light" href="/weatherinfos">
-                          Ver mais
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
+                    </Col>
+                    <Col md={6}>
+                      <img
+                        src={imageObj.nytWhiteLogo}
+                        alt="NYT Logo"
+                        style={{ maxWidth: "100%", maxHeight: "100px" }}
+                      />
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            ) : (
+              !technologyError && <p>{t("apis.technologyLoading")}</p>
+            )}
+          </Col>
+          <Col md={4}>
+            <Card className="text-light mb-3">
+              <Card.Img variant="top" src={imageObj.weatherAPILogo} />
+              <Card.Body>
+                <Card.Title>{t("apis.weatherTitle")}</Card.Title>
+                <Card.Text>{t("apis.weatherDescription")}</Card.Text>
+                <Row>
+                  <Col md={6}>
+                    <Button
+                      variant="outline-light"
+                      href={localizePath("/weatherinfos", locale)}
+                    >
+                      {t("apis.seeMore")}
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
       <Footer />
     </>
   );

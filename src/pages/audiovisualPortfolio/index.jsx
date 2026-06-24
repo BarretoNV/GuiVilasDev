@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, Container, Modal } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import AudiovisualCard from "../../components/AudiovisualCard";
-import audiovisualPortfolio from "../../data/audiovisualPortfolio";
+import useLocale from "../../hooks/useLocale";
+import { getAudiovisualPortfolio } from "../../data/audiovisualPortfolio";
 import LoadingGIF from "../../assets/loadingGIF.gif";
 import {
   getCloudinaryVideoPosterUrl,
@@ -12,6 +14,9 @@ import {
 import "./style.css";
 
 export default function AudiovisualPortfolio() {
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
+  const audiovisualPortfolio = getAudiovisualPortfolio(locale);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [playbackError, setPlaybackError] = useState(false);
   const [isVideoLoading, setIsVideoLoading] = useState(false);
@@ -53,22 +58,18 @@ export default function AudiovisualPortfolio() {
       <main>
         <Container className="audiovisual-page text-light">
           <header className="audiovisual-page-header">
-            <p>Social media e edição</p>
-            <h1>Portfólio Audiovisual</h1>
-            <p>
-              Algumas das minhas experiências com edição de
-              vídeos, criação de conteúdo e desenvolvimento de peças para redes
-              sociais.
-            </p>
+            <p>{t("audiovisual.kicker")}</p>
+            <h1>{t("audiovisual.title")}</h1>
+            <p>{t("audiovisual.description")}</p>
           </header>
 
           <section
             className="audiovisual-grid"
-            aria-label="Galeria de trabalhos audiovisuais"
+            aria-label={t("audiovisual.galleryAria")}
           >
             {audiovisualPortfolio.map((video) => (
               <AudiovisualCard
-                key={video.title}
+                key={video.key}
                 video={video}
                 onSelect={selectVideo}
               />
@@ -102,10 +103,12 @@ export default function AudiovisualPortfolio() {
                 <div
                   className="audiovisual-player-loading"
                   role="status"
-                  aria-label="Carregando vídeo"
+                  aria-label={t("audiovisual.loadingVideo")}
                 >
                   <img src={LoadingGIF} alt="" />
-                  <span className="visually-hidden">Carregando vídeo</span>
+                  <span className="visually-hidden">
+                    {t("audiovisual.loadingVideo")}
+                  </span>
                 </div>
               )}
               <video
@@ -122,13 +125,12 @@ export default function AudiovisualPortfolio() {
                 onPlaying={handleVideoReady}
                 onError={handlePlaybackError}
               >
-                Seu navegador não oferece suporte à reprodução deste vídeo.
+                {t("audiovisual.videoUnsupported")}
               </video>
             </div>
           ) : (
             <Alert variant="dark" className="audiovisual-video-error">
-              Este vídeo ainda não está disponível. Confira o publicId do
-              Cloudinary em <code>src/data/audiovisualPortfolio.js</code>.
+              {t("audiovisual.videoUnavailable")}
             </Alert>
           )}
           <p className="audiovisual-modal-description">

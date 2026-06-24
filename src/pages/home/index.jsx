@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import PortfolioItem from "../../components/PortfolioItem";
@@ -14,45 +14,23 @@ import {
   faSpotify,
 } from "@fortawesome/free-brands-svg-icons";
 import useMinimumLoadingTime from "../../hooks/useMinimumLoadingTime";
-import projects from "../../data/projects";
-import audiovisualPortfolio from "../../data/audiovisualPortfolio";
+import useLocale from "../../hooks/useLocale";
+import { getHomeContent, formatDurationSince } from "../../data/homeContent";
+import { getProjects } from "../../data/projects";
+import { getAudiovisualPortfolio } from "../../data/audiovisualPortfolio";
+import { localizePath } from "../../utils/i18nRouting";
 import AudiovisualCard from "../../components/AudiovisualCard";
 
 import "./style.css";
 import imageObj from "../../assets/images";
 
-const formatDurationSince = (
-  startYear,
-  startMonthIndex,
-  referenceDate = new Date(),
-) => {
-  const currentYear = referenceDate.getFullYear();
-  const currentMonthIndex = referenceDate.getMonth();
-  const totalMonths =
-    (currentYear - startYear) * 12 + currentMonthIndex - startMonthIndex + 1;
-
-  if (totalMonths <= 0) {
-    return "0 meses";
-  }
-
-  const years = Math.floor(totalMonths / 12);
-  const months = totalMonths % 12;
-  const parts = [];
-
-  if (years > 0) {
-    parts.push(`${years} ${years === 1 ? "ano" : "anos"}`);
-  }
-
-  if (months > 0) {
-    parts.push(`${months} ${months === 1 ? "mês" : "meses"}`);
-  }
-
-  return parts.join(" ");
-};
-
 export default function Home() {
+  const locale = useLocale();
+  const content = getHomeContent(locale);
+  const projects = getProjects(locale);
+  const audiovisualPortfolio = getAudiovisualPortfolio(locale);
   const [selectedCompany, setSelectedCompany] = useState("Food Digital");
-  const foodDigitalDuration = formatDurationSince(2025, 3);
+  const foodDigitalDuration = formatDurationSince(2025, 3, locale);
 
   const [pageReady, setPageReady] = useState(false);
   const loading = useMinimumLoadingTime(!pageReady);
@@ -74,140 +52,19 @@ export default function Home() {
     });
   }, []);
 
-  const companies = [
-    {
-      value: "Food Digital",
-      companyMeta: "Tempo integral",
-      location: "Remota",
-      logo: ImagesObject.foodDigitalLogo,
-      roles: [
-        {
-          title: "Gerente de mídias sociais",
-          period: `abr de 2025 - o momento · ${foodDigitalDuration}`,
-          description:
-            "Gestão de mídias sociais. Edição de vídeos e imagens. Planejamento estratégico de marketing. Gestão de projetos.",
-          stack:
-            "Gestão de projetos · Publicidade em mídias sociais · Edição de vídeo · Planejamento estratégico",
-        },
-      ],
-    },
-    {
-      value: "Rush Co",
-      companyMeta: "Tempo integral · 10 m",
-      location: "Remota",
-      logo: ImagesObject.rushCoDigitalLogo,
-      roles: [
-        {
-          title: "Gerente de contas",
-          period: "mar de 2025 - abr de 2025 · 2 meses",
-          description:
-            "Gestão de projetos e liderança de equipes multidisciplinar. Manutenção de relacionamento próximo e produtivo com a carteira de clientes. Identificação de oportunidades de negócios. Gestão de expectativas dos clientes. Monitoramento do uso de produtos e serviços. Gestão de crises. Representação da empresa e das necessidades dos clientes. Provisão de suporte diário para atender às necessidades dos clientes.",
-          stack:
-            "Gestão de projetos · Suporte ao cliente · Métricas de mídias sociais · Gestão de tráfego",
-        },
-        {
-          title: "Social Media",
-          period: "jul de 2024 - mar de 2025 · 9 meses",
-          description:
-            "Gerenciamento, planejamento, estruturação e manutenção de redes sociais.",
-          stack: "Instagram · Copywriting",
-        },
-      ],
-    },
-    {
-      value: "Infinite Growth",
-      companyMeta: "Tempo integral",
-      location: "Campos dos Goytacazes · Híbrida",
-      logo: ImagesObject.infiniteLogo,
-      roles: [
-        {
-          title: "Social Media",
-          period: "jan de 2024 - jun de 2024 · 6 meses",
-          description:
-            "Elaboração e desenvolvimento de criativos para redes sociais, assim como idealização de roteiros e editoriais de postagens para utilização em campanhas ou em simples posts em plataformas, como: Meta, Google, Tiktok, Kwai e outras similares.",
-          stack:
-            "Desenvolvimento de ideias · Marketing de mídias sociais · Narrativas visuais · Produção de vídeo",
-        },
-      ],
-    },
-    {
-      value: "Fichar.io",
-      logo: ImagesObject.ficharioLogo,
-      roles: [
-        {
-          title: "Desenvolvedor Front-End",
-          period: "jun de 2023 - jan de 2024 · 8 meses",
-          description:
-            "Desenvolvimento em Front-End com React + Vite, usando Bootstrap. Trabalhando como bolsista a partir do Instituto Federal Fluminense em parceria com a Fichar.io.",
-          stack: "React · Javascript · CSS Bootstrap · Consumo de APIs · Vite",
-        },
-      ],
-    },
-    {
-      value: "Vetta.Digital",
-      logo: ImagesObject.vettaLogo,
-      roles: [
-        {
-          title: "Estagiário de desenvolvimento",
-          period: "nov de 2022 - jun de 2023 · 8 meses",
-          description:
-            "Estágio de desenvolvimento de programas e sistemas em Javascript e Back-End em Java, mobile e desktop. Pair programming e uso de frameworks próprios da empresa.",
-          stack: "React · Javascript · Java · PostGre · React Native",
-        },
-      ],
-    },
-    {
-      value: "Retornar Tecnologia",
-      logo: ImagesObject.retornarLogo,
-      roles: [
-        {
-          title: "Desenvolvedor Front-End",
-          period: "nov de 2021 - ago de 2022 · 10 meses",
-          description:
-            "Lançamento e manutenção de landing pages feitas com HTML, CSS e Javascript, além de auxiliar na manutenção de projetos em React.js, trabalhando em conjunto com designers UI/UX.",
-          stack:
-            "GitFlow · Git · HTML · JavaScript · React.js · E-mails em HTML · Bootstrap · Informática · HTML5 · CSS",
-        },
-      ],
-    },
-    {
-      value: "Aurea Empresa Júnior",
-      companyMeta: "2 anos 10 meses",
-      location: "Campos dos Goytacazes, Rio de Janeiro, Brasil",
-      logo: ImagesObject.aureaLogo,
-      roles: [
-        {
-          title: "Desenvolvedor da web",
-          period: "abr de 2019 - jan de 2022 · 2 anos 10 meses",
-          description:
-            "Primeiro contato profissional com desenvolvimento web e front-end, criando sites em WordPress e React.js.",
-          stack:
-            "CSS · React.js · GitFlow · Git · Informática · SASS · JavaScript · HTML",
-        },
-        {
-          title: "Coordenador de Endomarketing",
-          period: "jan de 2021 - dez de 2021 · 1 ano",
-          description:
-            "Coordenação de comunicação interna, ações de endomarketing e alinhamento da equipe.",
-          stack:
-            "Mídias sociais · Adobe Photoshop · Informática · Edição de imagens · Design gráfico · Corel Draw · Adobe Premiere",
-        },
-        {
-          title: "Assessor de comunicação",
-          period: "abr de 2019 - jan de 2021 · 1 ano 10 meses",
-          description:
-            "Atuação com comunicação, marketing interno, edição de imagem e vídeo, divulgação da marca e aprendizado sobre equipe, liderança e relações com clientes.",
-          stack:
-            "Mídias sociais · Adobe Photoshop · Informática · Edição de imagens · Design gráfico · Corel Draw · Adobe Premiere",
-        },
-      ],
-    },
-  ];
-
   if (!selectedCompany) {
     return null;
   }
 
+  const companies = content.companies.map((company) => ({
+    ...company,
+    roles: company.roles.map((role) => ({
+      ...role,
+      period: role.dynamicDuration
+        ? `${role.periodPrefix} · ${foodDigitalDuration}`
+        : role.period,
+    })),
+  }));
   const selectedCompanyData = companies.find(
     (opt) => opt.value === selectedCompany,
   );
@@ -216,6 +73,7 @@ export default function Home() {
   const featuredVideos = audiovisualPortfolio
     .filter((video) => video.featured)
     .slice(0, 3);
+
   if (loading) {
     return <Loader />;
   }
@@ -231,29 +89,21 @@ export default function Home() {
           <Row className="hero-row align-items-center">
             <Col lg={9} xl={8}>
               <div className="hero-content text-light">
-                <p>Olá mundo, meu nome é</p>
+                <p>{content.hero.greeting}</p>
                 <h1>
-                  <b>Guilherme Vilas</b>
+                  <b>{content.hero.name}</b>
                 </h1>
-                <h2>Engenheiro da Computação</h2>
+                <h2>{content.hero.title}</h2>
+                <p>{content.hero.paragraphs[0]}</p>
                 <p>
-                  Trabalho na interseção entre tecnologia, marketing digital e
-                  criação visual. Atuo com estratégia de conteúdo para
-                  restaurantes, edição de vídeos, social media, disparos de
-                  mensagens e otimização de Google Meu Negócio.
-                </p>{" "}
-                <p>
-                  Tenho experiência com Front-End em React.js e JavaScript, além
-                  de formação inicial em design e fotografia. Formado em
-                  engenharia pelo
+                  {content.hero.paragraphs[1]}{" "}
                   <a
                     href="https://portal1.iff.edu.br"
                     target="_blank"
                     rel="noreferrer"
                     style={{ textDecoration: "none" }}
                   >
-                    {" "}
-                    Instituto Federal Fluminense.
+                    {content.hero.institute}
                   </a>
                 </p>
                 <div className="hero-actions">
@@ -265,21 +115,21 @@ export default function Home() {
                     size="lg"
                     className="hero-linkedin-button"
                   >
-                    Meu Linkedin
+                    {content.hero.linkedin}
                   </Button>
                   <ShareButton
                     title="GuiVilas Dev"
-                    text="Projetos, blog e astrofotografia por Guilherme Barreto."
-                    path="/"
+                    text={content.hero.shareText}
+                    path={localizePath("/", locale)}
                     imagePath="/social/home-profile-square.png"
                   />
                 </div>
               </div>
             </Col>
           </Row>
-          <small className="hero-credit">Imagem: NASA.gov</small>
+          <small className="hero-credit">{content.hero.credit}</small>
           <div className="hero-scroll-indicator">
-            <img src={imageObj.scrollDown} alt="Role para baixo" />
+            <img src={imageObj.scrollDown} alt={content.hero.scrollAlt} />
           </div>
         </Container>
       </section>
@@ -287,71 +137,33 @@ export default function Home() {
         <Row id="aboutMe" className="mt-5 mb-5 text-light">
           <Col sm={12}>
             <div className="about-section">
-              <h2>01. Sobre mim</h2>
-              <p>
-                Sou engenheiro da computação e trabalho na interseção entre
-                produto digital, conteúdo e operação de marketing. Minha
-                trajetória passou por desenvolvimento front-end, projetos em
-                React.js e, mais recentemente, pela rotina de social media,
-                gestão de contas e presença digital para marcas e restaurantes.
-              </p>
-              <p>
-                Gosto de atuar onde a parte técnica encontra o problema de
-                negócio: estruturar interfaces, consumir APIs, organizar
-                processos, criar narrativas para redes sociais, acompanhar
-                métricas e transformar demandas soltas em entregas mais claras
-                para clientes e equipes.
-              </p>
-              <p>Hoje meu trabalho conecta:</p>
+              <h2>{content.about.title}</h2>
+              {content.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
               <div className="about-pillars">
-                <article className="about-pillar">
-                  <h3>Estratégia e conteúdo</h3>
-                  <p>
-                    Planejamento editorial, narrativas para redes sociais,
-                    criativos e consistência de comunicação.
-                  </p>
-                </article>
-                <article className="about-pillar">
-                  <h3>Operação e relacionamento</h3>
-                  <p>
-                    Gestão de contas, suporte, rotina com clientes e alinhamento
-                    de expectativas.
-                  </p>
-                </article>
-                <article className="about-pillar">
-                  <h3>Produto e tecnologia</h3>
-                  <p>
-                    React, JavaScript, APIs, interfaces, automações e pensamento
-                    de engenharia aplicado.
-                  </p>
-                </article>
-                <article className="about-pillar">
-                  <h3>Métricas e melhoria contínua</h3>
-                  <p>
-                    Google Meu Negócio, campanhas, leitura de resultados e
-                    ajustes de presença digital.
-                  </p>
-                </article>
+                {content.about.pillars.map((pillar) => (
+                  <article className="about-pillar" key={pillar.title}>
+                    <h3>{pillar.title}</h3>
+                    <p>{pillar.text}</p>
+                  </article>
+                ))}
               </div>
               <div className="about-credential">
                 <img
                   src={ImagesObject.clickUpPowerUserBadge}
-                  alt="Selo ClickUp Power User"
+                  alt={content.about.credential.alt}
                   className="about-credential-badge"
                 />
                 <div className="about-credential-content">
-                  <h3>ClickUp Power User</h3>
-                  <p>
-                    Usuário avançado autenticado pela ClickUp, reconhecimento
-                    associado ao uso intenso da plataforma em operações,
-                    dashboards, tarefas e processos.
-                  </p>
+                  <h3>{content.about.credential.title}</h3>
+                  <p>{content.about.credential.text}</p>
                   <a
                     href="https://clickup.com/verified-power-user"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Ver programa ClickUp Verified
+                    {content.about.credential.link}
                   </a>
                 </div>
               </div>
@@ -360,7 +172,7 @@ export default function Home() {
         </Row>
         <Row id="workHistory" className="mt-5 mb-5 text-light">
           <Col md={12}>
-            <h2>02. Minha carreira</h2>
+            <h2>{content.sections.career}</h2>
           </Col>
           <Row>
             <Col md={4} className="d-grid gap-2 gap-md-5 mb-4 menu-container">
@@ -411,7 +223,7 @@ export default function Home() {
                         <p className="role-period">{role.period}</p>
                         <p>{role.description}</p>
                         <p className="company-stack">
-                          <b>Competências:</b> {role.stack}
+                          <b>{content.sections.skills}</b> {role.stack}
                         </p>
                       </article>
                     ))}
@@ -423,22 +235,22 @@ export default function Home() {
         </Row>
         <Row id="projects" className="mt-5 mb-5 text-light">
           <Col md={12}>
-            <h2>03. Alguns projetos que fiz</h2>
+            <h2>{content.sections.projects}</h2>
           </Col>
           <section className="portfolio">
             <div className="portfolio-grid">
-              {featuredProjects.map((project, index) => (
-                <PortfolioItem key={index} {...project} />
+              {featuredProjects.map((project) => (
+                <PortfolioItem key={project.key} {...project} />
               ))}
             </div>
             <div className="projects-cta">
               <Button
                 type="button"
                 variant="outline-primary"
-                href="/projects"
+                href={localizePath("/projects", locale)}
                 size="lg"
               >
-                Ver todos os projetos
+                {content.sections.allProjects}
               </Button>
             </div>
           </section>
@@ -448,19 +260,18 @@ export default function Home() {
           className="mt-5 mb-5 text-light audiovisual-home-section"
         >
           <Col md={12}>
-            <h2>04. Portfólio Audiovisual</h2>
+            <h2>{content.sections.audiovisual}</h2>
             <p className="audiovisual-home-intro">
-              Conheça meu trabalho com edição de vídeos, criação visual e
-              conteúdo pensado para redes sociais.
+              {content.sections.audiovisualIntro}
             </p>
           </Col>
           <Col md={12}>
             <div className="audiovisual-home-grid">
               {featuredVideos.map((video) => (
                 <AudiovisualCard
-                  key={video.title}
+                  key={video.key}
                   video={video}
-                  href="/portfolio-audiovisual"
+                  href={localizePath("/portfolio-audiovisual", locale)}
                 />
               ))}
             </div>
@@ -468,18 +279,18 @@ export default function Home() {
               <Button
                 type="button"
                 variant="outline-primary"
-                href="/portfolio-audiovisual"
+                href={localizePath("/portfolio-audiovisual", locale)}
                 size="lg"
               >
-                Ver portfólio audiovisual
+                {content.sections.audiovisualCta}
               </Button>
             </div>
           </Col>
         </Row>
         <Row id="culture" className="mt-5 mb-5 text-light culture-section">
           <Col md={12}>
-            <h2>05. Outros</h2>
-            <p className="culture-intro">Músicas e filmes que eu gosto.</p>
+            <h2>{content.sections.culture}</h2>
+            <p className="culture-intro">{content.sections.cultureIntro}</p>
           </Col>
           <Col lg={8} className="mb-4 mb-lg-0">
             <div className="spotify-embed-wrapper">
@@ -502,8 +313,8 @@ export default function Home() {
                 alt="Letterboxd"
                 className="letterboxd-logo"
               />
-              <h3>Meu diário de filmes</h3>
-              <p>Não espere resenhas profundas.</p>
+              <h3>{content.sections.filmDiary}</h3>
+              <p>{content.sections.filmDiaryText}</p>
               <Button
                 href="https://letterboxd.com/guibarr3to/"
                 target="_blank"
@@ -511,7 +322,7 @@ export default function Home() {
                 variant="outline-primary"
                 className="letterboxd-link"
               >
-                Abrir Letterboxd
+                {content.sections.openLetterboxd}
               </Button>
             </article>
           </Col>
@@ -521,13 +332,10 @@ export default function Home() {
           className="mb-5 mt-5 align-items-center text-light contact-section"
         >
           <Col md={12}>
-            <h2>05. Entre em contato comigo</h2>
+            <h2>{content.sections.contact}</h2>
           </Col>
           <Col lg={5}>
-            <p className="contact-copy">
-              Para conversar sobre projetos, conteúdo, tecnologia ou uma boa
-              ideia ainda meio solta, estes são os melhores caminhos.
-            </p>
+            <p className="contact-copy">{content.sections.contactCopy}</p>
           </Col>
           <Col lg={7}>
             <div className="contact-links">
