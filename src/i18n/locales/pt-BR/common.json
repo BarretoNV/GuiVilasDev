@@ -1,0 +1,58 @@
+{
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "switchTo": "Trocar idioma para {{language}}"
+  },
+  "nav": {
+    "pages": "Páginas",
+    "home": "Home",
+    "resume": "Currículo",
+    "brand": "Gui Vilas v3.0",
+    "toggle": "Alternar menu de navegação",
+    "links": {
+      "home": "Início",
+      "tcc": "TCC",
+      "apis": "Consumo de APIs",
+      "blog": "Blog",
+      "astrophotography": "Astrofotografia",
+      "projects": "Projetos",
+      "audiovisual": "Audiovisual",
+      "about": "Sobre mim",
+      "experience": "Experiência",
+      "featured": "Destaques",
+      "others": "Outros"
+    },
+    "resumeLinks": {
+      "tech": "Dev & Tecnologia",
+      "marketing": "Marketing & Conteúdo"
+    }
+  },
+  "footer": {
+    "kicker": "Gui Vilas",
+    "title": "Tecnologia e Marketing.",
+    "description": "Site pessoal mantido como portfólio, arquivo de projetos e um pequeno mapa das coisas que eu tenho construído e acompanhado. Se quiser conversar, pode entrar em contato comigo pelos links ao lado.",
+    "aria": "Links do rodapé",
+    "source": "Código fonte",
+    "builtWith": "Desenvolvido com React + Vite"
+  },
+  "share": {
+    "button": "Compartilhar",
+    "shared": "Compartilhado",
+    "copied": "Link copiado",
+    "aria": "Compartilhar {{title}}"
+  },
+  "portfolio": {
+    "defaultButton": "Acessar o site",
+    "technologies": "Tecnologias utilizadas:"
+  },
+  "loading": {
+    "cover": "Carregando capa…",
+    "coverUnavailable": "Capa indisponível",
+    "videoCanOpen": "O vídeo poderá ser aberto normalmente."
+  },
+  "errors": {
+    "unexpectedTitle": "Oops!",
+    "unexpectedMessage": "Desculpe, ocorreu um erro inesperado."
+  }
+}

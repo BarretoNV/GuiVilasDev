@@ -3,9 +3,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { Analytics } from "@vercel/analytics/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./i18n";
 import "./index.css";
 import ErrorPage from "./error-page";
 import Loader from "./components/Loader";
+import LanguageSync from "./components/LanguageSync";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = React.lazy(() => import("./pages/home"));
@@ -26,10 +28,13 @@ const AudiovisualPortfolio = React.lazy(
 );
 
 const withPageLoader = (page) => (
-  <React.Suspense fallback={<Loader />}>{page}</React.Suspense>
+  <React.Suspense fallback={<Loader />}>
+    <LanguageSync />
+    {page}
+  </React.Suspense>
 );
 
-const router = createBrowserRouter([
+const localizedRoutes = [
   {
     path: "/",
     element: withPageLoader(<Home />),
@@ -90,7 +95,14 @@ const router = createBrowserRouter([
     element: withPageLoader(<WeatherInfo />),
     errorElement: <ErrorPage />,
   },
-]);
+];
+
+const englishRoutes = localizedRoutes.map((route) => ({
+  ...route,
+  path: route.path === "/" ? "/en" : `/en${route.path}`,
+}));
+
+const router = createBrowserRouter([...localizedRoutes, ...englishRoutes]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

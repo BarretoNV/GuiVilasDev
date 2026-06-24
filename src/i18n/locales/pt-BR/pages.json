@@ -1,0 +1,102 @@
+{
+  "projects": {
+    "kicker": "Portfólio",
+    "title": "Projetos",
+    "description": "Uma seleção completa de sites, automações, integrações e cases profissionais que conectam tecnologia, operação e comunicação.",
+    "listAria": "Lista de projetos",
+    "paginationAria": "Paginação de projetos",
+    "previous": "Anterior",
+    "next": "Próxima",
+    "pageOf": "Página {{current}} de {{total}}"
+  },
+  "blog": {
+    "kicker": "Textos soltos",
+    "title": "Blog",
+    "description": "Pensamentos, revisões, opiniões e registros sobre jogos, filmes, livros e qualquer ideia que mereça virar texto.",
+    "emptyTitle": "Nenhum post publicado ainda",
+    "emptyDescription": "Quando os arquivos MDX forem adicionados em src/content/blog, eles aparecem aqui automaticamente.",
+    "listAria": "Lista de posts do blog",
+    "notFoundTitle": "Post não encontrado",
+    "notFoundDescription": "Esse texto não existe ou ainda não foi publicado.",
+    "back": "Voltar para o blog",
+    "shareText": "Confira este post no GuiVilas Dev."
+  },
+  "astrophotography": {
+    "kicker": "Céu profundo e registros do quintal",
+    "title": "Astrofotografia",
+    "description": "Uma galeria para fotos do céu, com contexto astronômico, detalhes da captura, equipamento usado e um pouco do processo por trás de cada imagem.",
+    "emptyTitle": "Nenhuma foto publicada ainda",
+    "emptyDescription": "Quando os arquivos MDX forem adicionados em src/content/astrofotografia, eles aparecem aqui automaticamente.",
+    "listAria": "Galeria de astrofotografia",
+    "notFoundTitle": "Foto não encontrada",
+    "notFoundDescription": "Esse registro não existe ou ainda não foi publicado.",
+    "back": "Voltar para astrofotografia",
+    "shareText": "Confira este registro no GuiVilas Dev.",
+    "galleryAria": "Imagens complementares",
+    "details": {
+      "target": "Objeto",
+      "constellation": "Constelação",
+      "locationLabel": "Local aproximado",
+      "camera": "Câmera",
+      "lensOrTelescope": "Lente/Telescópio",
+      "exposure": "Exposição",
+      "iso": "ISO",
+      "aperture": "Abertura",
+      "stacking": "Stacking",
+      "processing": "Processamento"
+    }
+  },
+  "audiovisual": {
+    "kicker": "Social media e edição",
+    "title": "Portfólio Audiovisual",
+    "description": "Algumas das minhas experiências com edição de vídeos, criação de conteúdo e desenvolvimento de peças para redes sociais.",
+    "galleryAria": "Galeria de trabalhos audiovisuais",
+    "loadingVideo": "Carregando vídeo",
+    "videoUnsupported": "Seu navegador não oferece suporte à reprodução deste vídeo.",
+    "videoUnavailable": "Este vídeo ainda não está disponível. Confira o publicId do Cloudinary em src/data/audiovisualPortfolio.js."
+  },
+  "apis": {
+    "title": "Venha me conhecer por meio destas integrações básicas",
+    "adviceTitle": "Mas antes, gere um conselho aleatório para você.",
+    "newAdvice": "Obter novo conselho",
+    "adviceLoading": "Carregando conselho...",
+    "adviceError": "Não foi possível carregar o conselho agora.",
+    "nytKeyError": "Chave da API do New York Times não configurada.",
+    "scienceError": "Não foi possível carregar notícias de ciência.",
+    "technologyError": "Não foi possível carregar notícias de tecnologia.",
+    "scienceTitle": "Notícias da Ciência",
+    "scienceDescription": "Notícias da comunidade científica a partir do New York Times",
+    "technologyTitle": "Notícias da Tecnologia",
+    "technologyDescription": "Notícias de tecnologia a partir do New York Times",
+    "weatherTitle": "Ver clima em alguma cidade",
+    "weatherDescription": "API de meteorologia, ver informações de tempo em qualquer cidade.",
+    "seeMore": "Ver mais",
+    "scienceLoading": "Carregando notícias de ciência...",
+    "technologyLoading": "Carregando notícias de tecnologia..."
+  },
+  "news": {
+    "scienceTitle": "Notícias científicas do",
+    "technologyTitle": "Notícias do mundo da tecnologia pelo",
+    "scienceError": "Não foi possível carregar as notícias de ciência.",
+    "technologyError": "Não foi possível carregar as notícias de tecnologia.",
+    "back": "Voltar",
+    "empty": "Nenhuma notícia encontrada.",
+    "view": "Ver",
+    "original": "Ver artigo original",
+    "close": "Fechar"
+  },
+  "weather": {
+    "title": "Previsão do Tempo",
+    "back": "Voltar",
+    "cityLabel": "Digite o nome da cidade",
+    "cityPlaceholder": "Digite o nome da cidade",
+    "submit": "Enviar",
+    "conditions": "Condições climáticas em {{city}}, {{country}}",
+    "temperature": "Temperatura",
+    "feelsLike": "Sensação térmica",
+    "description": "Descrição",
+    "humidity": "Umidade",
+    "notFound": "Cidade não encontrada. Verifique o nome e tente novamente.",
+    "initial": "Informe o nome de uma cidade e clique em \"Enviar\" para verificar o clima."
+  }
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://guivilassite.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://guivilassite.vercel.app/" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/projects</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/projects" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/tcc</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/tcc" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/tcc" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/blog</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/blog" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/blog/ia-no-mundo-moderno</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/blog/ia-no-mundo-moderno" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/blog/ai-in-the-modern-world" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/blog/porque-criar-um-site-proprio</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/blog/porque-criar-um-site-proprio" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/blog/why-create-a-personal-website" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/astrofotografia</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/astrofotografia" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/astrofotografia" />
+  </url>
+  <url>
+    <loc>https://guivilassite.vercel.app/portfolio-audiovisual</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://guivilassite.vercel.app/portfolio-audiovisual" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://guivilassite.vercel.app/en/portfolio-audiovisual" />
+  </url>
+</urlset>

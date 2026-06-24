@@ -1,0 +1,102 @@
+{
+  "projects": {
+    "kicker": "Portfolio",
+    "title": "Projects",
+    "description": "A complete selection of websites, automations, integrations, and professional cases connecting technology, operations, and communication.",
+    "listAria": "Project list",
+    "paginationAria": "Project pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {{current}} of {{total}}"
+  },
+  "blog": {
+    "kicker": "Loose notes",
+    "title": "Blog",
+    "description": "Thoughts, reviews, opinions, and notes about games, films, books, and any idea worth turning into text.",
+    "emptyTitle": "No posts published yet",
+    "emptyDescription": "When MDX files are added to src/content/blog, they appear here automatically.",
+    "listAria": "Blog post list",
+    "notFoundTitle": "Post not found",
+    "notFoundDescription": "This text does not exist or has not been published yet.",
+    "back": "Back to blog",
+    "shareText": "Read this post on GuiVilas Dev."
+  },
+  "astrophotography": {
+    "kicker": "Deep sky and backyard records",
+    "title": "Astrophotography",
+    "description": "A gallery for sky photos, with astronomical context, capture details, equipment, and a bit of the process behind each image.",
+    "emptyTitle": "No photos published yet",
+    "emptyDescription": "When MDX files are added to src/content/astrofotografia, they appear here automatically.",
+    "listAria": "Astrophotography gallery",
+    "notFoundTitle": "Photo not found",
+    "notFoundDescription": "This record does not exist or has not been published yet.",
+    "back": "Back to astrophotography",
+    "shareText": "See this record on GuiVilas Dev.",
+    "galleryAria": "Supporting images",
+    "details": {
+      "target": "Object",
+      "constellation": "Constellation",
+      "locationLabel": "Approximate location",
+      "camera": "Camera",
+      "lensOrTelescope": "Lens/Telescope",
+      "exposure": "Exposure",
+      "iso": "ISO",
+      "aperture": "Aperture",
+      "stacking": "Stacking",
+      "processing": "Processing"
+    }
+  },
+  "audiovisual": {
+    "kicker": "Social media and editing",
+    "title": "Audiovisual Portfolio",
+    "description": "Some of my experience with video editing, content creation, and social media assets.",
+    "galleryAria": "Audiovisual work gallery",
+    "loadingVideo": "Loading video",
+    "videoUnsupported": "Your browser does not support this video playback.",
+    "videoUnavailable": "This video is not available yet. Check the Cloudinary publicId in src/data/audiovisualPortfolio.js."
+  },
+  "apis": {
+    "title": "Get to know me through these basic integrations",
+    "adviceTitle": "But first, generate a random piece of advice.",
+    "newAdvice": "Get new advice",
+    "adviceLoading": "Loading advice...",
+    "adviceError": "Could not load advice right now.",
+    "nytKeyError": "New York Times API key is not configured.",
+    "scienceError": "Could not load science news.",
+    "technologyError": "Could not load technology news.",
+    "scienceTitle": "Science News",
+    "scienceDescription": "Science community news from The New York Times",
+    "technologyTitle": "Technology News",
+    "technologyDescription": "Technology news from The New York Times",
+    "weatherTitle": "Check weather in any city",
+    "weatherDescription": "Weather API for checking current conditions in any city.",
+    "seeMore": "See more",
+    "scienceLoading": "Loading science news...",
+    "technologyLoading": "Loading technology news..."
+  },
+  "news": {
+    "scienceTitle": "Science news from",
+    "technologyTitle": "Technology news from",
+    "scienceError": "Could not load science news.",
+    "technologyError": "Could not load technology news.",
+    "back": "Back",
+    "empty": "No news found.",
+    "view": "View",
+    "original": "View original article",
+    "close": "Close"
+  },
+  "weather": {
+    "title": "Weather Forecast",
+    "back": "Back",
+    "cityLabel": "Enter the city name",
+    "cityPlaceholder": "Enter the city name",
+    "submit": "Submit",
+    "conditions": "Weather conditions in {{city}}, {{country}}",
+    "temperature": "Temperature",
+    "feelsLike": "Feels like",
+    "description": "Description",
+    "humidity": "Humidity",
+    "notFound": "City not found. Check the name and try again.",
+    "initial": "Enter a city name and click \"Submit\" to check the weather."
+  }
+}

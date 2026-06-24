@@ -1,0 +1,58 @@
+{
+  "language": {
+    "pt": "Português",
+    "en": "English",
+    "switchTo": "Switch language to {{language}}"
+  },
+  "nav": {
+    "pages": "Pages",
+    "home": "Home",
+    "resume": "Resume",
+    "brand": "Gui Vilas v3.0",
+    "toggle": "Toggle navigation menu",
+    "links": {
+      "home": "Home",
+      "tcc": "Thesis",
+      "apis": "API Playground",
+      "blog": "Blog",
+      "astrophotography": "Astrophotography",
+      "projects": "Projects",
+      "audiovisual": "Audiovisual",
+      "about": "About me",
+      "experience": "Experience",
+      "featured": "Highlights",
+      "others": "Other"
+    },
+    "resumeLinks": {
+      "tech": "Dev & Technology",
+      "marketing": "Marketing & Content"
+    }
+  },
+  "footer": {
+    "kicker": "Gui Vilas",
+    "title": "Technology and Marketing.",
+    "description": "Personal website maintained as a portfolio, a project archive, and a small map of the things I have been building and following. If you want to talk, you can reach me through the links nearby.",
+    "aria": "Footer links",
+    "source": "Source code",
+    "builtWith": "Built with React + Vite"
+  },
+  "share": {
+    "button": "Share",
+    "shared": "Shared",
+    "copied": "Link copied",
+    "aria": "Share {{title}}"
+  },
+  "portfolio": {
+    "defaultButton": "Visit website",
+    "technologies": "Technologies used:"
+  },
+  "loading": {
+    "cover": "Loading cover…",
+    "coverUnavailable": "Cover unavailable",
+    "videoCanOpen": "The video can still be opened normally."
+  },
+  "errors": {
+    "unexpectedTitle": "Oops!",
+    "unexpectedMessage": "Sorry, an unexpected error has occurred."
+  }
+}
