@@ -2,6 +2,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./i18n";
 import "./index.css";
@@ -108,5 +109,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
     <Analytics />
+    <SpeedInsights />
   </React.StrictMode>
 );
