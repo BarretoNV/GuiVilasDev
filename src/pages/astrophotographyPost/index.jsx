@@ -1,23 +1,26 @@
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import CloudinaryImage from "../../components/CloudinaryImage";
 import ShareButton from "../../components/ShareButton";
+import useLocale from "../../hooks/useLocale";
+import { getLocaleDate, localizePath } from "../../utils/i18nRouting";
 import { getAstrophotographyPostBySlug } from "../../data/content";
 import "./style.css";
 
-const details = [
-  ["Objeto", "target"],
-  ["Constelacao", "constellation"],
-  ["Local aproximado", "locationLabel"],
-  ["Camera", "camera"],
-  ["Lente/Telescopio", "lensOrTelescope"],
-  ["Exposicao", "exposure"],
-  ["ISO", "iso"],
-  ["Abertura", "aperture"],
-  ["Stacking", "stacking"],
-  ["Processamento", "processing"],
+const detailKeys = [
+  "target",
+  "constellation",
+  "locationLabel",
+  "camera",
+  "lensOrTelescope",
+  "exposure",
+  "iso",
+  "aperture",
+  "stacking",
+  "processing",
 ];
 
 const getPostImages = (post) => {
@@ -30,7 +33,9 @@ const getPostImages = (post) => {
 
 export default function AstrophotographyPost() {
   const { slug } = useParams();
-  const post = getAstrophotographyPostBySlug(slug);
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
+  const post = getAstrophotographyPostBySlug(slug, locale);
 
   if (!post) {
     return (
@@ -38,9 +43,11 @@ export default function AstrophotographyPost() {
         <NavBar />
         <Container className="content-page text-light">
           <section className="content-empty">
-            <h1>Foto nao encontrada</h1>
-            <p>Esse registro nao existe ou ainda nao foi publicado.</p>
-            <Link to="/astrofotografia">Voltar para astrofotografia</Link>
+            <h1>{t("astrophotography.notFoundTitle")}</h1>
+            <p>{t("astrophotography.notFoundDescription")}</p>
+            <Link to={localizePath("/astrofotografia", locale)}>
+              {t("astrophotography.back")}
+            </Link>
           </section>
         </Container>
         <Footer />
@@ -49,7 +56,7 @@ export default function AstrophotographyPost() {
   }
 
   const Content = post.Content;
-  const visibleDetails = details.filter(([, key]) => post[key]);
+  const visibleDetails = detailKeys.filter((key) => post[key]);
   const images = getPostImages(post);
   const [featuredImage, ...supportingImages] = images;
 
@@ -58,13 +65,13 @@ export default function AstrophotographyPost() {
       <NavBar />
       <Container className="astro-detail-page text-light">
         <div className="post-page-actions">
-          <Link to="/astrofotografia" className="post-back-link">
-            Voltar para astrofotografia
+          <Link to={localizePath("/astrofotografia", locale)} className="post-back-link">
+            {t("astrophotography.back")}
           </Link>
           <ShareButton
             title={post.title}
-            text={post.excerpt || "Confira este registro no GuiVilas Dev."}
-            path={`/astrofotografia/${post.slug}`}
+            text={post.excerpt || t("astrophotography.shareText")}
+            path={localizePath(`/astrofotografia/${post.slug}`, locale)}
             imagePath={`/social/astrofotografia/${post.slug}-square.png`}
           />
         </div>
@@ -73,7 +80,7 @@ export default function AstrophotographyPost() {
             <div className="content-meta">
               {post.date && (
                 <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString("pt-BR")}
+                  {new Date(post.date).toLocaleDateString(getLocaleDate(locale))}
                 </time>
               )}
               {post.constellation && <span>{post.constellation}</span>}
@@ -99,12 +106,12 @@ export default function AstrophotographyPost() {
           )}
 
           {supportingImages.length > 0 && (
-            <section className="astro-image-gallery" aria-label="Imagens complementares">
+            <section className="astro-image-gallery" aria-label={t("astrophotography.galleryAria")}>
               {supportingImages.map((image, index) => (
                 <figure className="astro-gallery-item" key={image.publicId || image.url || index}>
                   <CloudinaryImage
                     image={image}
-                    alt={image.alt || `${post.title} - imagem ${index + 2}`}
+                    alt={image.alt || `${post.title} - image ${index + 2}`}
                     className="astro-gallery-image"
                     sizes="(max-width: 992px) 100vw, 540px"
                     width={900}
@@ -117,9 +124,9 @@ export default function AstrophotographyPost() {
 
           {visibleDetails.length > 0 && (
             <dl className="astro-details-list">
-              {visibleDetails.map(([label, key]) => (
+              {visibleDetails.map((key) => (
                 <div key={key}>
-                  <dt>{label}</dt>
+                  <dt>{t(`astrophotography.details.${key}`)}</dt>
                   <dd>{post[key]}</dd>
                 </div>
               ))}

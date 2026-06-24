@@ -1,45 +1,45 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import CloudinaryImage from "../../components/CloudinaryImage";
-import { astrophotographyPosts } from "../../data/content";
+import useLocale from "../../hooks/useLocale";
+import { getLocaleDate, localizePath } from "../../utils/i18nRouting";
+import { getAstrophotographyPosts } from "../../data/content";
 import "./style.css";
 
 const getCardImage = (post) => post.images?.[0] || post.image;
 
 export default function Astrophotography() {
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
+  const astrophotographyPosts = getAstrophotographyPosts(locale);
+
   return (
     <>
       <NavBar />
       <Container className="content-page text-light">
         <header className="content-page-header">
-          <p>Ceu profundo e registros do quintal</p>
-          <h1>Astrofotografia</h1>
-          <p>
-            Uma galeria para fotos do ceu, com contexto astronomico, detalhes da
-            captura, equipamento usado e um pouco do processo por tras de cada
-            imagem.
-          </p>
+          <p>{t("astrophotography.kicker")}</p>
+          <h1>{t("astrophotography.title")}</h1>
+          <p>{t("astrophotography.description")}</p>
         </header>
 
         {astrophotographyPosts.length === 0 ? (
           <section className="content-empty">
-            <h2>Nenhuma foto publicada ainda</h2>
-            <p>
-              Quando os arquivos MDX forem adicionados em
-              src/content/astrofotografia, eles aparecem aqui automaticamente.
-            </p>
+            <h2>{t("astrophotography.emptyTitle")}</h2>
+            <p>{t("astrophotography.emptyDescription")}</p>
           </section>
         ) : (
-          <section className="astro-grid" aria-label="Galeria de astrofotografia">
+          <section className="astro-grid" aria-label={t("astrophotography.listAria")}>
             {astrophotographyPosts.map((post) => {
               const cardImage = getCardImage(post);
 
               return (
                 <article className="astro-card" key={post.slug}>
                   {cardImage && (
-                    <Link to={`/astrofotografia/${post.slug}`}>
+                    <Link to={localizePath(`/astrofotografia/${post.slug}`, locale)}>
                       <CloudinaryImage
                         image={cardImage}
                         alt={cardImage.alt || post.title}
@@ -53,13 +53,15 @@ export default function Astrophotography() {
                     <div className="content-meta">
                       {post.date && (
                         <time dateTime={post.date}>
-                          {new Date(post.date).toLocaleDateString("pt-BR")}
+                          {new Date(post.date).toLocaleDateString(getLocaleDate(locale))}
                         </time>
                       )}
                       {post.constellation && <span>{post.constellation}</span>}
                     </div>
                     <h2>
-                      <Link to={`/astrofotografia/${post.slug}`}>{post.title}</Link>
+                      <Link to={localizePath(`/astrofotografia/${post.slug}`, locale)}>
+                        {post.title}
+                      </Link>
                     </h2>
                     {post.target && <p className="astro-target">{post.target}</p>}
                     {post.excerpt && <p>{post.excerpt}</p>}

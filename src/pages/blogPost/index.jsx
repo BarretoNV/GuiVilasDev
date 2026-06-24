@@ -1,15 +1,20 @@
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/Footer";
 import CloudinaryImage from "../../components/CloudinaryImage";
 import ShareButton from "../../components/ShareButton";
+import useLocale from "../../hooks/useLocale";
+import { getLocaleDate, localizePath } from "../../utils/i18nRouting";
 import { getBlogPostBySlug } from "../../data/content";
 import "./style.css";
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const post = getBlogPostBySlug(slug);
+  const locale = useLocale();
+  const { t } = useTranslation("pages");
+  const post = getBlogPostBySlug(slug, locale);
 
   if (!post) {
     return (
@@ -17,9 +22,9 @@ export default function BlogPost() {
         <NavBar />
         <Container className="content-page text-light">
           <section className="content-empty">
-            <h1>Post nao encontrado</h1>
-            <p>Esse texto nao existe ou ainda nao foi publicado.</p>
-            <Link to="/blog">Voltar para o blog</Link>
+            <h1>{t("blog.notFoundTitle")}</h1>
+            <p>{t("blog.notFoundDescription")}</p>
+            <Link to={localizePath("/blog", locale)}>{t("blog.back")}</Link>
           </section>
         </Container>
         <Footer />
@@ -34,13 +39,13 @@ export default function BlogPost() {
       <NavBar />
       <Container className="post-page text-light">
         <div className="post-page-actions">
-          <Link to="/blog" className="post-back-link">
-            Voltar para o blog
+          <Link to={localizePath("/blog", locale)} className="post-back-link">
+            {t("blog.back")}
           </Link>
           <ShareButton
             title={post.title}
-            text={post.excerpt || "Confira este post no GuiVilas Dev."}
-            path={`/blog/${post.slug}`}
+            text={post.excerpt || t("blog.shareText")}
+            path={localizePath(`/blog/${post.slug}`, locale)}
             imagePath={`/social/blog/${post.slug}-square.png`}
           />
         </div>
@@ -49,7 +54,7 @@ export default function BlogPost() {
             <div className="content-meta">
               {post.date && (
                 <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString("pt-BR")}
+                  {new Date(post.date).toLocaleDateString(getLocaleDate(locale))}
                 </time>
               )}
               {post.category && <span>{post.category}</span>}
