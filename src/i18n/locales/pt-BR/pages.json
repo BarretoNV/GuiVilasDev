@@ -4,7 +4,11 @@
     "title": "Projetos",
     "description": "Uma seleção completa de sites, automações, integrações e cases profissionais que conectam tecnologia, operação e comunicação.",
     "listAria": "Lista de projetos",
+    "filtersAria": "Filtros de projetos por tag",
     "paginationAria": "Paginação de projetos",
+    "resultsCount_one": "{{count}} projeto encontrado",
+    "resultsCount_other": "{{count}} projetos encontrados",
+    "emptyByTag": "Nenhum projeto encontrado para esta tag.",
     "previous": "Anterior",
     "next": "Próxima",
     "pageOf": "Página {{current}} de {{total}}"

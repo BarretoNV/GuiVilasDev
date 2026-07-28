@@ -44,6 +44,7 @@
   },
   "portfolio": {
     "defaultButton": "Visit website",
+    "projectTags": "Project tags",
     "technologies": "Technologies used:"
   },
   "loading": {

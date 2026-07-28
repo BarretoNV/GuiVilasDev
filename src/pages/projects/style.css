@@ -2,7 +2,12 @@
 .projects-page-header,
 .projects-page-header p,
 .projects-page-header h1,
+.projects-filter,
+.projects-filter p,
+.projects-filter-tags,
 .projects-page-list,
+.projects-empty,
+.projects-empty p,
 .projects-pagination,
 .projects-pagination span {
   background-color: transparent;
@@ -33,6 +38,54 @@
   color: rgba(255, 255, 255, 0.78);
   font-size: 1rem;
   line-height: 1.7;
+}
+
+.projects-filter {
+  margin-bottom: 2rem;
+}
+
+.projects-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.projects-filter-button {
+  background-color: transparent;
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0.45rem 0.8rem;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.projects-filter-button:hover,
+.projects-filter-button[aria-pressed="true"] {
+  background-color: rgba(103, 232, 249, 0.16);
+  border-color: #67e8f9;
+  color: #fff;
+}
+
+.projects-filter p {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+}
+
+.projects-empty {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.projects-empty p {
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
 }
 
 .projects-pagination {

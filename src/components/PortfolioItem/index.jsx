@@ -12,6 +12,8 @@ const PortfolioItem = ({
   description,
   note,
   technologies,
+  tags,
+  onTagSelect,
 }) => {
   const { t } = useTranslation("common");
   const isExternalLink = websiteLink?.startsWith("http");
@@ -74,6 +76,21 @@ const PortfolioItem = ({
               </Button>
             )}
             {note && <p className="portfolio-note">{note}</p>}
+            {tags?.length > 0 && (
+              <ul className="portfolio-tag-list" aria-label={t("portfolio.projectTags")}>
+                {tags.map((tag) => (
+                  <li key={tag.id}>
+                    <button
+                      type="button"
+                      className="portfolio-tag-button"
+                      onClick={() => onTagSelect?.(tag.id)}
+                    >
+                      {tag.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
             <h5>{t("portfolio.technologies")}</h5>
             <ul>
               {technologies.map((tech, index) => (
@@ -105,6 +122,13 @@ PortfolioItem.propTypes = {
   description: PropTypes.string,
   note: PropTypes.string,
   technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
+  onTagSelect: PropTypes.func,
 };
 
 export default PortfolioItem;

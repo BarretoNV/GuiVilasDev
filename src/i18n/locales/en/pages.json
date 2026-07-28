@@ -4,7 +4,11 @@
     "title": "Projects",
     "description": "A complete selection of websites, automations, integrations, and professional cases connecting technology, operations, and communication.",
     "listAria": "Project list",
+    "filtersAria": "Project filters by tag",
     "paginationAria": "Project pagination",
+    "resultsCount_one": "{{count}} project found",
+    "resultsCount_other": "{{count}} projects found",
+    "emptyByTag": "No projects found for this tag.",
     "previous": "Previous",
     "next": "Next",
     "pageOf": "Page {{current}} of {{total}}"
