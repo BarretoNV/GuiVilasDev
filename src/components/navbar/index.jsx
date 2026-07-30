@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Logo from "../../assets/GV.png";
+import Logo from "../../assets/GV2.png";
 import {
   getLocaleFromPathname,
   getOppositeLocale,
@@ -199,8 +199,6 @@ function NavBar() {
           >
             <img
               src={Logo}
-              width="30"
-              height="30"
               className="navbar-logo"
               alt="Logo Gui Vilas"
             />

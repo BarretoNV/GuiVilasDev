@@ -8,7 +8,7 @@
 }
 
 .navbar-page-offset {
-  height: 74px;
+  height: 86px;
 }
 
 .custom-navbar .container {
@@ -47,6 +47,9 @@
 
 .navbar-logo {
   display: inline-block;
+  height: 48px;
+  object-fit: contain;
+  width: 48px;
 }
 
 .navbar-primary-links,
@@ -347,7 +350,7 @@
 
 @media (max-width: 991.98px) {
   .navbar-page-offset {
-    height: 76px;
+    height: 88px;
   }
 
   .custom-navbar .navbar-collapse {

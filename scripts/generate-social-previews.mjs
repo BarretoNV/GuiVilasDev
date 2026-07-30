@@ -12,7 +12,7 @@ const distDir = path.join(rootDir, "dist");
 const contentDir = path.join(rootDir, "src", "content");
 const socialDir = path.join(distDir, "social");
 const heroImagePath = path.join(rootDir, "src", "assets", "HeroPic.jpg");
-const logoPath = path.join(rootDir, "src", "assets", "GV.png");
+const logoPath = path.join(rootDir, "src", "assets", "GV2.png");
 const profileImagePath = path.join(rootDir, "src", "assets", "newprofilepic.jpg");
 const siteUrl = normalizeSiteUrl(
   process.env.VITE_SITE_URL || "https://guivilassite.vercel.app",
